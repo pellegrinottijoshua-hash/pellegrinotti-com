@@ -1,0 +1,9 @@
+# Vercel
+.vercel
+
+# OS
+.DS_Store
+assets/.DS_Store
+
+# Large unused master video (not deployed — see .vercelignore; web version is lei-chi-e-web.mp4)
+assets/lei-chi-e.mp4
