@@ -1,6 +1,10 @@
 # Vercel
 .vercel
 
+# Local Claude config
+.claude
+sphere-lab.html
+
 # OS
 .DS_Store
 assets/.DS_Store
