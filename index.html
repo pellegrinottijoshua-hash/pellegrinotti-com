@@ -48,10 +48,13 @@
   .mark .logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.92);height:44px;width:auto;opacity:0;
     filter:invert(1) brightness(1.2);transition:opacity .4s var(--ease),transform .5s var(--ease)}
   @media(max-width:640px){
-    .mark .logo{height:34px}
+    .mark .logo{height:34px;left:0;transform:translate(0,-50%) scale(.92)}
+    .mark.on .logo{transform:translate(0,-50%) scale(1)}
     .mtrack span{font-size:clamp(40px,12.5vw,96px)}
     .marquee{bottom:12vh}
     .row .cat{display:none}
+    .cur{display:none}
+    .jbadge{display:none!important}
   }
   .mark.on .real{opacity:0}
   .mark.on .logo{opacity:1;transform:translate(-50%,-50%) scale(1)}
@@ -95,7 +98,7 @@
   .row .cat{position:relative;z-index:1;font-family:var(--mono);font-size:clamp(11px,1.2vw,13px);letter-spacing:.06em;
     color:var(--muted);text-align:right;transition:color .4s}
   .row:hover .cat{color:var(--gold)}
-  .row .idx{position:absolute;z-index:1;right:clamp(20px,5vw,54px);top:14px;font-family:var(--mono);font-size:10px;color:var(--faint)}
+  .row .idx{display:none}
   .row.who .alt{position:absolute;left:clamp(20px,5vw,54px);right:clamp(20px,5vw,54px);z-index:1;font-weight:500;
     font-size:clamp(18px,3.2vw,34px);line-height:1.1;letter-spacing:-.01em;opacity:0;transform:translateX(-12px);
     transition:opacity .5s var(--ease),transform .6s var(--ease);pointer-events:none;color:var(--fg)}
@@ -113,9 +116,9 @@
   .wt-row{position:relative;display:flex;align-items:center;gap:24px;margin-top:clamp(40px,6vw,80px);
     padding-top:30px;border-top:1px solid var(--line)}
   .wt-circle{position:absolute;right:0;top:50%;transform:translate(0,-50%);width:clamp(120px,15vw,190px);height:clamp(120px,15vw,190px);
-    border-radius:50%;background:var(--gold);color:#120d02;display:grid;place-items:center;font-weight:700;
-    font-size:clamp(14px,1.4vw,18px);letter-spacing:.02em;transition:transform .5s var(--ease),background .4s;will-change:transform}
-  .wt-circle:hover{transform:translate(0,-50%) scale(1.06);background:var(--gold-hi)}
+    border-radius:50%;background:transparent;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-weight:600;
+    font-size:clamp(14px,1.4vw,18px);letter-spacing:.02em;transition:transform .5s var(--ease),background .4s,color .4s;will-change:transform}
+  .wt-circle:hover{transform:translate(0,-50%) scale(1.06);background:var(--gold);color:#120d02}
   .wt-pills{display:flex;gap:14px;flex-wrap:wrap;margin-top:clamp(30px,5vw,54px)}
   .wt-pill{border:1px solid var(--line);border-radius:40px;padding:15px 26px;font-family:var(--mono);font-size:12px;
     letter-spacing:.04em;color:var(--fg);transition:.4s}
@@ -190,7 +193,6 @@
 
 <!-- WORK LIST -->
 <section class="list" id="work">
-  <div class="lead"><span>Selected — 2026</span><span>Index</span></div>
   <a class="row" data-cursor data-target="video">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Video</span></span>
     <span class="cat">AI films · music videos · one-shots</span><span class="idx">01</span></a>
@@ -207,7 +209,7 @@
 
 <!-- WORK TOGETHER (last section) -->
 <section class="wt" id="wt">
-  <div class="kick">05 — Contact</div>
+  <div class="kick">Contact</div>
   <div class="big"><span class="ava"><img src="assets/hero/01.jpg" alt="" /></span>Let's work<br>together</div>
   <div class="wt-row">
     <div style="flex:1"></div>
@@ -223,7 +225,7 @@
 <!-- contact J badge -->
 <button class="jbadge" id="jbadge" data-cursor aria-label="Let's work together">
   <svg class="spin" viewBox="0 0 100 100"><defs><path id="cp" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-    <text><textPath href="#cp">contact • contact • contact • contact • </textPath></text></svg>
+    <text><textPath href="#cp" textLength="238.7" lengthAdjust="spacing">contact • contact • contact • contact • </textPath></text></svg>
   <span class="face"><img id="badgeFace" src="assets/iconaj2.svg" alt="" /><b id="badgeJ" style="display:none">J</b></span>
 </button>
 
@@ -287,17 +289,17 @@
       if(flipping)return; flipping=true;
       var n=pick();
       preload(n,function(src){curN=n;
-        img.style.transition='transform .34s cubic-bezier(.55,0,.5,1)';
+        img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
         img.style.transform='perspective(1400px) rotateY(89deg)';
         setTimeout(function(){
           img.src=src;
           img.style.transition='none';
           img.style.transform='perspective(1400px) rotateY(-89deg)';
           void img.offsetWidth;
-          img.style.transition='transform .34s cubic-bezier(.55,0,.5,1)';
+          img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
           img.style.transform='perspective(1400px) rotateY(0deg)';
-          setTimeout(function(){flipping=false;},360);
-        },340);
+          setTimeout(function(){flipping=false;},210);
+        },200);
       });
     }
     /* trigger 1: scroll down from top (flip visible as you leave), re-arm at top */
