@@ -210,7 +210,7 @@
   <a class="row" data-cursor data-target="store">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Store</span></span>
     <span class="cat">Wearable-art brand</span><span class="idx">03</span></a>
-  <a class="row who" data-cursor data-target="who">
+  <a class="row who" data-cursor data-target="who" hidden style="display:none">
     <span class="rowtext"><span class="base">Who am I?</span></span>
     <span class="alt">I am Joshua Pellegrinotti, <em>but you can call me Jayl.</em></span><span class="idx">04</span></a>
 </section>
@@ -281,13 +281,13 @@
 
   /* ---------- HERO: random photo + 3D card flip ---------- */
   (function(){
-    var N=25, img=document.getElementById('heroImg'), curN=0, flipping=false, armed=true;
+    var N=25, img=document.getElementById('heroImg'), curN=0, flipping=false;
     function pad(n){return (n<10?'0':'')+n;}
     function isMob(){return matchMedia('(max-width:640px)').matches;}
     function count(){return isMob()?31:25;}
     function deskPath(n){return 'assets/hero/'+pad(n)+'.jpg';}
     function path(n){return isMob()?('assets/hero/mobile/'+pad(n)+'.jpg'):deskPath(n);}
-    function pick(){var c=count(),n;do{n=Math.floor(Math.random()*c)+1;}while(n===curN&&c>1);return n;}
+    function pick(){var c=count();return (curN%c)+1;}
     function preload(n,cb){var t=new Image();
       t.onload=function(){cb(t.src);};
       t.onerror=function(){if(t.src.indexOf('/mobile/')>-1){t.onerror=null;t.src=deskPath(n);}else cb(t.src);};
@@ -310,10 +310,12 @@
         },200);
       });
     }
-    /* trigger 1: scroll down from top (flip visible as you leave), re-arm at top */
+    /* trigger 1: every downward scroll tick, throttled so fast/inertial scroll doesn't strobe */
+    var lastY=scrollY,lastFlip=0,MINGAP=450;
     addEventListener('scroll',function(){
-      if(scrollY<20){armed=true;}
-      else if(armed&&scrollY>44){armed=false;flip();}
+      var y=scrollY,now=Date.now();
+      if(y>lastY&&now-lastFlip>MINGAP){flip();lastFlip=now;}
+      lastY=y;
     },{passive:true});
     /* trigger 2: tap / click anywhere on the hero (except links / mark) */
     document.getElementById('home').addEventListener('click',function(e){
@@ -325,7 +327,6 @@
   var DATA={
     video:{kick:"01 — Jayl Video",title:"Jayl Video",lead:"From how it started to how it's going. AI films, an original music video, a series in progress — and the experiments that didn't make it. Hover a video to bring it to life, click to play.",build:videoBody},
     code:{kick:"02 — Jayl Code",title:"Jayl Code",lead:"I design and build digital products end-to-end — websites, web apps, brand systems and the AI tooling behind them. One mind, from concept to deploy.",build:codeBody},
-    store:{kick:"03 — Jayl Store",title:"Jayl Store",lead:"JAYL is my wearable-art brand — chiaroscuro, strict palette, wear-it-loud pieces. Philosophy and drops live on the store.",build:storeBody},
     who:{kick:"04 — Who am I?",title:"Who am I?",lead:"A developer who directs, from Venice. I treat AI as a camera and a brush — nothing is left to chance. Code, film and brands, made by the same hands.",build:whoBody}
   };
   var detail=document.getElementById('detail'),curtain=document.getElementById('curtain'),
@@ -346,10 +347,14 @@
   var revStyle=document.createElement('style');
   revStyle.textContent='.row.rev .rowtext{transform:translateX(24px)}.row.rev .rowtext .jayl{max-width:5ch;opacity:1;margin-right:.22em}.row.who.rev .rowtext{opacity:0}.row.who.rev .alt{opacity:1;transform:translateX(24px)}';
   document.head.appendChild(revStyle);
+  function go(k){
+    if(k==='store'){window.open('https://jayl.store','_blank','noopener');return;}
+    openDetail(k);
+  }
   document.querySelectorAll('.row[data-target]').forEach(function(el){
     el.addEventListener('click',function(e){e.preventDefault();var k=el.dataset.target;
-      if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(function(){openDetail(k);},620);return;}
-      openDetail(k);});
+      if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(function(){go(k);},620);return;}
+      go(k);});
   });
 
   /* ---------- detail bodies ---------- */
@@ -381,8 +386,6 @@
     root.appendChild(g);
     var cta=document.createElement('a');cta.className='dcta';cta.setAttribute('data-cursor','');cta.href='mailto:pellegrinottijoshua@gmail.com?subject=Jayl%20Code';cta.innerHTML='Start a project ↗';root.appendChild(cta);
   }
-  function storeBody(root){root.innerHTML='<div class="stub"><b>JAYL STORE — predisposto.</b><br>· Filosofia brand: da importare da jayl.store<br>· Immagini prodotto: da importare da jayl.store<br>· Griglia drop + link</div>';
-    var cta=document.createElement('a');cta.className='dcta';cta.setAttribute('data-cursor','');cta.href='https://jayl.store';cta.target='_blank';cta.rel='noopener';cta.innerHTML='Visit jayl.store ↗';root.appendChild(cta);}
   function whoBody(root){root.innerHTML='<div class="stub"><b>WHO AM I — predisposto.</b><br>· Foto (jayl versions) da scegliere<br>· Storia / racconto<br>· Layout foto + testo</div>';}
 })();
 </script>
