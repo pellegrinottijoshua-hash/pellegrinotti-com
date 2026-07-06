@@ -354,12 +354,16 @@
       }
       function tryPlay(){vid.play().catch(function(){});}
       function playAt(n){
-        curN=n; switching=false;
+        curN=n;
         vid.style.transition='opacity .18s linear';
         vid.style.opacity='0';
         setTimeout(function(){
           vid.poster=poster(n); vid.src=src(n); vid.muted=!unmuted; vid.load(); tryPlay();
           vid.style.opacity='1';
+          switching=false; /* only release the guard once this transition has fully landed —
+            releasing it immediately let a scroll-triggered advance and the video's own
+            'ended' event race each other, starting a second transition mid-fade that
+            reset (vid.load()) the first one, which looked like "plays then freezes" */
         },180);
       }
       function next(){
