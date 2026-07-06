@@ -315,11 +315,16 @@
           },200);
         });
       }
-      var lastY=scrollY,lastFlip=0,MINGAP=450;
+      /* fire once per scroll gesture (on settle), not once per tick — otherwise
+         holding/dragging a touchpad or touchscreen fires many advances in a row */
+      var gestureStartY=null,settleTimer=null;
       addEventListener('scroll',function(){
-        var y=scrollY,now=Date.now();
-        if(y>lastY&&now-lastFlip>MINGAP){flip();lastFlip=now;}
-        lastY=y;
+        if(gestureStartY===null)gestureStartY=scrollY;
+        clearTimeout(settleTimer);
+        settleTimer=setTimeout(function(){
+          if(scrollY>gestureStartY)flip();
+          gestureStartY=null;
+        },150);
       },{passive:true});
       document.getElementById('home').addEventListener('click',function(e){
         if(e.target.closest('a,button,.mark'))return; flip();
@@ -328,7 +333,7 @@
 
     /* ---- mobile: sequential video-only hero, 12 clips, fixed order, muted w/ sound toggle ---- */
     function mobileVideoHero(){
-      var N=12, vid=document.getElementById('heroVideo'), imgEl=document.getElementById('heroImg'),
+      var N=11, vid=document.getElementById('heroVideo'), imgEl=document.getElementById('heroImg'),
           soundBtn=document.getElementById('heroSound'), curN=0, switching=false, unmuted=false;
       function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4';}
       function poster(n){return MEDIA_BASE+'/hero/mobile-video/posters/'+pad(n)+'.jpg';}
@@ -366,11 +371,16 @@
       playAt(1);
       (function warm(i){ if(i>N)return; prefetch(i); setTimeout(function(){warm(i+1);},400); })(2);
       vid.addEventListener('ended',next);
-      var lastY=scrollY,lastFlip=0,MINGAP=450;
+      /* fire once per scroll gesture (on settle), not once per tick — otherwise
+         holding/dragging the screen advances through several clips in a row */
+      var gestureStartY=null,settleTimer=null;
       addEventListener('scroll',function(){
-        var y=scrollY,now=Date.now();
-        if(y>lastY&&now-lastFlip>MINGAP){next();lastFlip=now;}
-        lastY=y;
+        if(gestureStartY===null)gestureStartY=scrollY;
+        clearTimeout(settleTimer);
+        settleTimer=setTimeout(function(){
+          if(scrollY>gestureStartY)next();
+          gestureStartY=null;
+        },150);
       },{passive:true});
       document.getElementById('home').addEventListener('click',function(e){
         if(e.target.closest('a,button,.mark'))return; next();
