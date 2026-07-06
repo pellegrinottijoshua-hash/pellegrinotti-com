@@ -111,12 +111,6 @@
     color:var(--muted);text-align:right;transition:color .4s}
   .row:hover .cat{color:var(--gold)}
   .row .idx{display:none}
-  .row.who .alt{position:absolute;left:clamp(20px,5vw,54px);right:clamp(20px,5vw,54px);z-index:1;font-weight:500;
-    font-size:clamp(18px,3.2vw,34px);line-height:1.1;letter-spacing:-.01em;opacity:0;transform:translateX(-12px);
-    transition:opacity .5s var(--ease),transform .6s var(--ease);pointer-events:none;color:var(--fg)}
-  .row.who .alt em{color:var(--gold);font-style:normal}
-  .row.who:hover .rowtext{opacity:0}
-  .row.who:hover .alt{opacity:1;transform:translateX(clamp(14px,3vw,54px))}
 
   /* ---------- WORK TOGETHER (last home section, snellenberg) ---------- */
   .wt{position:relative;padding:clamp(70px,12vw,150px) clamp(20px,5vw,54px) clamp(90px,12vw,150px);border-top:1px solid var(--line)}
@@ -139,7 +133,7 @@
     font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
   /* ---------- contact J badge ---------- */
-  .jbadge{position:fixed;right:clamp(16px,3.5vw,30px);bottom:clamp(16px,3.5vw,30px);z-index:95;width:96px;height:96px;
+  .jbadge{position:fixed;right:clamp(16px,3.5vw,30px);bottom:clamp(16px,3.5vw,30px);z-index:141;width:96px;height:96px;
     border-radius:50%;display:grid;place-items:center}
   .jbadge .spin{position:absolute;inset:0;animation:rot 16s linear infinite}
   .jbadge .spin text{font-family:var(--mono);font-size:8px;letter-spacing:.05em;fill:var(--fg);text-transform:lowercase}
@@ -161,8 +155,8 @@
     letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
   .detail .back:hover{color:var(--gold)}
   .detail .dwrap{max-width:1100px;margin:0 auto}
-  .detail .dkick{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
-  .detail .dtitle{font-weight:900;letter-spacing:-.03em;line-height:.9;font-size:clamp(44px,10vw,120px);margin-top:12px}
+  .detail .dkick{display:none}
+  .detail .dtitle{font-weight:900;letter-spacing:-.03em;line-height:.9;font-size:clamp(44px,10vw,120px);margin-top:0;color:var(--gold)}
   .detail .dlead{max-width:56ch;margin:20px 0 40px;color:var(--muted);font-size:clamp(15px,1.6vw,19px);line-height:1.5}
   .stub{margin-top:20px;padding:40px;border:1px dashed var(--line);border-radius:10px;color:var(--faint);
     font-family:var(--mono);font-size:12px;line-height:1.8}
@@ -170,8 +164,16 @@
   .dcta{display:inline-flex;align-items:center;gap:10px;margin-top:30px;font-family:var(--mono);font-size:12px;
     letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:40px;padding:15px 26px;transition:.4s}
   .dcta:hover{border-color:var(--gold);color:var(--gold)}
-  .vlist{display:flex;flex-direction:column;gap:clamp(28px,5vw,64px)}
-  .vitem{display:grid;grid-template-columns:1fr;gap:16px}
+  .vlist{display:flex;flex-direction:column;gap:clamp(56px,8vw,110px)}
+  .vgroup-title{font-weight:900;letter-spacing:-.03em;line-height:.9;font-size:clamp(32px,6vw,64px);color:var(--gold);margin-bottom:20px}
+  .vgroup-row{display:grid;grid-template-columns:1fr;gap:24px}
+  .vgroup-media{display:grid;grid-template-columns:1fr;gap:14px}
+  .vgroup-media.multi{grid-template-columns:repeat(3,1fr)}
+  .vgroup-chapter{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
+  .vgroup-desc{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:60ch;line-height:1.6}
+  .vgroup-socials{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .vgroup-socials a{color:var(--fg);margin-right:18px;transition:color .3s}
+  .vgroup-socials a:hover{color:var(--gold)}
   .vmedia{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#0a0a0a;border:1px solid var(--line)}
   .vmedia video{width:100%;height:100%;object-fit:cover;filter:grayscale(1) blur(3px) brightness(.8);
     transition:filter .6s var(--ease),transform 1.2s var(--ease);transform:scale(1.05)}
@@ -179,11 +181,8 @@
   .vmedia .pbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;
     background:rgba(10,10,10,.4);border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(4px);display:grid;place-items:center;color:#fff;opacity:0;transition:.4s}
   .vmedia:hover .pbtn{opacity:1}.vmedia.playing .pbtn{opacity:0}.vmedia.playing video{filter:none;transform:none}
-  .vitem .vinfo{display:flex;justify-content:space-between;gap:20px;align-items:baseline}
-  .vitem .vt{font-weight:900;font-size:clamp(22px,3.4vw,34px);letter-spacing:-.02em}
-  .vitem .vph{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-  .vitem .vd{color:var(--muted);font-size:14px;max-width:60ch;margin-top:6px;line-height:1.5}
-  @media(min-width:820px){.vitem{grid-template-columns:1.4fr 1fr;align-items:center}}
+  @media(min-width:820px){.vgroup-row{grid-template-columns:1.4fr 1fr;align-items:start}}
+  @media(max-width:640px){.vgroup-media.multi{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -209,16 +208,13 @@
 <section class="list" id="work">
   <a class="row" data-cursor data-target="video">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Video</span></span>
-    <span class="cat">AI films · music videos · one-shots</span><span class="idx">01</span></a>
+    <span class="cat">AI films · music videos</span><span class="idx">01</span></a>
   <a class="row" data-cursor data-target="code">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Code</span></span>
     <span class="cat">Sites · apps · brand engineering</span><span class="idx">02</span></a>
   <a class="row" data-cursor data-target="store">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Store</span></span>
     <span class="cat">Wearable-art brand</span><span class="idx">03</span></a>
-  <a class="row who" data-cursor data-target="who" hidden style="display:none">
-    <span class="rowtext"><span class="base">Who am I?</span></span>
-    <span class="alt">I am Joshua Pellegrinotti, <em>but you can call me Jayl.</em></span><span class="idx">04</span></a>
 </section>
 
 <!-- WORK TOGETHER (last section) -->
@@ -290,6 +286,7 @@
   (function(){
     function isMob(){return matchMedia('(max-width:640px)').matches;}
     function pad(n){return (n<10?'0':'')+n;}
+    var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if(isMob()){ mobileVideoHero(); } else { desktopPhotoHero(); }
 
@@ -304,6 +301,7 @@
         if(flipping)return; flipping=true;
         var n=pick();
         preload(n,function(src){curN=n;
+          if(reduced){img.src=src;flipping=false;return;}
           img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
           img.style.transform='perspective(1400px) rotateY(89deg)';
           setTimeout(function(){
@@ -332,10 +330,16 @@
     function mobileVideoHero(){
       var N=12, vid=document.getElementById('heroVideo'), imgEl=document.getElementById('heroImg'),
           soundBtn=document.getElementById('heroSound'), curN=0, switching=false, unmuted=false;
+      function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4';}
+      function poster(n){return MEDIA_BASE+'/hero/mobile-video/posters/'+pad(n)+'.jpg';}
+      if(reduced){
+        /* respect the user's OS preference: no autoplay, no cycling — a single still frame */
+        imgEl.src=poster(1); imgEl.style.display='block'; vid.style.display='none';
+        return;
+      }
       imgEl.style.display='none';
       vid.style.display='block';
       soundBtn.classList.add('show');
-      function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4';}
       function prefetch(n){
         var l=document.createElement('link');l.rel='prefetch';l.as='video';l.href=src(n);document.head.appendChild(l);
       }
@@ -345,7 +349,7 @@
         vid.style.transition='opacity .18s linear';
         vid.style.opacity='0';
         setTimeout(function(){
-          vid.src=src(n); vid.muted=!unmuted; vid.load(); tryPlay();
+          vid.poster=poster(n); vid.src=src(n); vid.muted=!unmuted; vid.load(); tryPlay();
           vid.style.opacity='1';
         },180);
       }
@@ -381,13 +385,12 @@
 
   /* ---------- detail router ---------- */
   var DATA={
-    video:{kick:"01 — Jayl Video",title:"Jayl Video",lead:"From how it started to how it's going. AI films, an original music video, a series in progress — and the experiments that didn't make it. Hover a video to bring it to life, click to play.",build:videoBody},
-    code:{kick:"02 — Jayl Code",title:"Jayl Code",lead:"I design and build digital products end-to-end — websites, web apps, brand systems and the AI tooling behind them. One mind, from concept to deploy.",build:codeBody},
-    who:{kick:"04 — Who am I?",title:"Who am I?",lead:"A developer who directs, from Venice. I treat AI as a camera and a brush — nothing is left to chance. Code, film and brands, made by the same hands.",build:whoBody}
+    video:{title:"Jayl Video",lead:"AI films, original music videos, \"the rug\" — a comic AI series in progress. Hover a video to bring it to life, click to play.",build:videoBody},
+    code:{title:"Jayl Code",lead:"I design and build digital products end-to-end — websites, web apps, brand systems and the AI tooling behind them. One mind, from concept to deploy.",build:codeBody}
   };
   var detail=document.getElementById('detail'),curtain=document.getElementById('curtain'),
-      dKick=document.getElementById('dKick'),dTitle=document.getElementById('dTitle'),dLead=document.getElementById('dLead'),dBody=document.getElementById('dBody');
-  function fill(k){var d=DATA[k];dKick.textContent=d.kick;dTitle.textContent=d.title;dLead.textContent=d.lead;dBody.innerHTML='';d.build(dBody);}
+      dTitle=document.getElementById('dTitle'),dLead=document.getElementById('dLead'),dBody=document.getElementById('dBody');
+  function fill(k){var d=DATA[k];dTitle.textContent=d.title;dLead.textContent=d.lead;dBody.innerHTML='';d.build(dBody);}
   function openDetail(k){document.body.style.overflow='hidden';
     if(G){G.timeline().set(curtain,{y:'100%'}).to(curtain,{y:'0%',duration:.55,ease:'power4.inOut'})
       .add(function(){fill(k);detail.classList.add('open');detail.scrollTop=0;})
@@ -401,7 +404,7 @@
 
   var touch=matchMedia('(hover:none)').matches;
   var revStyle=document.createElement('style');
-  revStyle.textContent='.row.rev .rowtext{transform:translateX(24px)}.row.rev .rowtext .jayl{max-width:5ch;opacity:1;margin-right:.22em}.row.who.rev .rowtext{opacity:0}.row.who.rev .alt{opacity:1;transform:translateX(24px)}';
+  revStyle.textContent='.row.rev .rowtext{transform:translateX(24px)}.row.rev .rowtext .jayl{max-width:5ch;opacity:1;margin-right:.22em}';
   document.head.appendChild(revStyle);
   function go(k){
     if(k==='store'){window.open('https://jayl.store','_blank','noopener');return;}
@@ -415,22 +418,38 @@
 
   /* ---------- detail bodies ---------- */
   function videoBody(root){
-    var vids=[
-      {src:MEDIA_BASE+'/video/lei-chi-e-web.mp4',t:'lei chi è',ph:'How it started',d:"An original song I wrote — and the music video I directed for it. Where it all began."},
-      {src:MEDIA_BASE+'/video/therug1.mp4',t:'The Rug — I',ph:'AI Series',d:"My original AI series, in the making. Chapter one of a world built frame by frame."},
-      {src:MEDIA_BASE+'/video/therug2.mp4',t:'The Rug — II',ph:'AI Series',d:"The series continues — refining the look, the pacing, the language."},
-      {src:MEDIA_BASE+'/video/therug3.mp4',t:'The Rug — III',ph:'AI Series',d:"Latest chapter. Closer to how it's going than how it started."},
-      {src:MEDIA_BASE+'/video/duel.mp4',t:'Duel',ph:'One-shot',d:"A one-shot experiment. Not everything lands — and that's the point of the journey."}
+    var groups=[
+      {title:'Lei chi è',videos:[{src:MEDIA_BASE+'/video/lei-chi-e-web.mp4'}],
+        d:"A reimagined cover of Renato Zero's \"Il Triangolo,\" sung by my father — I built the animated world around his voice. Three young hearts, one impossible triangle, told frame by frame."},
+      {title:'The Rug',videos:[
+          {src:MEDIA_BASE+'/video/therug1.mp4',ch:'I'},
+          {src:MEDIA_BASE+'/video/therug2.mp4',ch:'II'},
+          {src:MEDIA_BASE+'/video/therug3.mp4',ch:'III'}],
+        d:"An original series in the making: an unlikely hero — nothing about him screams \"chosen one\" — squares off against alien threats unlike anything you've seen. Equal parts absurd and sincere."},
+      {title:'One Shots',videos:[{src:MEDIA_BASE+'/video/duel.mp4'}],
+        d:"Follow the JAYL cast through standalone mini-adventures — one-shots born from a single idea, played out to the end, then left behind for the next one.",
+        socials:true}
     ];
     var w=document.createElement('div');w.className='vlist';
-    vids.forEach(function(v){var it=document.createElement('div');it.className='vitem';
-      it.innerHTML='<div class="vmedia" data-cursor><video src="'+v.src+'" muted loop playsinline preload="metadata"></video><div class="pbtn">▶</div></div>'+
-        '<div><div class="vinfo"><span class="vt">'+v.t+'</span><span class="vph">'+v.ph+'</span></div><p class="vd">'+v.d+'</p></div>';
-      var m=it.querySelector('.vmedia'),vid=it.querySelector('video');
-      m.addEventListener('mouseenter',function(){vid.play().catch(function(){});});
-      m.addEventListener('mouseleave',function(){if(!m.classList.contains('playing'))vid.pause();});
-      m.addEventListener('click',function(){var on=m.classList.toggle('playing');if(on){vid.muted=false;vid.play().catch(function(){});}else vid.muted=true;});
-      w.appendChild(it);});
+    groups.forEach(function(grp){
+      var g=document.createElement('div');g.className='vgroup';
+      var mediaHtml=grp.videos.map(function(v){
+        return '<div class="vmedia" data-cursor>'+(v.ch?'<span class="vgroup-chapter">'+v.ch+'</span>':'')+
+          '<video src="'+v.src+'" muted loop playsinline preload="metadata"></video><div class="pbtn">▶</div></div>';
+      }).join('');
+      g.innerHTML='<h3 class="vgroup-title">'+grp.title+'</h3>'+
+        '<div class="vgroup-row"><div class="vgroup-media'+(grp.videos.length>1?' multi':'')+'">'+mediaHtml+'</div>'+
+        '<div><p class="vgroup-desc">'+grp.d+'</p>'+
+        (grp.socials?'<div class="vgroup-socials">Follow my socials for more content — <a href="#" data-cursor>Instagram</a><a href="#" data-cursor>TikTok</a></div>':'')+
+        '</div></div>';
+      g.querySelectorAll('.vmedia').forEach(function(m){
+        var vid=m.querySelector('video');
+        m.addEventListener('mouseenter',function(){vid.play().catch(function(){});});
+        m.addEventListener('mouseleave',function(){if(!m.classList.contains('playing'))vid.pause();});
+        m.addEventListener('click',function(){var on=m.classList.toggle('playing');if(on){vid.muted=false;vid.play().catch(function(){});}else vid.muted=true;});
+      });
+      w.appendChild(g);
+    });
     root.appendChild(w);
   }
   function codeBody(root){
@@ -442,7 +461,6 @@
     root.appendChild(g);
     var cta=document.createElement('a');cta.className='dcta';cta.setAttribute('data-cursor','');cta.href='mailto:pellegrinottijoshua@gmail.com?subject=Jayl%20Code';cta.innerHTML='Start a project ↗';root.appendChild(cta);
   }
-  function whoBody(root){root.innerHTML='<div class="stub"><b>WHO AM I — predisposto.</b><br>· Foto (jayl versions) da scegliere<br>· Storia / racconto<br>· Layout foto + testo</div>';}
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>

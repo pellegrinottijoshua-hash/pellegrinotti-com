@@ -27,10 +27,16 @@ aws s3 sync assets/hero s3://"$R2_BUCKET_NAME"/hero \
   --exclude "*" --include "*.jpg" \
   --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable"
 
-echo "→ Mobile hero videos (01.mp4 … 09.mp4)"
+echo "→ Mobile hero videos (01.mp4 … 12.mp4, uncompressed)"
 aws s3 sync assets/hero/mobile-video-src s3://"$R2_BUCKET_NAME"/hero/mobile-video \
+  --exclude "posters/*" \
   --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable" \
   --content-type "video/mp4"
+
+echo "→ Mobile hero video posters (first-frame stills)"
+aws s3 sync assets/hero/mobile-video-src/posters s3://"$R2_BUCKET_NAME"/hero/mobile-video/posters \
+  --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable" \
+  --content-type "image/jpeg"
 
 echo "→ Jayl Video drawer clips"
 for f in duel.mp4 therug1.mp4 therug2.mp4 therug3.mp4 lei-chi-e-web.mp4; do
