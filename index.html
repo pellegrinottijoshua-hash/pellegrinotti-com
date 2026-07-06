@@ -10,7 +10,7 @@
 <meta property="og:description" content="Motion design, AI films, digital products and JAYL — wearable art in strict chiaroscuro." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://pellegrinotti.com/" />
-<meta property="og:image" content="https://pellegrinotti.com/assets/hero/01.jpg" />
+<meta property="og:image" content="https://media.pellegrinotti.com/hero/01.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="theme-color" content="#050505" />
 <link rel="icon" type="image/png" href="/favicon.png" />
@@ -85,6 +85,10 @@
     letter-spacing:.24em;text-transform:uppercase;color:var(--fg);display:flex;align-items:center;gap:9px;mix-blend-mode:difference}
   .hero-cue .ar{animation:bob 1.8s var(--ease) infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  .hero-sound{position:absolute;z-index:6;left:clamp(20px,5vw,54px);bottom:26px;font-family:var(--mono);font-size:10px;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--fg);mix-blend-mode:difference;background:none;border:0;
+    padding:8px 0;cursor:pointer;display:none}
+  .hero-sound.show{display:block}
 
   /* ---------- WORK LIST ---------- */
   .list{padding:clamp(50px,9vw,120px) 0 clamp(20px,4vw,50px)}
@@ -189,6 +193,8 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <img id="heroImg" class="hero-photo" alt="Joshua Pellegrinotti" />
+  <video id="heroVideo" class="hero-photo" muted playsinline preload="auto" style="display:none"></video>
+  <button class="hero-sound" id="heroSound" data-cursor aria-label="Attiva/disattiva audio">Sound off</button>
   <div class="hero-shade"></div>
   <a href="#" class="mark" id="mark" data-cursor><span class="real">Joshua Pellegrinotti</span><img class="logo" src="assets/logo-light.svg" alt="JAYL" /></a>
   <div class="roles"><span>AI Director</span><span>Developer</span><span>Brand Designer</span></div>
@@ -218,7 +224,7 @@
 <!-- WORK TOGETHER (last section) -->
 <section class="wt" id="wt">
   <div class="kick">Contact</div>
-  <div class="big"><span class="ava"><img src="assets/hero/01.jpg" alt="" /></span>Let's work<br>together</div>
+  <div class="big"><span class="ava"><img src="https://media.pellegrinotti.com/hero/01.jpg" alt="" /></span>Let's work<br>together</div>
   <div class="wt-row">
     <div style="flex:1"></div>
     <a class="wt-circle" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=Project%20—%20pellegrinotti.com">Get in touch ↗</a>
@@ -250,6 +256,7 @@
 (function(){
   "use strict";
   var G=window.gsap;
+  var MEDIA_BASE='https://media.pellegrinotti.com';
 
   /* ---------- badge face fallback ---------- */
   (function(){var im=document.getElementById('badgeFace');
@@ -279,48 +286,97 @@
       mark.addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});}
   })();
 
-  /* ---------- HERO: random photo + 3D card flip ---------- */
+  /* ---------- HERO: desktop = photo flip, mobile = video sequence ---------- */
   (function(){
-    var N=25, img=document.getElementById('heroImg'), curN=0, flipping=false;
-    function pad(n){return (n<10?'0':'')+n;}
     function isMob(){return matchMedia('(max-width:640px)').matches;}
-    function count(){return isMob()?31:25;}
-    function deskPath(n){return 'assets/hero/'+pad(n)+'.jpg';}
-    function path(n){return isMob()?('assets/hero/mobile/'+pad(n)+'.jpg'):deskPath(n);}
-    function pick(){var c=count();return (curN%c)+1;}
-    function preload(n,cb){var t=new Image();
-      t.onload=function(){cb(t.src);};
-      t.onerror=function(){if(t.src.indexOf('/mobile/')>-1){t.onerror=null;t.src=deskPath(n);}else cb(t.src);};
-      t.src=path(n);}
-    (function(){var n=pick();curN=n;preload(n,function(src){img.src=src;});})();   /* initial, no flip */
-    function flip(){
-      if(flipping)return; flipping=true;
-      var n=pick();
-      preload(n,function(src){curN=n;
-        img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
-        img.style.transform='perspective(1400px) rotateY(89deg)';
-        setTimeout(function(){
-          img.src=src;
-          img.style.transition='none';
-          img.style.transform='perspective(1400px) rotateY(-89deg)';
-          void img.offsetWidth;
+    function pad(n){return (n<10?'0':'')+n;}
+
+    if(isMob()){ mobileVideoHero(); } else { desktopPhotoHero(); }
+
+    /* ---- desktop: sequential photo pool with 3D flip (unchanged behaviour) ---- */
+    function desktopPhotoHero(){
+      var N=25, img=document.getElementById('heroImg'), curN=0, flipping=false;
+      function path(n){return MEDIA_BASE+'/hero/'+pad(n)+'.jpg';}
+      function pick(){return (curN%N)+1;}
+      function preload(n,cb){var t=new Image();t.onload=function(){cb(t.src);};t.src=path(n);}
+      (function(){var n=pick();curN=n;preload(n,function(src){img.src=src;});})();
+      function flip(){
+        if(flipping)return; flipping=true;
+        var n=pick();
+        preload(n,function(src){curN=n;
           img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
-          img.style.transform='perspective(1400px) rotateY(0deg)';
-          setTimeout(function(){flipping=false;},210);
-        },200);
+          img.style.transform='perspective(1400px) rotateY(89deg)';
+          setTimeout(function(){
+            img.src=src;
+            img.style.transition='none';
+            img.style.transform='perspective(1400px) rotateY(-89deg)';
+            void img.offsetWidth;
+            img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
+            img.style.transform='perspective(1400px) rotateY(0deg)';
+            setTimeout(function(){flipping=false;},210);
+          },200);
+        });
+      }
+      var lastY=scrollY,lastFlip=0,MINGAP=450;
+      addEventListener('scroll',function(){
+        var y=scrollY,now=Date.now();
+        if(y>lastY&&now-lastFlip>MINGAP){flip();lastFlip=now;}
+        lastY=y;
+      },{passive:true});
+      document.getElementById('home').addEventListener('click',function(e){
+        if(e.target.closest('a,button,.mark'))return; flip();
       });
     }
-    /* trigger 1: every downward scroll tick, throttled so fast/inertial scroll doesn't strobe */
-    var lastY=scrollY,lastFlip=0,MINGAP=450;
-    addEventListener('scroll',function(){
-      var y=scrollY,now=Date.now();
-      if(y>lastY&&now-lastFlip>MINGAP){flip();lastFlip=now;}
-      lastY=y;
-    },{passive:true});
-    /* trigger 2: tap / click anywhere on the hero (except links / mark) */
-    document.getElementById('home').addEventListener('click',function(e){
-      if(e.target.closest('a,button,.mark'))return; flip();
-    });
+
+    /* ---- mobile: sequential video-only hero, 12 clips, fixed order, muted w/ sound toggle ---- */
+    function mobileVideoHero(){
+      var N=12, vid=document.getElementById('heroVideo'), imgEl=document.getElementById('heroImg'),
+          soundBtn=document.getElementById('heroSound'), curN=0, switching=false, unmuted=false;
+      imgEl.style.display='none';
+      vid.style.display='block';
+      soundBtn.classList.add('show');
+      function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4';}
+      function prefetch(n){
+        var l=document.createElement('link');l.rel='prefetch';l.as='video';l.href=src(n);document.head.appendChild(l);
+      }
+      function tryPlay(){vid.play().catch(function(){});}
+      function playAt(n){
+        curN=n; switching=false;
+        vid.style.transition='opacity .18s linear';
+        vid.style.opacity='0';
+        setTimeout(function(){
+          vid.src=src(n); vid.muted=!unmuted; vid.load(); tryPlay();
+          vid.style.opacity='1';
+        },180);
+      }
+      function next(){
+        if(switching)return; switching=true;
+        var n=(curN%N)+1; playAt(n);
+      }
+      /* browsers can silently reject the first programmatic play() before enough data has
+         buffered — retry once data is ready, and once more on the first real user gesture */
+      vid.addEventListener('canplay',tryPlay);
+      addEventListener('scroll',tryPlay,{passive:true,once:true});
+      addEventListener('touchstart',tryPlay,{passive:true,once:true});
+      /* first video eager, rest prefetched in background while user watches (no compression — full quality via R2) */
+      playAt(1);
+      (function warm(i){ if(i>N)return; prefetch(i); setTimeout(function(){warm(i+1);},400); })(2);
+      vid.addEventListener('ended',next);
+      var lastY=scrollY,lastFlip=0,MINGAP=450;
+      addEventListener('scroll',function(){
+        var y=scrollY,now=Date.now();
+        if(y>lastY&&now-lastFlip>MINGAP){next();lastFlip=now;}
+        lastY=y;
+      },{passive:true});
+      document.getElementById('home').addEventListener('click',function(e){
+        if(e.target.closest('a,button,.mark'))return; next();
+      });
+      soundBtn.addEventListener('click',function(e){
+        e.stopPropagation();
+        unmuted=!unmuted; vid.muted=!unmuted;
+        soundBtn.textContent=unmuted?'Sound on':'Sound off';
+      });
+    }
   })();
 
   /* ---------- detail router ---------- */
@@ -360,11 +416,11 @@
   /* ---------- detail bodies ---------- */
   function videoBody(root){
     var vids=[
-      {src:'assets/lei-chi-e-web.mp4',t:'lei chi è',ph:'How it started',d:"An original song I wrote — and the music video I directed for it. Where it all began."},
-      {src:'assets/therug1.mp4',t:'The Rug — I',ph:'AI Series',d:"My original AI series, in the making. Chapter one of a world built frame by frame."},
-      {src:'assets/therug2.mp4',t:'The Rug — II',ph:'AI Series',d:"The series continues — refining the look, the pacing, the language."},
-      {src:'assets/therug3.mp4',t:'The Rug — III',ph:'AI Series',d:"Latest chapter. Closer to how it's going than how it started."},
-      {src:'assets/duel.mp4',t:'Duel',ph:'One-shot',d:"A one-shot experiment. Not everything lands — and that's the point of the journey."}
+      {src:MEDIA_BASE+'/video/lei-chi-e-web.mp4',t:'lei chi è',ph:'How it started',d:"An original song I wrote — and the music video I directed for it. Where it all began."},
+      {src:MEDIA_BASE+'/video/therug1.mp4',t:'The Rug — I',ph:'AI Series',d:"My original AI series, in the making. Chapter one of a world built frame by frame."},
+      {src:MEDIA_BASE+'/video/therug2.mp4',t:'The Rug — II',ph:'AI Series',d:"The series continues — refining the look, the pacing, the language."},
+      {src:MEDIA_BASE+'/video/therug3.mp4',t:'The Rug — III',ph:'AI Series',d:"Latest chapter. Closer to how it's going than how it started."},
+      {src:MEDIA_BASE+'/video/duel.mp4',t:'Duel',ph:'One-shot',d:"A one-shot experiment. Not everything lands — and that's the point of the journey."}
     ];
     var w=document.createElement('div');w.className='vlist';
     vids.forEach(function(v){var it=document.createElement('div');it.className='vitem';
