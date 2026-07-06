@@ -335,8 +335,12 @@
     function mobileVideoHero(){
       var N=11, vid=document.getElementById('heroVideo'), imgEl=document.getElementById('heroImg'),
           soundBtn=document.getElementById('heroSound'), curN=0, switching=false, unmuted=false;
-      function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4';}
-      function poster(n){return MEDIA_BASE+'/hero/mobile-video/posters/'+pad(n)+'.jpg';}
+      /* bump HERO_V whenever the clips are re-uploaded to R2 — the CDN cache-control
+         is set to immutable for performance, so a same-name re-upload needs a new
+         URL (via query string) to actually reach viewers instead of serving stale cache */
+      var HERO_V='2';
+      function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4?v='+HERO_V;}
+      function poster(n){return MEDIA_BASE+'/hero/mobile-video/posters/'+pad(n)+'.jpg?v='+HERO_V;}
       if(reduced){
         /* respect the user's OS preference: no autoplay, no cycling — a single still frame */
         imgEl.src=poster(1); imgEl.style.display='block'; vid.style.display='none';
