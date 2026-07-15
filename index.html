@@ -446,7 +446,15 @@
         d:"An original series in the making: an unlikely hero — nothing about him screams \"chosen one\" — squares off against alien threats unlike anything you've seen. Equal parts absurd and sincere."},
       {title:'One Shots',videos:[{src:MEDIA_BASE+'/video/duel.mp4'}],
         d:"Follow the JAYL cast through standalone mini-adventures — one-shots born from a single idea, played out to the end, then left behind for the next one.",
-        socials:true}
+        socials:true},
+      {title:'Zack the Duck',videos:[
+          {src:MEDIA_BASE+'/video/zack1.mp4',ch:'1'},
+          {src:MEDIA_BASE+'/video/zack2.mp4',ch:'2'},
+          {src:MEDIA_BASE+'/video/zack3.mp4',ch:'3'}],
+        d:"JAYL's official mascot — an original character of mine, built to grow into something much bigger. Zack is a scruffy, restless little duck: too moody to fit in, too creative to sit still. Follow the misadventures of a bored, black-feathered artist stumbling through a world that doesn't quite know what to do with him."},
+      {title:'AI Ads',videos:[{src:MEDIA_BASE+'/video/fermentati-ad.mp4'}],
+        d:"A spot I wrote, directed and produced end-to-end with AI for fermentati.com — concept to final cut. This is the kind of result I can build for your brand too: fast, on-brief, made to convert.",
+        cta:{href:'mailto:pellegrinottijoshua@gmail.com?subject=AI%20Ad%20for%20my%20brand',label:'Get an ad like this ↗'}}
     ];
     var w=document.createElement('div');w.className='vlist';
     groups.forEach(function(grp){
@@ -459,6 +467,7 @@
         '<div class="vgroup-row"><div class="vgroup-media'+(grp.videos.length>1?' multi':'')+'">'+mediaHtml+'</div>'+
         '<div><p class="vgroup-desc">'+grp.d+'</p>'+
         (grp.socials?'<div class="vgroup-socials">Follow my socials for more content — <a href="#" data-cursor>Instagram</a><a href="#" data-cursor>TikTok</a></div>':'')+
+        (grp.cta?'<a class="dcta" data-cursor href="'+grp.cta.href+'" style="margin-top:18px">'+grp.cta.label+'</a>':'')+
         '</div></div>';
       g.querySelectorAll('.vmedia').forEach(function(m){
         var vid=m.querySelector('video');
@@ -477,6 +486,10 @@
     svc.forEach(function(s,i){var c=document.createElement('div');c.style.cssText='background:var(--bg);padding:30px clamp(20px,3vw,36px)';
       c.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--faint)">0'+(i+1)+'</div><div style="font-weight:900;font-size:clamp(24px,3vw,34px);margin:8px 0 6px">'+s[0]+'</div><div style="color:var(--muted);font-size:14px;line-height:1.5">'+s[1]+'</div>';g.appendChild(c);});
     root.appendChild(g);
+    var recent=document.createElement('div');recent.style.cssText='margin-top:clamp(40px,6vw,64px)';
+    recent.innerHTML='<div class="vgroup-chapter" style="margin-bottom:10px">Recent work</div>'+
+      '<p class="vgroup-desc">I designed and shipped <a href="https://jayl.store" target="_blank" rel="noopener" data-cursor style="color:var(--fg);text-decoration:underline">jayl.store</a>, my own wearable-art brand, and this very portfolio you\'re looking at. Currently on the making: <b style="color:var(--fg)">funghissimi.com</b> — an open-world browser game that turns your photos into 3D mushroom characters.</p>';
+    root.appendChild(recent);
     var cta=document.createElement('a');cta.className='dcta';cta.setAttribute('data-cursor','');cta.href='mailto:pellegrinottijoshua@gmail.com?subject=Jayl%20Code';cta.innerHTML='Start a project ↗';root.appendChild(cta);
   }
 })();
