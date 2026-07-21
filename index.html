@@ -320,57 +320,18 @@
       mark.addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});}
   })();
 
-  /* ---------- HERO: desktop = photo flip, mobile = video sequence ---------- */
+  /* ---------- HERO: video-only on every viewport ---------- */
   (function(){
-    function isMob(){return matchMedia('(max-width:640px)').matches;}
     function pad(n){return (n<10?'0':'')+n;}
     var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if(isMob()){ mobileVideoHero(); } else { desktopPhotoHero(); }
+    /* one hero for every viewport: the same 9:16 clip pool, object-fit cover.
+       On desktop the crop is aggressive (faces often out of frame) — intentional,
+       founder's call: texture and motion over portraiture. */
+    videoHero();
 
-    /* ---- desktop: sequential photo pool with 3D flip (unchanged behaviour) ---- */
-    function desktopPhotoHero(){
-      var N=25, img=document.getElementById('heroImg'), curN=0, flipping=false;
-      function path(n){return MEDIA_BASE+'/hero/'+pad(n)+'.jpg';}
-      function pick(){return (curN%N)+1;}
-      function preload(n,cb){var t=new Image();t.onload=function(){cb(t.src);};t.src=path(n);}
-      (function(){var n=pick();curN=n;preload(n,function(src){img.src=src;});})();
-      function flip(){
-        if(flipping)return; flipping=true;
-        var n=pick();
-        preload(n,function(src){curN=n;
-          if(reduced){img.src=src;flipping=false;return;}
-          img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
-          img.style.transform='perspective(1400px) rotateY(89deg)';
-          setTimeout(function(){
-            img.src=src;
-            img.style.transition='none';
-            img.style.transform='perspective(1400px) rotateY(-89deg)';
-            void img.offsetWidth;
-            img.style.transition='transform .2s cubic-bezier(.55,0,.5,1)';
-            img.style.transform='perspective(1400px) rotateY(0deg)';
-            setTimeout(function(){flipping=false;},210);
-          },200);
-        });
-      }
-      /* fire once per scroll gesture (on settle), not once per tick — otherwise
-         holding/dragging a touchpad or touchscreen fires many advances in a row */
-      var gestureStartY=null,settleTimer=null;
-      addEventListener('scroll',function(){
-        if(gestureStartY===null)gestureStartY=scrollY;
-        clearTimeout(settleTimer);
-        settleTimer=setTimeout(function(){
-          if(scrollY>gestureStartY)flip();
-          gestureStartY=null;
-        },150);
-      },{passive:true});
-      document.getElementById('home').addEventListener('click',function(e){
-        if(e.target.closest('a,button,.mark'))return; flip();
-      });
-    }
-
-    /* ---- mobile: sequential video-only hero, 12 clips, fixed order, muted w/ sound toggle ---- */
-    function mobileVideoHero(){
+    /* ---- sequential video-only hero, fixed order, muted w/ sound toggle ---- */
+    function videoHero(){
       var N=11, vid=document.getElementById('heroVideo'), imgEl=document.getElementById('heroImg'),
           soundBtn=document.getElementById('heroSound'), curN=0, switching=false, unmuted=false;
       /* bump HERO_V whenever the clips are re-uploaded to R2 — the CDN cache-control
