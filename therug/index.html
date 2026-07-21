@@ -190,26 +190,23 @@ section{position:relative}
 .ep h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:560;font-variation-settings:"SOFT" 100;margin:24px 0 14px}
 .ep h2 em{font-style:italic;color:var(--gold)}
 .ep .lede{color:var(--cream-dim);font-size:1.06rem;line-height:1.7;max-width:42em;margin-bottom:60px}
-.clips{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:clip}
-.clip{
-  position:relative;border-radius:10px;overflow:hidden;aspect-ratio:9/13;
-  border:1px solid rgba(240,226,196,.13);background:linear-gradient(200deg,var(--leather-warm),var(--leather-deep) 75%);
-  transition:transform .45s cubic-bezier(.2,.7,.2,1.2),border-color .35s;
-}
-.clip:hover{transform:translateY(-10px);border-color:rgba(232,151,58,.55)}
-.clip video,.clip img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
-.clip.has-media video,.clip.has-media img.poster{display:block}
-.clip .board{
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:18px;z-index:2;
-  background:linear-gradient(rgba(23,15,9,.15),transparent 30%,transparent 55%,rgba(23,15,9,.9) 85%);
-}
-.clip .num{
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;color:var(--teal);text-transform:uppercase;
-}
-.clip .num::before{counter-increment:clip;content:"CLIP 0" counter(clip)}
-.clip .ttl{font-size:clamp(1.2rem,2vw,1.7rem);font-weight:560;font-style:italic;line-height:1.1;font-variation-settings:"SOFT" 100}
-.clip .st{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim);margin-top:8px}
-.clip .st.live{color:var(--gold-hot)}
+/* ---- scroll-driven film ---- */
+.film-reel{margin-top:clamp(40px,7vh,90px)}
+.scene{position:relative;height:100svh;min-height:540px;overflow:hidden;display:flex;align-items:flex-end;isolation:isolate}
+.scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:var(--leather-deep)}
+.scene::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 130% 90% at 50% 26%, transparent 42%, rgba(23,15,9,.5) 100%),
+    linear-gradient(to top, rgba(23,15,9,.94) 1%, rgba(23,15,9,.35) 24%, transparent 48%)}
+.scene .beat{position:relative;z-index:2;width:100%;padding-bottom:12vh;
+  opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.2,.6,.2,1),transform .85s cubic-bezier(.2,.6,.2,1)}
+.scene.on .beat{opacity:1;transform:none}
+.beat .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim)}
+.beat .k i{font-style:normal;color:var(--gold);margin-right:.9em;letter-spacing:.12em}
+.beat .l{font-size:clamp(1.55rem,4vw,3rem);font-weight:400;font-style:italic;font-variation-settings:"SOFT" 100;
+  line-height:1.18;max-width:15em;margin-top:14px;text-shadow:0 3px 34px rgba(0,0,0,.7)}
+.beat .l b{font-style:normal;font-weight:600;color:var(--gold-hot)}
+.beat .l .neon{font-style:normal;color:var(--teal);text-shadow:0 0 14px rgba(70,212,192,.5)}
 .follow{
   margin-top:70px;border:1px solid rgba(240,226,196,.16);border-radius:14px;
   padding:clamp(28px,4vw,48px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;
@@ -264,7 +261,7 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
   <p class="slate hero-kicker">An original series · by JAYL</p>
   <img class="hero-logo" src="assets/logo-wide.jpg" alt="THE RUG — logo">
   <h1 class="hero-tag">A hero. A carpet.<br><em>Five moustaches.</em> And absolutely <span class="neon">no desire</span> to get up.</h1>
-  <p class="hero-sub">Episode 1 · <b>THE SLAP</b> · coming soon</p>
+  <p class="hero-sub">Episode 1 · <b>THE SLAP</b> · now unrolling ▼</p>
   <div class="scroll-cue">▼ unroll</div>
 </header>
 
@@ -339,32 +336,70 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
   </div>
 </section>
 
-<!-- ================= EPISODE 1 ================= -->
-<section class="ep">
-  <div class="wrap">
-    <p class="slate reveal">File 03 · The launch</p>
-    <h2 class="reveal">Episode one, <em>in four slaps.</em></h2>
-    <p class="lede reveal">THE RUG arrives as four vertical clips before the full episode unrolls. Shot on AI, cut like cinema — 35&nbsp;mm grain, golden hour, and one man who really, really didn't want to be there.</p>
-    <div class="clips">
-      <div class="clip reveal" data-video="assets/clips/01-the-slap.mp4" data-poster="assets/clips/01-the-slap.jpg">
-        <video muted loop playsinline preload="none"></video><img class="poster" alt="">
-        <div class="board"><span class="num"></span><div><div class="ttl">The Slap</div><div class="st">Coming soon</div></div></div>
-      </div>
-      <div class="clip reveal" data-video="assets/clips/02-commuting.mp4" data-poster="assets/clips/02-commuting.jpg">
-        <video muted loop playsinline preload="none"></video><img class="poster" alt="">
-        <div class="board"><span class="num"></span><div><div class="ttl">Commuting</div><div class="st">In production</div></div></div>
-      </div>
-      <div class="clip reveal" data-video="assets/clips/03-the-return.mp4" data-poster="assets/clips/03-the-return.jpg">
-        <video muted loop playsinline preload="none"></video><img class="poster" alt="">
-        <div class="board"><span class="num"></span><div><div class="ttl">The Return</div><div class="st">In production</div></div></div>
-      </div>
-      <div class="clip reveal" data-video="assets/clips/04-the-five.mp4" data-poster="assets/clips/04-the-five.jpg">
-        <video muted loop playsinline preload="none"></video><img class="poster" alt="">
-        <div class="board"><span class="num"></span><div><div class="ttl">The Five</div><div class="st">In production</div></div></div>
-      </div>
+<!-- ================= EPISODE 1 · SCROLL FILM ================= -->
+<section class="ep film">
+  <div class="wrap" style="padding-top:clamp(60px,13vh,170px)">
+    <p class="slate reveal">File 03 · The episode</p>
+    <h2 class="reveal">Episode one, <em>in ten breaths.</em></h2>
+    <p class="lede reveal">Scroll to watch it unroll. No dialogue you'll miss, no plot you'll lose — just a very tired man, a flying carpet, and a monster with excellent facial hair. Shot on AI, cut like cinema: 35&nbsp;mm grain, golden hour.</p>
+  </div>
+
+  <div class="film-reel">
+    <div class="scene" data-src="assets/story/s01.mp4" data-poster="assets/story/s01.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>01</i> Morning</span>
+        <p class="l">Somewhere, a city is in danger. He is <b>not</b> thinking about the city.</p></div></div>
     </div>
+    <div class="scene" data-src="assets/story/s02.mp4" data-poster="assets/story/s02.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>02</i> Higher ground</span>
+        <p class="l">He is thinking about this drink.</p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s03.mp4" data-poster="assets/story/s03.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>03</i> The commute</span>
+        <p class="l">The carpet does the flying. He does the sitting.</p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s04.mp4" data-poster="assets/story/s04.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>04</i> Airspace</span>
+        <p class="l">Technically, he's already at work.</p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s05.mp4" data-poster="assets/story/s05.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>05</i> Descent</span>
+        <p class="l">Down there, something enormous is waiting. He sighs: <b>"Uh… fine."</b></p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s06.mp4" data-poster="assets/story/s06.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>06</i> Touchdown</span>
+        <p class="l">The cape is a real persian rug. It lands like one.</p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s07.mp4" data-poster="assets/story/s07.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>07</i> The invader</span>
+        <p class="l">Two storeys of armoured warrior. <b>Immaculately groomed.</b></p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s08.mp4" data-poster="assets/story/s08.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>08</i> The stare</span>
+        <p class="l">He looks up. He looks unbothered. He always looks unbothered.</p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s09.mp4" data-poster="assets/story/s09.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>09</i> The slap</span>
+        <p class="l"><span class="neon">"Wait…"</span> he reaches up. <br>"…why do you all have <b>moustaches?</b>"</p></div></div>
+    </div>
+    <div class="scene" data-src="assets/story/s10.mp4" data-poster="assets/story/s10.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="wrap"><div class="beat"><span class="k"><i>10</i> Threat assessed</span>
+        <p class="l">Threat ignored. He goes to get another drink.</p></div></div>
+    </div>
+  </div>
+
+  <div class="wrap">
     <div class="follow reveal">
-      <p class="fh">"Wtf… why do you all have <span>moustaches?</span>"<br><small style="font-style:normal;font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;color:var(--cream-dim)">— THE RUG, EPISODE 1</small></p>
+      <p class="fh">That's episode one. <span>The saga unrolls</span> from here.</p>
       <div class="btns">
         <a class="btn solid" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow the saga</a>
         <a class="btn ghost" href="https://pellegrinotti.com" target="_blank" rel="noopener">More by JAYL</a>
@@ -395,18 +430,26 @@ document.querySelectorAll('.stache').forEach(card=>{
   probe.src=card.dataset.img;
 });
 
-// clip cards: attach video/poster if present; play on hover
-document.querySelectorAll('.clip').forEach(card=>{
-  const v=card.querySelector('video'),p=card.querySelector('img.poster');
-  const probe=new Image();
-  probe.onload=()=>{p.src=card.dataset.poster;card.classList.add('has-media');
-    card.querySelector('.st').textContent='Watch';card.querySelector('.st').classList.add('live')};
-  probe.src=card.dataset.poster;
-  fetch(card.dataset.video,{method:'HEAD'}).then(r=>{if(r.ok){v.src=card.dataset.video;card.classList.add('has-media');
-    card.addEventListener('mouseenter',()=>{v.play().catch(()=>{})});
-    card.addEventListener('mouseleave',()=>{v.pause()});
-  }}).catch(()=>{});
-});
+// scroll-driven film: poster first, lazy-load the clip just before it enters,
+// autoplay muted+loop while in view, pause when it leaves
+const scenes=[...document.querySelectorAll('.scene')];
+scenes.forEach(s=>{s.querySelector('video').poster=s.dataset.poster;});
+const preload=new IntersectionObserver((es)=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const v=e.target.querySelector('video');
+  if(!v.src){v.src=e.target.dataset.src;v.load();}
+  preload.unobserve(e.target);
+}),{rootMargin:'90% 0px'});
+scenes.forEach(s=>preload.observe(s));
+const play=new IntersectionObserver((es)=>es.forEach(e=>{
+  const v=e.target.querySelector('video');
+  if(e.isIntersecting){
+    e.target.classList.add('on');
+    if(!v.src){v.src=e.target.dataset.src;}
+    v.play().catch(()=>{});
+  }else{ v.pause(); }
+}),{threshold:.55});
+scenes.forEach(s=>play.observe(s));
 </script>
 </body>
 </html>
