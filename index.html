@@ -112,6 +112,34 @@
   .row:hover .cat{color:var(--gold)}
   .row .idx{display:none}
 
+  /* ---------- Jayl Code → Brand dropdown ---------- */
+  .brandwrap{position:relative}
+  .base.swap{position:relative;display:inline-block;overflow:hidden;vertical-align:bottom}
+  .base.swap .w{display:block;transition:transform .55s var(--ease)}
+  .base.swap .wc::after{content:"Brand";display:block;height:0;visibility:hidden}
+  .base.swap .wb{position:absolute;left:0;top:0;transform:translateY(115%);color:var(--gold)}
+  .brandwrap:hover .wc,.brandwrap.open .wc{transform:translateY(-115%)}
+  .brandwrap:hover .wb,.brandwrap.open .wb{transform:translateY(0)}
+  .branddrop{max-height:0;overflow:hidden;transition:max-height .65s var(--ease)}
+  .brandwrap:hover .branddrop,.brandwrap.open .branddrop{max-height:400px}
+  .ip{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+    padding:clamp(14px,2vw,22px) clamp(20px,5vw,54px) clamp(14px,2vw,22px) clamp(44px,9vw,120px);
+    border-top:1px dashed var(--line-2);transition:background .4s,transform .4s var(--ease)}
+  .ip:hover{transform:translateX(10px)}
+  .ip .ipname{font-weight:900;letter-spacing:-.02em;font-size:clamp(22px,4.2vw,44px);line-height:1}
+  .ip .ipcat{font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);letter-spacing:.08em;color:var(--muted);text-align:right;white-space:nowrap}
+  .iprug .ipname{color:#f0e2c4}.iprug .ipname i{font-style:normal;color:#46d4c0;font-size:.55em;letter-spacing:.18em;vertical-align:.28em}
+  .iprug:hover{background:linear-gradient(90deg,rgba(58,36,21,.55),transparent)}
+  .iprug:hover .ipcat{color:#e8973a}
+  .ipzack .ipname{color:#F5F0E8}.ipzack .ipname i{font-style:italic;color:#C4A35A;font-size:.6em}
+  .ipzack:hover{background:linear-gradient(90deg,rgba(196,163,90,.12),transparent)}
+  .ipzack:hover .ipcat{color:#C4A35A}
+  .ipdinos .ipname b{color:#7A8C5A;font-weight:900}.ipdinos .ipname i{font-style:normal;color:#E5DAC0;font-size:.8em}
+  .ipdinos .ipname u{text-decoration:none;color:#8B5FD0}
+  .ipdinos:hover{background:linear-gradient(90deg,rgba(36,28,51,.6),transparent)}
+  .ipdinos:hover .ipcat{color:#B9A3EC}
+  @media(max-width:640px){.ip .ipcat{display:none}}
+
   /* ---------- WORK TOGETHER (last home section, snellenberg) ---------- */
   .wt{position:relative;padding:clamp(70px,12vw,150px) clamp(20px,5vw,54px) clamp(90px,12vw,150px);border-top:1px solid var(--line)}
   .wt .kick{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
@@ -209,9 +237,19 @@
   <a class="row" data-cursor data-target="video">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Video</span></span>
     <span class="cat">AI films · music videos</span><span class="idx">01</span></a>
-  <a class="row" data-cursor data-target="code">
-    <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Code</span></span>
-    <span class="cat">Sites · apps · brand engineering</span><span class="idx">02</span></a>
+  <div class="brandwrap" id="brandwrap">
+    <a class="row" data-cursor data-target="brand">
+      <span class="rowtext"><span class="jayl">Jayl</span><span class="base swap"><span class="w wc">Code</span><span class="w wb">Brand</span></span></span>
+      <span class="cat">Sites · worlds · original IPs</span><span class="idx">02</span></a>
+    <div class="branddrop">
+      <a class="ip iprug" data-cursor href="/therug/">
+        <span class="ipname"><i>THE</i>&nbsp;Rug</span><span class="ipcat">A lazy superhero saga</span></a>
+      <a class="ip ipzack" data-cursor href="/zack/">
+        <span class="ipname">Zack <i>the</i> Duck</span><span class="ipcat">Art finds a way</span></a>
+      <a class="ip ipdinos" data-cursor href="/dinos/">
+        <span class="ipname"><b>Dinos</b> <i>&amp;</i> <u>Mages</u></span><span class="ipcat">Earth below, arcana above</span></a>
+    </div>
+  </div>
   <a class="row" data-cursor data-target="store">
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Store</span></span>
     <span class="cat">Wearable-art brand</span><span class="idx">03</span></a>
@@ -403,8 +441,7 @@
 
   /* ---------- detail router ---------- */
   var DATA={
-    video:{title:"Jayl Video",lead:"AI films, original music videos, \"the rug\" — a comic AI series in progress. Hover a video to bring it to life, click to play.",build:videoBody},
-    code:{title:"Jayl Code",lead:"I design and build digital products end-to-end — websites, web apps, brand systems and the AI tooling behind them. One mind, from concept to deploy.",build:codeBody}
+    video:{title:"Jayl Video",lead:"AI films, original music videos, \"the rug\" — a comic AI series in progress. Hover a video to bring it to life, click to play.",build:videoBody}
   };
   var detail=document.getElementById('detail'),curtain=document.getElementById('curtain'),
       dTitle=document.getElementById('dTitle'),dLead=document.getElementById('dLead'),dBody=document.getElementById('dBody');
@@ -426,10 +463,12 @@
   document.head.appendChild(revStyle);
   function go(k){
     if(k==='store'){window.open('https://jayl.store','_blank','noopener');return;}
+    if(k==='brand'){document.getElementById('brandwrap').classList.toggle('open');return;}
     openDetail(k);
   }
   document.querySelectorAll('.row[data-target]').forEach(function(el){
     el.addEventListener('click',function(e){e.preventDefault();var k=el.dataset.target;
+      if(k==='brand'){el.classList.add('rev');go(k);return;}
       if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(function(){go(k);},620);return;}
       go(k);});
   });
@@ -478,19 +517,6 @@
       w.appendChild(g);
     });
     root.appendChild(w);
-  }
-  function codeBody(root){
-    var svc=[['Websites','Editorial, interactive, WebGL. Design + build, end-to-end.'],['Web apps','From idea to shipped product — front & back.'],
-      ['Brand systems','Identity, art direction, guidelines that scale.'],['AI tooling','Custom AI pipelines, generators, content engines.']];
-    var g=document.createElement('div');g.style.cssText='display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden';
-    svc.forEach(function(s,i){var c=document.createElement('div');c.style.cssText='background:var(--bg);padding:30px clamp(20px,3vw,36px)';
-      c.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--faint)">0'+(i+1)+'</div><div style="font-weight:900;font-size:clamp(24px,3vw,34px);margin:8px 0 6px">'+s[0]+'</div><div style="color:var(--muted);font-size:14px;line-height:1.5">'+s[1]+'</div>';g.appendChild(c);});
-    root.appendChild(g);
-    var recent=document.createElement('div');recent.style.cssText='margin-top:clamp(40px,6vw,64px)';
-    recent.innerHTML='<div class="vgroup-chapter" style="margin-bottom:10px">Recent work</div>'+
-      '<p class="vgroup-desc">I designed and shipped <a href="https://jayl.store" target="_blank" rel="noopener" data-cursor style="color:var(--fg);text-decoration:underline">jayl.store</a>, my own wearable-art brand, and this very portfolio you\'re looking at. Currently on the making: <b style="color:var(--fg)">funghissimi.com</b> — an open-world browser game that turns your photos into 3D mushroom characters.</p>';
-    root.appendChild(recent);
-    var cta=document.createElement('a');cta.className='dcta';cta.setAttribute('data-cursor','');cta.href='mailto:pellegrinottijoshua@gmail.com?subject=Jayl%20Code';cta.innerHTML='Start a project ↗';root.appendChild(cta);
   }
 })();
 </script>

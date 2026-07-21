@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DINOS &amp; MAGES — meet the cast · a JAYL original</title>
+<meta name="description" content="A saga of earth and arcana. Meet the cast — one character at a time. A JAYL original series in development.">
+<meta property="og:title" content="DINOS &amp; MAGES — meet the cast">
+<meta property="og:image" content="assets/logo.jpg">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#14111A;
+  --night-2:#1C1826;
+  --bone:#E5DAC0;
+  --bone-dim:#a89f8a;
+  --terra:#7A8C5A;
+  --terra-2:#8A6A48;
+  --terra-3:#3F4A34;
+  --arcano:#8B5FD0;
+  --arcano-2:#B9A3EC;
+  --arcano-3:#241C33;
+  --disp:'Alfa Slab One',serif;
+  --body:'Spectral',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--bone);font-family:var(--body);font-weight:300;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--arcano);color:var(--night)}
+body::after{
+  content:"";position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,54px)}
+.kicker{font-family:var(--body);font-style:italic;font-size:.95rem;letter-spacing:.14em;color:var(--bone-dim);text-transform:uppercase}
+
+/* ============ HEADER ============ */
+header{padding:9vh 0 5vh;text-align:center;position:relative}
+header .logo{width:min(520px,80vw);display:block;margin:0 auto;
+  filter:drop-shadow(0 18px 44px rgba(0,0,0,.55))}
+header .sub{margin-top:26px;font-size:clamp(1rem,2vw,1.25rem);color:var(--bone-dim);font-style:italic;letter-spacing:.04em}
+header .sub b{color:var(--bone);font-weight:500}
+header .jayl{position:absolute;top:26px;left:50%;transform:translateX(-50%);
+  font-family:var(--body);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--bone-dim)}
+.rule{width:min(560px,70vw);margin:44px auto 0;display:flex;align-items:center;gap:14px;opacity:.7}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--bone-dim))}
+.rule::after{background:linear-gradient(90deg,var(--bone-dim),transparent)}
+.rule span{font-size:1rem;color:var(--terra)}
+.rule span i{color:var(--arcano);font-style:normal}
+
+/* ============ LINEUP ============ */
+.lineup-zone{padding:5vh 0 10vh}
+.lineup-zone .hint{text-align:center;margin-bottom:36px}
+.lineup{
+  display:flex;gap:clamp(10px,1.4vw,20px);align-items:flex-end;justify-content:flex-start;
+  overflow-x:auto;padding:20px clamp(18px,4vw,54px) 46px;scroll-snap-type:x proximity;
+  scrollbar-width:thin;scrollbar-color:var(--terra-3) transparent;
+}
+.char{
+  flex:0 0 auto;width:clamp(150px,15.5vw,208px);cursor:pointer;scroll-snap-align:center;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1.15);position:relative;background:none;border:none;
+  font-family:inherit;color:inherit;text-align:center;
+}
+.char:hover{transform:translateY(-12px)}
+.char .ph{
+  width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center top;display:block;
+  border:1px solid rgba(229,218,192,.22);border-radius:4px 4px 0 0;
+  filter:saturate(.9) contrast(1.02);transition:filter .3s,border-color .3s,box-shadow .3s;
+  background:var(--night-2);
+}
+.char[data-f="terra"]:hover .ph{border-color:var(--terra);box-shadow:0 18px 50px -14px rgba(122,140,90,.4)}
+.char[data-f="arcano"]:hover .ph{border-color:var(--arcano);box-shadow:0 18px 50px -14px rgba(139,95,208,.45)}
+.char .plate{
+  border:1px solid rgba(229,218,192,.22);border-top:0;border-radius:0 0 4px 4px;
+  padding:10px 8px 12px;background:linear-gradient(var(--night-2),var(--night));
+}
+.char .nm{font-family:var(--disp);font-size:clamp(.72rem,1vw,.86rem);letter-spacing:.06em;text-transform:uppercase;line-height:1.25}
+.char[data-f="terra"] .nm{color:var(--terra)}
+.char[data-f="arcano"] .nm{color:var(--arcano-2)}
+.char .rl{font-size:.72rem;font-style:italic;color:var(--bone-dim);margin-top:4px;letter-spacing:.06em}
+.lineup-ground{height:1px;background:linear-gradient(90deg,transparent,rgba(229,218,192,.35) 15%,rgba(229,218,192,.35) 85%,transparent);
+  margin:-46px clamp(18px,4vw,54px) 46px;pointer-events:none;position:relative}
+
+/* ============ ABOUT STRIP ============ */
+.about{padding:6vh 0 12vh;text-align:center}
+.about p{max-width:44em;margin:0 auto;font-size:1.12rem;line-height:1.85;color:var(--bone-dim)}
+.about p b{color:var(--terra);font-weight:500}
+.about p i b{color:var(--arcano-2)}
+
+/* ============ DOSSIER OVERLAY ============ */
+.dossier{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
+.dossier.open{display:flex}
+.dossier .bg{position:absolute;inset:0;background:rgba(10,8,14,.82);backdrop-filter:blur(8px)}
+.card{
+  position:relative;z-index:2;width:min(940px,96vw);max-height:92vh;overflow-y:auto;
+  background:var(--night-2);border:1px solid rgba(229,218,192,.25);border-radius:6px;
+  display:grid;grid-template-columns:.9fr 1.1fr;
+  box-shadow:0 40px 120px -20px rgba(0,0,0,.9);
+}
+.card .face{position:relative;min-height:380px}
+.card .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .face::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 70%,var(--night-2))}
+.card .info{padding:clamp(24px,4vw,44px)}
+.card .chip{display:inline-block;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  padding:7px 12px;border-radius:2px;margin-bottom:18px;font-style:normal}
+.card .chip.terra{background:var(--terra-3);color:var(--terra);border:1px solid var(--terra)}
+.card .chip.arcano{background:var(--arcano-3);color:var(--arcano-2);border:1px solid var(--arcano)}
+.card h2{font-family:var(--disp);font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:.04em;text-transform:uppercase;line-height:1.1;margin-bottom:6px}
+.card .role{font-style:italic;color:var(--bone-dim);margin-bottom:22px;font-size:1.02rem}
+.card .desc{font-size:1.02rem;line-height:1.8;color:var(--bone-dim)}
+.card .desc em{color:var(--bone)}
+.card .stills{margin-top:28px}
+.card .stills .lb{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim);margin-bottom:12px}
+.card .stills .row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.card .stills .s{aspect-ratio:16/10;border:1px dashed rgba(229,218,192,.3);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(229,218,192,.4);overflow:hidden}
+.card .stills .s img{width:100%;height:100%;object-fit:cover}
+.card .close{
+  position:absolute;top:14px;right:14px;z-index:3;background:var(--night);border:1px solid rgba(229,218,192,.35);
+  color:var(--bone);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;font-family:var(--body);
+}
+.card .close:hover{border-color:var(--bone)}
+.card .nav-arrows{position:absolute;bottom:14px;right:14px;z-index:3;display:flex;gap:8px}
+.card .nav-arrows button{background:var(--night);border:1px solid rgba(229,218,192,.35);color:var(--bone);
+  width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem}
+.card .nav-arrows button:hover{border-color:var(--bone)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid rgba(229,218,192,.18);padding:34px 0 46px;text-align:center}
+footer .l{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim)}
+footer a{color:var(--bone);text-decoration:none;border-bottom:1px solid var(--terra)}
+footer a:hover{color:var(--terra)}
+footer .q{margin-top:12px;font-style:italic;color:var(--bone-dim);font-size:.9rem}
+
+@media(max-width:760px){
+  .card{grid-template-columns:1fr;max-height:90vh}
+  .card .face{min-height:300px;position:relative}
+  .card .face img{position:absolute}
+  .card .face::after{background:linear-gradient(to bottom,transparent 70%,var(--night-2))}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <p class="jayl">A JAYL original · in development</p>
+  <img class="logo" src="assets/logo.jpg" alt="DINOS &amp; MAGES">
+  <p class="sub">Two worlds on one bridge of bone: <b>earth</b> below, <b>arcana</b> above.</p>
+  <div class="rule"><span>◆ <i>✦</i></span></div>
+</header>
+
+<section class="lineup-zone">
+  <p class="kicker hint">The cast · tap a character to open the file</p>
+  <div class="lineup" id="lineup"></div>
+  <div class="lineup-ground"></div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <p>A saga where the <b>dinos of the earth</b> and the <i><b>mages of the arcana</b></i> share one story — told character by character. Files are being declassified as the series takes shape: portraits first, scenes next.</p>
+  </div>
+</section>
+
+<div class="dossier" id="dossier" role="dialog" aria-modal="true">
+  <div class="bg" onclick="closeDossier()"></div>
+  <div class="card">
+    <button class="close" onclick="closeDossier()" aria-label="Close">✕</button>
+    <div class="face"><img id="d-img" src="" alt=""></div>
+    <div class="info">
+      <span class="chip" id="d-chip"></span>
+      <h2 id="d-name"></h2>
+      <p class="role" id="d-role"></p>
+      <p class="desc" id="d-desc"></p>
+      <div class="stills">
+        <p class="lb">Scenes</p>
+        <div class="row" id="d-stills"></div>
+      </div>
+    </div>
+    <div class="nav-arrows">
+      <button onclick="step(-1)" aria-label="Previous">←</button>
+      <button onclick="step(1)" aria-label="Next">→</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p class="l">DINOS &amp; MAGES · a <a href="https://pellegrinotti.com">JAYL</a> original · © 2026 Joshua Pellegrinotti</p>
+  <p class="q">The bridge is made of bone. Nobody remembers whose.</p>
+</footer>
+
+<script>
+// ————— cast data: swap desc/stills as they get written/produced —————
+const CAST=[
+ {id:'protagonista',      name:'Protagonista',            role:'The lead',            f:'arcano'},
+ {id:'coprotagonista',    name:'Coprotagonista',          role:'The other lead',      f:'terra', extra:true},
+ {id:'allievo',           name:'Allievo',                 role:'The apprentice',      f:'arcano', extra:true},
+ {id:'morosettadino',     name:'Morosetta',               role:'The sweetheart',      f:'terra'},
+ {id:'beast',             name:'Beast',                   role:'The beast',           f:'terra'},
+ {id:'gemellarivale',     name:'Gemella Rivale',          role:'The rival twin',      f:'arcano'},
+ {id:'rivale',            name:'Rivale',                  role:'The rival',           f:'arcano'},
+ {id:'spalla',            name:'Spalla',                  role:'The sidekick',        f:'terra'},
+ {id:'nemicoumano',       name:'Nemico Umano',            role:'The human threat',    f:'arcano'},
+ {id:'padreprotagonista', name:'Padre del Protagonista',  role:'The father — arcana', f:'arcano'},
+ {id:'padrecoprotagonista',name:'Padre del Coprotagonista',role:'The father — earth', f:'terra'},
+];
+const PLACEHOLDER='Chi è, cosa vuole, cosa rischia — la sua scheda arriva con i prossimi prompt. Per ora: guardalo negli occhi e fatti un’idea.';
+
+const lineup=document.getElementById('lineup');
+CAST.forEach((c,i)=>{
+  const b=document.createElement('button');
+  b.className='char';b.dataset.f=c.f;b.onclick=()=>openDossier(i);
+  b.innerHTML=`<img class="ph" loading="lazy" src="assets/chars/${c.id}.jpg" alt="${c.name}">
+  <div class="plate"><div class="nm">${c.name}</div><div class="rl">${c.role}</div></div>`;
+  lineup.appendChild(b);
+});
+
+let cur=0;
+const dossier=document.getElementById('dossier');
+function openDossier(i){
+  cur=(i+CAST.length)%CAST.length;
+  const c=CAST[cur];
+  document.getElementById('d-img').src=`assets/chars/${c.id}-face.jpg`;
+  document.getElementById('d-name').textContent=c.name;
+  document.getElementById('d-role').textContent=c.role;
+  document.getElementById('d-desc').textContent=c.desc||PLACEHOLDER;
+  const chip=document.getElementById('d-chip');
+  chip.textContent=c.f==='terra'?'Dinos · terra':'Mages · arcano';
+  chip.className='chip '+c.f;
+  const row=document.getElementById('d-stills');row.innerHTML='';
+  for(let k=1;k<=3;k++){
+    const s=document.createElement('div');s.className='s';
+    const probe=new Image();
+    probe.onload=()=>{s.textContent='';const im=document.createElement('img');im.src=probe.src;s.appendChild(s.firstChild||im);s.innerHTML='';s.appendChild(im)};
+    probe.onerror=()=>{ if(k===1&&c.extra){const im=document.createElement('img');im.src=`assets/chars/${c.id}-extra.jpg`;s.innerHTML='';s.appendChild(im)} else s.textContent='still soon' };
+    probe.src=`assets/stills/${c.id}-${k}.jpg`;
+    row.appendChild(s);
+  }
+  dossier.classList.add('open');document.body.style.overflow='hidden';
+}
+function closeDossier(){dossier.classList.remove('open');document.body.style.overflow=''}
+function step(d){openDossier(cur+d)}
+document.addEventListener('keydown',e=>{
+  if(!dossier.classList.contains('open'))return;
+  if(e.key==='Escape')closeDossier();
+  if(e.key==='ArrowRight')step(1);
+  if(e.key==='ArrowLeft')step(-1);
+});
+</script>
+</body>
+</html>

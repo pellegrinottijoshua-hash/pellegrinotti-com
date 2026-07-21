@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZACK THE DUCK — Art finds a way · a JAYL original</title>
+<meta name="description" content="A black duck with a golden quill. Whatever he draws becomes real — always slightly wrong. Season 0 now unrolling. Art finds a way.">
+<meta property="og:title" content="ZACK THE DUCK — Art finds a way">
+<meta property="og:description" content="He draws it. It becomes real. It's slightly wrong.">
+<meta property="og:image" content="assets/logo.jpg">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F0E8;
+  --paper-dim:#EBE4D6;
+  --ink:#131110;
+  --true-black:#000;
+  --ink-soft:#3a3530;
+  --gold:#C4A35A;
+  --gold-deep:#a8863d;
+  --disp:'Bricolage Grotesque',sans-serif;
+  --mono:'Spline Sans Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--disp);font-weight:380;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--ink);color:var(--paper)}
+body::after{
+  content:"";position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+.label{font-family:var(--mono);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft)}
+.label b{color:var(--gold-deep);font-weight:500}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.btn{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  text-decoration:none;padding:15px 24px;transition:all .25s;border:1.5px solid var(--ink);color:var(--ink)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+
+/* ============ HERO — big black logo left, 3D Zack right ============ */
+.hero{background:var(--true-black);color:var(--paper);min-height:100svh;
+  display:grid;grid-template-columns:1.08fr .92fr;position:relative}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:10vh clamp(24px,4vw,60px) 16vh}
+.hero-left .logo{width:100%;max-width:640px;display:block;margin:0 auto}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom}
+.hero-right::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to right,var(--true-black),transparent 22%),
+             linear-gradient(to top,var(--true-black),transparent 30%)}
+.hero-kick{position:absolute;top:32px;left:clamp(24px,4vw,60px);z-index:3;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:#8f877c}
+.hero-kick b{color:var(--gold);font-weight:500}
+.hero-bar{position:absolute;left:clamp(24px,4vw,60px);right:clamp(24px,4vw,60px);bottom:6vh;z-index:3;
+  display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between}
+.hero-bar .tag{font-size:clamp(1.25rem,2.6vw,1.9rem);font-weight:480;line-height:1.35;max-width:21em}
+.hero-bar .tag em{font-style:italic;color:var(--gold)}
+.hero-bar .btn{border-color:var(--paper);color:var(--paper)}
+.hero-bar .btn.solid{background:var(--paper);color:var(--ink)}
+.hero-bar .btn.solid:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.hero-bar .btn.ghost:hover{background:var(--paper);color:var(--ink)}
+
+/* ============ ZACK STRIP — 10 poses divider ============ */
+.zstrip{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);
+  background:var(--paper);overflow:hidden;white-space:nowrap;padding:0}
+.zstrip .track{display:inline-flex;animation:zslide 55s linear infinite}
+.zstrip:hover .track{animation-play-state:paused}
+.zstrip img{height:clamp(96px,12vw,150px);width:auto;display:block;border-right:1.5px solid var(--ink)}
+@keyframes zslide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ ABOUT (cream) ============ */
+.about{padding:13vh 0}
+.about h2{font-size:clamp(2.2rem,5vw,3.9rem);font-weight:720;letter-spacing:-.02em;line-height:1.02;margin:22px 0 26px}
+.about h2 em{font-style:italic;color:var(--gold-deep)}
+.about p{color:var(--ink-soft);font-size:1.08rem;line-height:1.75;max-width:36em;margin-bottom:1.1em}
+.about p strong{color:var(--ink);font-weight:560}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--ink);margin-top:56px;border:1.5px solid var(--ink)}
+.rules div{background:var(--paper);padding:26px 22px}
+.rules dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
+.rules dd{font-size:1rem;color:var(--ink-soft);line-height:1.5}
+
+/* ============ CAST ============ */
+.cast{padding:12vh 0 13vh;background:var(--paper-dim)}
+.cast h2{font-size:clamp(2.2rem,5vw,3.9rem);font-weight:720;letter-spacing:-.02em;margin:20px 0 10px}
+.cast h2 em{font-style:italic;color:var(--gold-deep)}
+.cast .lede{color:var(--ink-soft);font-size:1.06rem;line-height:1.7;max-width:40em;margin-bottom:64px}
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(16px,2.2vw,28px)}
+.piece{background:var(--paper);border:1.5px solid var(--ink);display:flex;flex-direction:column;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1.2)}
+.piece:hover{transform:translateY(-8px)}
+.piece .art{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-bottom:1.5px solid var(--ink)}
+.piece.wide .art{aspect-ratio:auto;height:100%;min-height:150px}
+.piece figcaption{padding:16px 16px 18px}
+.piece .t{font-weight:680;font-size:1.15rem;letter-spacing:-.01em}
+.piece .r{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);margin:4px 0 10px}
+.piece .m{font-size:.92rem;color:var(--ink-soft);line-height:1.55}
+.g-pigeon{grid-column:1/3}
+.g-seagull{grid-column:3/5}
+.g-moth{grid-column:5/7}
+.g-cat{grid-column:1/5}
+.g-ant{grid-column:5/7}
+.g-cat .art{aspect-ratio:21/9;object-fit:cover;object-position:center 65%}
+
+/* ============ SEASON 0 ============ */
+.season{padding:12vh 0}
+.season h2{font-size:clamp(2.2rem,5vw,3.9rem);font-weight:720;letter-spacing:-.02em;margin:20px 0 10px}
+.season h2 em{font-style:italic;color:var(--gold-deep)}
+.season .lede{color:var(--ink-soft);font-size:1.06rem;line-height:1.7;max-width:40em;margin-bottom:56px}
+.eps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ep-card{border:1.5px solid var(--ink);background:var(--paper-dim);aspect-ratio:9/13;position:relative;overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1.2);cursor:pointer}
+.ep-card:hover{transform:translateY(-8px)}
+.ep-card video,.ep-card img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.ep-card.has-media video,.ep-card.has-media img.poster{display:block}
+.ep-card.playing img.poster{display:none}
+.ep-card .board{position:absolute;inset:0;padding:18px;display:flex;flex-direction:column;justify-content:space-between;z-index:2;
+  pointer-events:none;background:linear-gradient(rgba(0,0,0,.14),transparent 32%,transparent 55%,rgba(0,0,0,.72) 84%)}
+.ep-card .num{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;
+  text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.ep-card .ttl{font-weight:700;font-size:1.35rem;letter-spacing:-.01em;color:var(--paper);text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.ep-card .st{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-dim);margin-top:6px;opacity:.85}
+
+/* ============ STORE ============ */
+.store{padding:0 0 12vh}
+.store-box{border:1.5px solid var(--ink);padding:clamp(30px,5vw,56px);display:flex;flex-wrap:wrap;
+  gap:30px;align-items:center;justify-content:space-between;background:var(--paper)}
+.store-box .sh{font-size:clamp(1.4rem,2.8vw,2rem);font-weight:700;letter-spacing:-.01em;max-width:20em;line-height:1.25}
+.store-box .sh em{font-style:italic;color:var(--gold-deep)}
+
+footer{background:var(--ink);color:var(--paper);padding:34px 0 44px}
+footer .row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+footer .label{color:#8f877c}
+footer a{color:var(--paper);text-decoration:none;border-bottom:1.5px solid var(--gold)}
+footer a:hover{color:var(--gold)}
+footer .quip{font-style:italic;color:#8f877c;font-size:.92rem}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;grid-template-rows:auto 52vh}
+  .hero-left{padding:14vh 24px 6vh}
+  .hero-bar{position:static;padding:0 24px 40px;background:var(--true-black)}
+  .hero{min-height:auto}
+  .rules{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .g-pigeon,.g-seagull,.g-moth,.g-ant{grid-column:auto}
+  .g-cat{grid-column:1/3}
+  .eps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <p class="hero-kick">A JAYL original · <b>Season 0 now unrolling</b></p>
+  <div class="hero-left">
+    <img class="logo" src="assets/logo.jpg" alt="ZACK THE DUCK">
+  </div>
+  <div class="hero-right">
+    <img src="assets/zack-single.jpg" alt="Zack — premium 3D render">
+  </div>
+  <div class="hero-bar">
+    <p class="tag">He draws it. It comes true. <em>Slightly wrong.</em> A chronically tired artist who doesn't know he's one — and knows exactly how funny he is.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn solid" href="#season">Season 0</a>
+      <a class="btn ghost" href="https://jayl.store" target="_blank" rel="noopener">jayl.store</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STRIP ============ -->
+<div class="zstrip" aria-hidden="true"><div class="track">
+  <img src="assets/strip/z01.jpg" alt=""><img src="assets/strip/z02.jpg" alt=""><img src="assets/strip/z03.jpg" alt=""><img src="assets/strip/z04.jpg" alt=""><img src="assets/strip/z05.jpg" alt=""><img src="assets/strip/z06.jpg" alt=""><img src="assets/strip/z07.jpg" alt=""><img src="assets/strip/z08.jpg" alt=""><img src="assets/strip/z09.jpg" alt=""><img src="assets/strip/z10.jpg" alt="">
+  <img src="assets/strip/z01.jpg" alt=""><img src="assets/strip/z02.jpg" alt=""><img src="assets/strip/z03.jpg" alt=""><img src="assets/strip/z04.jpg" alt=""><img src="assets/strip/z05.jpg" alt=""><img src="assets/strip/z06.jpg" alt=""><img src="assets/strip/z07.jpg" alt=""><img src="assets/strip/z08.jpg" alt=""><img src="assets/strip/z09.jpg" alt=""><img src="assets/strip/z10.jpg" alt="">
+</div></div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about">
+  <div class="wrap">
+    <span class="label reveal">The artist · black duck · golden quill</span>
+    <h2 class="reveal">He doesn't know he's an artist.<br><em>He knows he's funny.</em></h2>
+    <p class="reveal">Zack doesn't talk. He produces exactly one sound — a flat, unimpressed <strong>"quac"</strong> — and then looks into the camera, so you know it was on purpose.</p>
+    <p class="reveal">The golden quill is the whole story: held in his wing, tip forward, it draws glowing gold lines in mid-air — and whatever he draws <strong>becomes real</strong>. A door that opens the wrong way. A ladder missing exactly one rung. An umbrella with a hole precisely above his head. <strong>Art finds a way.</strong> Usually the wrong one.</p>
+    <dl class="rules reveal">
+      <div><dt>The quill</dt><dd>Gold, held in the wing, draws with the tip. In this world, all ink is black — the gold is his alone.</dd></div>
+      <div><dt>The wrong detail</dt><dd>Every creation works, except for one small thing. The one small thing is the episode.</dd></div>
+      <div><dt>The Crollo</dt><dd>Roughly once in ten disasters he collapses into explosive laughter. Then hard cut — deadpan again.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ CAST ============ -->
+<section class="cast">
+  <div class="wrap">
+    <span class="label reveal">The supporting cast · one flaw each</span>
+    <h2 class="reveal">Everyone wants <em>something he makes.</em></h2>
+    <p class="lede reveal">Five creatures orbit the Atelier, each after a different piece of Zack's talent: the food, the gold, the art, the quill — or whatever is left unattended.</p>
+    <div class="gallery">
+      <figure class="piece g-pigeon reveal">
+        <img class="art" src="assets/cast/pigeon.jpg" alt="The Pigeon">
+        <figcaption><div class="t">The Pigeon</div><div class="r">The follower</div>
+        <div class="m">Follows Zack everywhere, because Zack can draw food. Asleep 99% of the time — then the eyes snap open, something gets eaten, and he relaxes smugly in the wreckage. Always wins.</div></figcaption>
+      </figure>
+      <figure class="piece g-seagull reveal">
+        <img class="art" src="assets/cast/seagull.jpg" alt="The Seagull">
+        <figcaption><div class="t">The Seagull</div><div class="r">The boss</div>
+        <div class="m">Three ducks tall, chest first. Takes everything by force — even from the Pigeon. Convinced he's a genius; every plan fails. Wants one thing above all: the quill.</div></figcaption>
+      </figure>
+      <figure class="piece g-moth reveal">
+        <img class="art" src="assets/cast/moth.jpg" alt="The Moth">
+        <figcaption><div class="t">The Moth</div><div class="r">The gold-eater</div>
+        <div class="m">Eats Zack's golden light-trails in mid-air, before they become real. No malice, no hurry, belly glowing softly afterwards. Innocent, dreamy, unstoppable.</div></figcaption>
+      </figure>
+      <figure class="piece g-cat wide reveal">
+        <img class="art" src="assets/cast/cat.jpg" alt="The Cat">
+        <figcaption><div class="t">The Cat</div><div class="r">The critic</div>
+        <div class="m">The only creature who truly understands art. Disappointed when Zack draws food, disdainful of bad art — which he pushes over with one paw, keeping eye contact. His approval is the rarest thing in this world.</div></figcaption>
+      </figure>
+      <figure class="piece g-ant reveal">
+        <img class="art" src="assets/cast/ant.jpg" alt="The Ant">
+        <figcaption><div class="t">The Ant</div><div class="r">The inevitable</div>
+        <div class="m">Never threatens, never argues, never looks at anyone. Waits at the edge of the scene, acts at the very last second, and walks off with the prize held overhead. Nobody has ever seen her coming.</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRIP ============ -->
+<div class="zstrip" aria-hidden="true"><div class="track">
+  <img src="assets/strip/z06.jpg" alt=""><img src="assets/strip/z07.jpg" alt=""><img src="assets/strip/z08.jpg" alt=""><img src="assets/strip/z09.jpg" alt=""><img src="assets/strip/z10.jpg" alt=""><img src="assets/strip/z01.jpg" alt=""><img src="assets/strip/z02.jpg" alt=""><img src="assets/strip/z03.jpg" alt=""><img src="assets/strip/z04.jpg" alt=""><img src="assets/strip/z05.jpg" alt="">
+  <img src="assets/strip/z06.jpg" alt=""><img src="assets/strip/z07.jpg" alt=""><img src="assets/strip/z08.jpg" alt=""><img src="assets/strip/z09.jpg" alt=""><img src="assets/strip/z10.jpg" alt=""><img src="assets/strip/z01.jpg" alt=""><img src="assets/strip/z02.jpg" alt=""><img src="assets/strip/z03.jpg" alt=""><img src="assets/strip/z04.jpg" alt=""><img src="assets/strip/z05.jpg" alt="">
+</div></div>
+
+<!-- ============ SEASON 0 ============ -->
+<section class="season" id="season">
+  <div class="wrap">
+    <span class="label reveal">Season 0 · now unrolling</span>
+    <h2 class="reveal">Small episodes. <em>Small disasters.</em></h2>
+    <p class="lede reveal">No dialogue, one flat "quac" each. Zack draws something, it comes true, it's slightly wrong. Hover to watch.</p>
+    <div class="eps">
+      <div class="ep-card reveal" data-video="assets/clips/e1.mp4" data-poster="assets/clips/e1.jpg">
+        <video muted loop playsinline preload="metadata"></video><img class="poster" alt="Episode 1 — The Masterpiece">
+        <div class="board"><span class="num">E1</span><div><div class="ttl">The Masterpiece</div><div class="st">Watch</div></div></div>
+      </div>
+      <div class="ep-card reveal" data-video="assets/clips/e2.mp4" data-poster="assets/clips/e2.jpg">
+        <video muted loop playsinline preload="metadata"></video><img class="poster" alt="Episode 2 — The Quill">
+        <div class="board"><span class="num">E2</span><div><div class="ttl">The Quill</div><div class="st">Watch</div></div></div>
+      </div>
+      <div class="ep-card reveal" data-video="assets/clips/e3.mp4" data-poster="assets/clips/e3.jpg">
+        <video muted loop playsinline preload="metadata"></video><img class="poster" alt="Episode 3 — En Garde">
+        <div class="board"><span class="num">E3</span><div><div class="ttl">En Garde</div><div class="st">Watch</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORE ============ -->
+<section class="store">
+  <div class="wrap">
+    <div class="store-box reveal">
+      <p class="sh">Wearable art, drawn by a duck who <em>couldn't care less.</em></p>
+      <a class="btn solid" href="https://jayl.store" target="_blank" rel="noopener">Visit jayl.store</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRIP as footer divider ============ -->
+<div class="zstrip" aria-hidden="true"><div class="track">
+  <img src="assets/strip/z03.jpg" alt=""><img src="assets/strip/z09.jpg" alt=""><img src="assets/strip/z01.jpg" alt=""><img src="assets/strip/z07.jpg" alt=""><img src="assets/strip/z05.jpg" alt=""><img src="assets/strip/z02.jpg" alt=""><img src="assets/strip/z08.jpg" alt=""><img src="assets/strip/z04.jpg" alt=""><img src="assets/strip/z10.jpg" alt=""><img src="assets/strip/z06.jpg" alt="">
+  <img src="assets/strip/z03.jpg" alt=""><img src="assets/strip/z09.jpg" alt=""><img src="assets/strip/z01.jpg" alt=""><img src="assets/strip/z07.jpg" alt=""><img src="assets/strip/z05.jpg" alt=""><img src="assets/strip/z02.jpg" alt=""><img src="assets/strip/z08.jpg" alt=""><img src="assets/strip/z04.jpg" alt=""><img src="assets/strip/z10.jpg" alt=""><img src="assets/strip/z06.jpg" alt="">
+</div></div>
+
+<footer>
+  <div class="wrap row">
+    <span class="label">ZACK THE DUCK · a <a href="https://pellegrinotti.com">JAYL</a> original · © 2026 Joshua Pellegrinotti</span>
+    <span class="quip">Everything he draws is real. Results may vary.</span>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.ep-card').forEach(card=>{
+  const v=card.querySelector('video'),p=card.querySelector('img.poster');
+  p.src=card.dataset.poster; v.src=card.dataset.video;
+  card.classList.add('has-media');
+  const play=()=>{card.classList.add('playing');v.play().catch(()=>{})};
+  const stop=()=>{card.classList.remove('playing');v.pause()};
+  card.addEventListener('mouseenter',play);
+  card.addEventListener('mouseleave',stop);
+  card.addEventListener('click',()=>card.classList.contains('playing')?stop():play());
+});
+</script>
+</body>
+</html>
