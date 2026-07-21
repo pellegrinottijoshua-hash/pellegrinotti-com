@@ -338,11 +338,16 @@
          is set to immutable for performance, so a same-name re-upload needs a new
          URL (via query string) to actually reach viewers instead of serving stale cache */
       var HERO_V='2';
+      /* these 9:16 clips frame the face high; on desktop the object-fit:cover center crop
+         cuts it off, so we raise the crop (object-position) just for them. On mobile the
+         video fills a portrait viewport 1:1 so this is a no-op there. */
+      var FACE_UP={1:1,3:1,4:1,6:1,8:1,10:1};
+      function facePos(n){return FACE_UP[n]?'center 18%':'center 50%';}
       function src(n){return MEDIA_BASE+'/hero/mobile-video/'+pad(n)+'.mp4?v='+HERO_V;}
       function poster(n){return MEDIA_BASE+'/hero/mobile-video/posters/'+pad(n)+'.jpg?v='+HERO_V;}
       if(reduced){
         /* respect the user's OS preference: no autoplay, no cycling — a single still frame */
-        imgEl.src=poster(1); imgEl.style.display='block'; vid.style.display='none';
+        imgEl.src=poster(1); imgEl.style.objectPosition=facePos(1); imgEl.style.display='block'; vid.style.display='none';
         return;
       }
       imgEl.style.display='none';
@@ -357,6 +362,7 @@
         vid.style.transition='opacity .18s linear';
         vid.style.opacity='0';
         setTimeout(function(){
+          vid.style.objectPosition=facePos(n);
           vid.poster=poster(n); vid.src=src(n); vid.muted=!unmuted; vid.load(); tryPlay();
           vid.style.opacity='1';
           switching=false; /* only release the guard once this transition has fully landed —
