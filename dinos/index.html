@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DINOS &amp; MAGES — meet the cast · a JAYL original</title>
-<meta name="description" content="A saga of earth and arcana. Meet the cast — one character at a time. A JAYL original series in development.">
-<meta property="og:title" content="DINOS &amp; MAGES — meet the cast">
+<title>DINOS &amp; MAGES — the cast · a JAYL original</title>
+<meta name="description" content="A saga of earth and arcana. Meet the cast — pick a character and step into their file. A JAYL original in development.">
+<meta property="og:title" content="DINOS &amp; MAGES — the cast">
 <meta property="og:image" content="assets/logo.jpg">
 <link rel="icon" href="assets/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,243 +13,259 @@
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#14111A;
-  --night-2:#1C1826;
-  --bone:#E5DAC0;
-  --bone-dim:#a89f8a;
-  --terra:#7A8C5A;
-  --terra-2:#8A6A48;
-  --terra-3:#3F4A34;
-  --arcano:#8B5FD0;
-  --arcano-2:#B9A3EC;
-  --arcano-3:#241C33;
-  --disp:'Alfa Slab One',serif;
-  --body:'Spectral',serif;
+  --night:#14111A; --night-2:#1C1826; --bone:#E5DAC0; --bone-dim:#a89f8a;
+  --terra:#7A8C5A; --terra-2:#8A6A48; --terra-3:#3F4A34;
+  --arcano:#8B5FD0; --arcano-2:#B9A3EC; --arcano-3:#241C33;
+  --disp:'Alfa Slab One',serif; --body:'Spectral',serif;
+  --e:cubic-bezier(.2,.7,.2,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--night);color:var(--bone);font-family:var(--body);font-weight:300;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--arcano);color:var(--night)}
-body::after{
-  content:"";position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,54px)}
-.kicker{font-family:var(--body);font-style:italic;font-size:.95rem;letter-spacing:.14em;color:var(--bone-dim);text-transform:uppercase}
+img{display:block;max-width:100%}
+body::after{content:"";position:fixed;inset:0;z-index:200;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");}
+.kick{font-family:var(--body);font-style:italic;font-size:.8rem;letter-spacing:.18em;color:var(--bone-dim);text-transform:uppercase}
 
-/* ============ HEADER ============ */
-header{padding:9vh 0 5vh;text-align:center;position:relative}
-header .logo{width:min(520px,80vw);display:block;margin:0 auto;
-  filter:drop-shadow(0 18px 44px rgba(0,0,0,.55))}
-header .sub{margin-top:26px;font-size:clamp(1rem,2vw,1.25rem);color:var(--bone-dim);font-style:italic;letter-spacing:.04em}
-header .sub b{color:var(--bone);font-weight:500}
-header .jayl{position:absolute;top:26px;left:50%;transform:translateX(-50%);
-  font-family:var(--body);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--bone-dim)}
-.rule{width:min(560px,70vw);margin:44px auto 0;display:flex;align-items:center;gap:14px;opacity:.7}
-.rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--bone-dim))}
-.rule::after{background:linear-gradient(90deg,var(--bone-dim),transparent)}
-.rule span{font-size:1rem;color:var(--terra)}
-.rule span i{color:var(--arcano);font-style:normal}
+/* ============ TOP BAR ============ */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(16px,4vw,44px);pointer-events:none;
+  background:linear-gradient(var(--night),rgba(20,17,26,.5) 60%,transparent)}
+.topbar .brand{display:flex;align-items:center;gap:14px;pointer-events:auto}
+.topbar .brand img{height:clamp(28px,4vw,42px);width:auto;filter:drop-shadow(0 4px 16px rgba(0,0,0,.6))}
+.topbar .brand .jayl{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim)}
+.topbar .hint{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-dim);pointer-events:auto}
+.topbar .hint b{color:var(--arcano-2);font-weight:400}
 
-/* ============ LINEUP ============ */
-.lineup-zone{padding:5vh 0 10vh}
-.lineup-zone .hint{text-align:center;margin-bottom:36px}
-.lineup{
-  display:flex;gap:clamp(10px,1.4vw,20px);align-items:flex-end;justify-content:flex-start;
-  overflow-x:auto;padding:20px clamp(18px,4vw,54px) 46px;scroll-snap-type:x proximity;
-  scrollbar-width:thin;scrollbar-color:var(--terra-3) transparent;
-}
-.char{
-  flex:0 0 auto;width:clamp(150px,15.5vw,208px);cursor:pointer;scroll-snap-align:center;
-  transition:transform .35s cubic-bezier(.2,.7,.2,1.15);position:relative;background:none;border:none;
-  font-family:inherit;color:inherit;text-align:center;
-}
-.char:hover{transform:translateY(-12px)}
-.char .ph{
-  width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center top;display:block;
-  border:1px solid rgba(229,218,192,.22);border-radius:4px 4px 0 0;
-  filter:saturate(.9) contrast(1.02);transition:filter .3s,border-color .3s,box-shadow .3s;
-  background:var(--night-2);
-}
-.char[data-f="terra"]:hover .ph{border-color:var(--terra);box-shadow:0 18px 50px -14px rgba(122,140,90,.4)}
-.char[data-f="arcano"]:hover .ph{border-color:var(--arcano);box-shadow:0 18px 50px -14px rgba(139,95,208,.45)}
-.char .plate{
-  border:1px solid rgba(229,218,192,.22);border-top:0;border-radius:0 0 4px 4px;
-  padding:10px 8px 12px;background:linear-gradient(var(--night-2),var(--night));
-}
-.char .nm{font-family:var(--disp);font-size:clamp(.72rem,1vw,.86rem);letter-spacing:.06em;text-transform:uppercase;line-height:1.25}
-.char[data-f="terra"] .nm{color:var(--terra)}
-.char[data-f="arcano"] .nm{color:var(--arcano-2)}
-.char .rl{font-size:.72rem;font-style:italic;color:var(--bone-dim);margin-top:4px;letter-spacing:.06em}
-.lineup-ground{height:1px;background:linear-gradient(90deg,transparent,rgba(229,218,192,.35) 15%,rgba(229,218,192,.35) 85%,transparent);
-  margin:-46px clamp(18px,4vw,54px) 46px;pointer-events:none;position:relative}
+/* ============ CAST SELECTOR ============ */
+#cast{height:100svh;overflow:hidden}
+.rail{display:flex;height:100svh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+  scrollbar-width:thin;scrollbar-color:var(--terra-3) transparent;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{height:6px}.rail::-webkit-scrollbar-thumb{background:var(--terra-3);border-radius:3px}
+.panel{position:relative;flex:0 0 auto;width:clamp(230px,26vw,360px);height:100svh;scroll-snap-align:center;
+  cursor:pointer;border-right:1px solid rgba(229,218,192,.1);overflow:hidden;background:var(--night-2)}
+.panel img{width:100%;height:100%;object-fit:cover;object-position:center 18%;
+  filter:saturate(.9) brightness(.82) contrast(1.02);transition:filter .5s var(--e),transform 1.1s var(--e);transform:scale(1.02)}
+.panel:hover img{filter:saturate(1) brightness(1) contrast(1.02);transform:scale(1.06)}
+.panel::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(transparent 40%,rgba(20,17,26,.5) 70%,var(--night) 100%)}
+.panel::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;z-index:3;transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--e)}
+.panel[data-f="terra"]::after{background:var(--terra)}
+.panel[data-f="arcano"]::after{background:var(--arcano)}
+.panel:hover::after{transform:scaleX(1)}
+.panel .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 20px 30px;transition:transform .5s var(--e)}
+.panel:hover .cap{transform:translateY(-6px)}
+.panel .idx{font-family:var(--body);font-size:.66rem;letter-spacing:.24em;color:var(--bone-dim);text-transform:uppercase}
+.panel .nm{font-family:var(--disp);font-size:clamp(1rem,1.5vw,1.35rem);letter-spacing:.02em;text-transform:uppercase;line-height:1.1;margin-top:6px}
+.panel[data-f="terra"] .nm{color:var(--terra)}
+.panel[data-f="arcano"] .nm{color:var(--arcano-2)}
+.panel .rl{font-style:italic;font-size:.82rem;color:var(--bone-dim);margin-top:3px}
+.panel .go{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-size:.66rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--bone);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.panel:hover .go{opacity:1;transform:none}
+.rail-hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:30;
+  font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim);pointer-events:none;
+  animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}
 
-/* ============ ABOUT STRIP ============ */
-.about{padding:6vh 0 12vh;text-align:center}
-.about p{max-width:44em;margin:0 auto;font-size:1.12rem;line-height:1.85;color:var(--bone-dim)}
-.about p b{color:var(--terra);font-weight:500}
-.about p i b{color:var(--arcano-2)}
+/* ============ CHARACTER DETAIL ============ */
+#detail{position:fixed;inset:0;z-index:60;background:var(--night);overflow-y:auto;overflow-x:hidden;
+  opacity:0;visibility:hidden;transition:opacity .5s var(--e)}
+#detail.open{opacity:1;visibility:visible}
+.d-back{position:fixed;top:18px;left:clamp(16px,4vw,44px);z-index:80;display:inline-flex;align-items:center;gap:9px;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone);cursor:pointer;
+  background:rgba(20,17,26,.7);backdrop-filter:blur(8px);border:1px solid rgba(229,218,192,.22);border-radius:40px;padding:11px 20px}
+.d-back:hover{border-color:var(--bone)}
+/* intro: info + sheets */
+.d-intro{max-width:1200px;margin:0 auto;padding:clamp(90px,13vh,150px) clamp(20px,5vw,54px) clamp(30px,5vh,60px)}
+.d-chip{display:inline-block;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;padding:7px 13px;border-radius:2px;margin-bottom:20px}
+.d-chip.terra{background:var(--terra-3);color:var(--terra);border:1px solid var(--terra)}
+.d-chip.arcano{background:var(--arcano-3);color:var(--arcano-2);border:1px solid var(--arcano)}
+.d-name{font-family:var(--disp);font-size:clamp(2.4rem,7vw,5.5rem);letter-spacing:.01em;text-transform:uppercase;line-height:.98}
+.d-role{font-style:italic;font-size:clamp(1.05rem,2vw,1.4rem);color:var(--bone-dim);margin-top:10px}
+.d-desc{font-size:clamp(1.02rem,1.5vw,1.18rem);line-height:1.8;color:var(--bone-dim);max-width:42em;margin-top:26px}
+.d-desc em{color:var(--bone)}
+.d-sheets-lb{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone-dim);
+  margin:clamp(40px,6vh,70px) 0 18px;display:flex;align-items:center;gap:14px}
+.d-sheets-lb::after{content:"";flex:1;height:1px;background:rgba(229,218,192,.16)}
+.d-sheets{display:grid;gap:14px;grid-template-columns:1fr}
+.d-sheets .sh{border:1px solid rgba(229,218,192,.16);border-radius:6px;overflow:hidden;background:var(--night-2)}
+.d-sheets .sh img{width:100%;height:auto;display:block}
+@media(min-width:760px){.d-sheets.multi{grid-template-columns:repeat(2,1fr)}.d-sheets .sh.wide{grid-column:1/-1}}
+/* full-screen stills */
+.d-stills-lb{max-width:1200px;margin:clamp(50px,8vh,90px) auto clamp(10px,2vh,24px);padding:0 clamp(20px,5vw,54px);
+  font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone-dim);display:flex;align-items:center;gap:14px}
+.d-stills-lb::after{content:"";flex:1;height:1px;background:rgba(229,218,192,.16)}
+.d-still{position:relative;height:100svh;min-height:520px;overflow:hidden;display:flex;align-items:flex-end;background:var(--night-2)}
+.d-still img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.d-still::after{content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 120% 90% at 50% 40%,transparent 55%,rgba(20,17,26,.55) 100%),
+  linear-gradient(transparent 55%,rgba(20,17,26,.75))}
+.d-still .cap{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;
+  padding:0 clamp(20px,5vw,54px) clamp(40px,8vh,90px)}
+.d-still .cap .n{font-family:var(--body);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone-dim)}
+.d-still .cap .t{font-family:var(--disp);font-size:clamp(1.3rem,3vw,2.2rem);text-transform:uppercase;margin-top:8px}
+.d-still.ph{align-items:center;justify-content:center;border-top:1px solid rgba(229,218,192,.12);border-bottom:1px solid rgba(229,218,192,.12)}
+.d-still.ph img{filter:blur(6px) saturate(.6) brightness(.4);transform:scale(1.1)}
+.d-still.ph .pht{position:relative;z-index:2;text-align:center}
+.d-still.ph .pht .b{font-family:var(--disp);font-size:clamp(1.4rem,3vw,2.4rem);text-transform:uppercase;color:var(--bone-dim)}
+.d-still.ph .pht .s{font-style:italic;color:var(--bone-dim);margin-top:10px;font-size:.95rem}
+/* footer nav */
+.d-foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  max-width:1200px;margin:0 auto;padding:clamp(40px,8vh,90px) clamp(20px,5vw,54px)}
+.d-foot a,.d-foot button{font-family:var(--body);background:none;border:none;cursor:pointer;color:var(--bone);
+  font-size:.9rem;letter-spacing:.04em;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.d-foot .nxt{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1rem,2vw,1.4rem)}
+.d-foot .nxt .who{color:var(--arcano-2)}
+.d-foot .nxt:hover .who{color:var(--bone)}
 
-/* ============ DOSSIER OVERLAY ============ */
-.dossier{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
-.dossier.open{display:flex}
-.dossier .bg{position:absolute;inset:0;background:rgba(10,8,14,.82);backdrop-filter:blur(8px)}
-.card{
-  position:relative;z-index:2;width:min(940px,96vw);max-height:92vh;overflow-y:auto;
-  background:var(--night-2);border:1px solid rgba(229,218,192,.25);border-radius:6px;
-  display:grid;grid-template-columns:.9fr 1.1fr;
-  box-shadow:0 40px 120px -20px rgba(0,0,0,.9);
-}
-.card .face{position:relative;min-height:380px}
-.card .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.card .face::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 70%,var(--night-2))}
-.card .info{padding:clamp(24px,4vw,44px)}
-.card .chip{display:inline-block;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
-  padding:7px 12px;border-radius:2px;margin-bottom:18px;font-style:normal}
-.card .chip.terra{background:var(--terra-3);color:var(--terra);border:1px solid var(--terra)}
-.card .chip.arcano{background:var(--arcano-3);color:var(--arcano-2);border:1px solid var(--arcano)}
-.card h2{font-family:var(--disp);font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:.04em;text-transform:uppercase;line-height:1.1;margin-bottom:6px}
-.card .role{font-style:italic;color:var(--bone-dim);margin-bottom:22px;font-size:1.02rem}
-.card .desc{font-size:1.02rem;line-height:1.8;color:var(--bone-dim)}
-.card .desc em{color:var(--bone)}
-.card .stills{margin-top:28px}
-.card .stills .lb{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim);margin-bottom:12px}
-.card .stills .row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.card .stills .s{aspect-ratio:16/10;border:1px dashed rgba(229,218,192,.3);border-radius:3px;
-  display:flex;align-items:center;justify-content:center;font-size:.62rem;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(229,218,192,.4);overflow:hidden}
-.card .stills .s img{width:100%;height:100%;object-fit:cover}
-.card .close{
-  position:absolute;top:14px;right:14px;z-index:3;background:var(--night);border:1px solid rgba(229,218,192,.35);
-  color:var(--bone);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;font-family:var(--body);
-}
-.card .close:hover{border-color:var(--bone)}
-.card .nav-arrows{position:absolute;bottom:14px;right:14px;z-index:3;display:flex;gap:8px}
-.card .nav-arrows button{background:var(--night);border:1px solid rgba(229,218,192,.35);color:var(--bone);
-  width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem}
-.card .nav-arrows button:hover{border-color:var(--bone)}
-
-/* ============ FOOTER ============ */
-footer{border-top:1px solid rgba(229,218,192,.18);padding:34px 0 46px;text-align:center}
-footer .l{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim)}
-footer a{color:var(--bone);text-decoration:none;border-bottom:1px solid var(--terra)}
-footer a:hover{color:var(--terra)}
-footer .q{margin-top:12px;font-style:italic;color:var(--bone-dim);font-size:.9rem}
+footer.site{border-top:1px solid rgba(229,218,192,.14);padding:28px 0 38px;text-align:center}
+footer.site .l{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone-dim)}
+footer.site a{color:var(--bone);text-decoration:none;border-bottom:1px solid var(--terra)}
 
 @media(max-width:760px){
-  .card{grid-template-columns:1fr;max-height:90vh}
-  .card .face{min-height:300px;position:relative}
-  .card .face img{position:absolute}
-  .card .face::after{background:linear-gradient(to bottom,transparent 70%,var(--night-2))}
+  .panel{width:80vw}
+  .topbar .hint{display:none}
 }
 </style>
 </head>
 <body>
 
-<header>
-  <p class="jayl">A JAYL original · in development</p>
-  <img class="logo" src="assets/logo.jpg" alt="DINOS &amp; MAGES">
-  <p class="sub">Two worlds on one bridge of bone: <b>earth</b> below, <b>arcana</b> above.</p>
-  <div class="rule"><span>◆ <i>✦</i></span></div>
-</header>
-
-<section class="lineup-zone">
-  <p class="kicker hint">The cast · tap a character to open the file</p>
-  <div class="lineup" id="lineup"></div>
-  <div class="lineup-ground"></div>
-</section>
-
-<section class="about">
-  <div class="wrap">
-    <p>A saga where the <b>dinos of the earth</b> and the <i><b>mages of the arcana</b></i> share one story — told character by character. Files are being declassified as the series takes shape: portraits first, scenes next.</p>
-  </div>
-</section>
-
-<div class="dossier" id="dossier" role="dialog" aria-modal="true">
-  <div class="bg" onclick="closeDossier()"></div>
-  <div class="card">
-    <button class="close" onclick="closeDossier()" aria-label="Close">✕</button>
-    <div class="face"><img id="d-img" src="" alt=""></div>
-    <div class="info">
-      <span class="chip" id="d-chip"></span>
-      <h2 id="d-name"></h2>
-      <p class="role" id="d-role"></p>
-      <p class="desc" id="d-desc"></p>
-      <div class="stills">
-        <p class="lb">Scenes</p>
-        <div class="row" id="d-stills"></div>
-      </div>
-    </div>
-    <div class="nav-arrows">
-      <button onclick="step(-1)" aria-label="Previous">←</button>
-      <button onclick="step(1)" aria-label="Next">→</button>
-    </div>
-  </div>
+<!-- ============ TOP BAR ============ -->
+<div class="topbar" id="topbar">
+  <a class="brand" href="/" onclick="return backToCast(event)">
+    <img src="assets/logo.jpg" alt="DINOS &amp; MAGES">
+    <span class="jayl">a JAYL original</span>
+  </a>
+  <span class="hint">The cast · <b>pick a character</b> →</span>
 </div>
 
-<footer>
-  <p class="l">DINOS &amp; MAGES · a <a href="https://pellegrinotti.com">JAYL</a> original · © 2026 Joshua Pellegrinotti</p>
-  <p class="q">The bridge is made of bone. Nobody remembers whose.</p>
-</footer>
+<!-- ============ CAST SELECTOR ============ -->
+<main id="cast">
+  <div class="rail" id="rail"></div>
+</main>
+<div class="rail-hint" id="railHint">scroll ↔ · click to enter</div>
+
+<!-- ============ CHARACTER DETAIL ============ -->
+<section id="detail" aria-hidden="true">
+  <button class="d-back" onclick="backToCast(event)">← The cast</button>
+  <div class="d-intro">
+    <span class="d-chip" id="dChip"></span>
+    <h1 class="d-name" id="dName"></h1>
+    <p class="d-role" id="dRole"></p>
+    <p class="d-desc" id="dDesc"></p>
+    <p class="d-sheets-lb">Character sheets</p>
+    <div class="d-sheets" id="dSheets"></div>
+  </div>
+  <p class="d-stills-lb">Scenes · from the film</p>
+  <div id="dStills"></div>
+  <div class="d-foot">
+    <button onclick="backToCast(event)">← back to the cast</button>
+    <button class="nxt" id="dNext" onclick="stepChar(1)"></button>
+  </div>
+  <footer class="site">
+    <p class="l">DINOS &amp; MAGES · a <a href="https://pellegrinotti.com">JAYL</a> original · © 2026 Joshua Pellegrinotti</p>
+  </footer>
+</section>
 
 <script>
-// ————— cast data: swap desc/stills as they get written/produced —————
+// ————— cast data: fill `desc` per character as it gets written —————
 const CAST=[
- {id:'protagonista',      name:'Protagonista',            role:'The lead',            f:'arcano'},
- {id:'coprotagonista',    name:'Coprotagonista',          role:'The other lead',      f:'terra', extra:true},
- {id:'allievo',           name:'Allievo',                 role:'The apprentice',      f:'arcano', extra:true},
- {id:'morosettadino',     name:'Morosetta',               role:'The sweetheart',      f:'terra'},
- {id:'beast',             name:'Beast',                   role:'The beast',           f:'terra'},
- {id:'gemellarivale',     name:'Gemella Rivale',          role:'The rival twin',      f:'arcano'},
- {id:'rivale',            name:'Rivale',                  role:'The rival',           f:'arcano'},
- {id:'spalla',            name:'Spalla',                  role:'The sidekick',        f:'terra'},
- {id:'nemicoumano',       name:'Nemico Umano',            role:'The human threat',    f:'arcano'},
- {id:'padreprotagonista', name:'Padre del Protagonista',  role:'The father — arcana', f:'arcano'},
- {id:'padrecoprotagonista',name:'Padre del Coprotagonista',role:'The father — earth', f:'terra'},
+ {id:'protagonista',       name:'Protagonista',            role:'The lead',            f:'arcano'},
+ {id:'coprotagonista',     name:'Coprotagonista',          role:'The other lead',      f:'terra'},
+ {id:'allievo',            name:'Allievo',                 role:'The apprentice',      f:'arcano'},
+ {id:'morosettadino',      name:'Morosetta',               role:'The sweetheart',      f:'terra'},
+ {id:'beast',              name:'Beast',                   role:'The beast',           f:'terra'},
+ {id:'gemellarivale',      name:'Gemella Rivale',          role:'The rival twin',      f:'arcano'},
+ {id:'rivale',             name:'Rivale',                  role:'The rival',           f:'arcano'},
+ {id:'spalla',             name:'Spalla',                  role:'The sidekick',        f:'terra'},
+ {id:'nemicoumano',        name:'Nemico Umano',            role:'The human threat',    f:'arcano'},
+ {id:'padreprotagonista',  name:'Padre del Protagonista',  role:'The father — arcana', f:'arcano'},
+ {id:'padrecoprotagonista',name:'Padre del Coprotagonista',role:'The father — earth',  f:'terra'},
 ];
-const PLACEHOLDER='Chi è, cosa vuole, cosa rischia — la sua scheda arriva con i prossimi prompt. Per ora: guardalo negli occhi e fatti un’idea.';
+const PLACEHOLDER='Chi è, cosa vuole, cosa rischia. La sua scheda arriva con i prossimi testi — per ora, guarda gli sheet e le scene.';
 
-const lineup=document.getElementById('lineup');
+// build the selector rail
+const rail=document.getElementById('rail');
 CAST.forEach((c,i)=>{
-  const b=document.createElement('button');
-  b.className='char';b.dataset.f=c.f;b.onclick=()=>openDossier(i);
-  b.innerHTML=`<img class="ph" loading="lazy" src="assets/chars/${c.id}.jpg" alt="${c.name}">
-  <div class="plate"><div class="nm">${c.name}</div><div class="rl">${c.role}</div></div>`;
-  lineup.appendChild(b);
+  const p=document.createElement('div');
+  p.className='panel';p.dataset.f=c.f;p.onclick=()=>openChar(i);
+  p.innerHTML=`<img loading="lazy" src="assets/chars/${c.id}.jpg" alt="${c.name}">
+    <div class="cap"><div class="idx">${String(i+1).padStart(2,'0')} · ${c.f==='terra'?'Dinos':'Mages'}</div>
+      <div class="nm">${c.name}</div><div class="rl">${c.role}</div>
+      <div class="go">Enter file →</div></div>`;
+  rail.appendChild(p);
 });
 
 let cur=0;
-const dossier=document.getElementById('dossier');
-function openDossier(i){
+const detail=document.getElementById('detail');
+
+function loadImg(src){return new Promise(res=>{const im=new Image();im.onload=()=>res(true);im.onerror=()=>res(false);im.src=src;});}
+
+async function openChar(i){
   cur=(i+CAST.length)%CAST.length;
   const c=CAST[cur];
-  document.getElementById('d-img').src=`assets/chars/${c.id}-face.jpg`;
-  document.getElementById('d-name').textContent=c.name;
-  document.getElementById('d-role').textContent=c.role;
-  document.getElementById('d-desc').textContent=c.desc||PLACEHOLDER;
-  const chip=document.getElementById('d-chip');
+  document.getElementById('dName').textContent=c.name;
+  document.getElementById('dRole').textContent=c.role;
+  document.getElementById('dDesc').innerHTML=c.desc||PLACEHOLDER;
+  const chip=document.getElementById('dChip');
   chip.textContent=c.f==='terra'?'Dinos · terra':'Mages · arcano';
-  chip.className='chip '+c.f;
-  const row=document.getElementById('d-stills');row.innerHTML='';
-  for(let k=1;k<=3;k++){
-    const s=document.createElement('div');s.className='s';
-    const probe=new Image();
-    probe.onload=()=>{s.textContent='';const im=document.createElement('img');im.src=probe.src;s.appendChild(s.firstChild||im);s.innerHTML='';s.appendChild(im)};
-    probe.onerror=()=>{ if(k===1&&c.extra){const im=document.createElement('img');im.src=`assets/chars/${c.id}-extra.jpg`;s.innerHTML='';s.appendChild(im)} else s.textContent='still soon' };
-    probe.src=`assets/stills/${c.id}-${k}.jpg`;
-    row.appendChild(s);
+  chip.className='d-chip '+c.f;
+  const nxt=CAST[(cur+1)%CAST.length];
+  document.getElementById('dNext').innerHTML=`next <span class="who">${nxt.name}</span> →`;
+
+  // sheets: probe assets/sheets/<id>-1..4; fallback to the rail portrait
+  const sheetsEl=document.getElementById('dSheets');sheetsEl.innerHTML='';
+  let sheets=[];
+  for(let k=1;k<=4;k++){const s=`assets/sheets/${c.id}-${k}.jpg`;if(await loadImg(s))sheets.push(s);}
+  if(!sheets.length)sheets=[`assets/chars/${c.id}.jpg`];
+  sheetsEl.className='d-sheets'+(sheets.length>1?' multi':'');
+  sheets.forEach((s,k)=>{
+    const d=document.createElement('div');d.className='sh'+(sheets.length%2===1&&k===0?' wide':'');
+    d.innerHTML=`<img loading="lazy" src="${s}" alt="${c.name} — sheet ${k+1}">`;sheetsEl.appendChild(d);
+  });
+
+  // stills: probe assets/stills/<id>-1..6; else one placeholder full-screen
+  const stillsEl=document.getElementById('dStills');stillsEl.innerHTML='';
+  let stills=[];
+  for(let k=1;k<=6;k++){const s=`assets/stills/${c.id}-${k}.jpg`;if(await loadImg(s))stills.push(s);}
+  if(stills.length){
+    stills.forEach((s,k)=>{
+      const d=document.createElement('div');d.className='d-still';
+      d.innerHTML=`<img loading="lazy" src="${s}" alt=""><div class="cap"><div class="n">Scene ${String(k+1).padStart(2,'0')}</div><div class="t">${c.name}</div></div>`;
+      stillsEl.appendChild(d);
+    });
+  }else{
+    const d=document.createElement('div');d.className='d-still ph';
+    d.innerHTML=`<img src="assets/chars/${c.id}.jpg" alt=""><div class="pht"><div class="b">Scenes coming soon</div><div class="s">Full-screen stills rendered from the film will unroll here.</div></div>`;
+    stillsEl.appendChild(d);
   }
-  dossier.classList.add('open');document.body.style.overflow='hidden';
+
+  detail.classList.add('open');detail.setAttribute('aria-hidden','false');
+  detail.scrollTop=0;document.body.style.overflow='hidden';
+  history.pushState({char:cur},'','#'+c.id);
 }
-function closeDossier(){dossier.classList.remove('open');document.body.style.overflow=''}
-function step(d){openDossier(cur+d)}
-document.addEventListener('keydown',e=>{
-  if(!dossier.classList.contains('open'))return;
-  if(e.key==='Escape')closeDossier();
-  if(e.key==='ArrowRight')step(1);
-  if(e.key==='ArrowLeft')step(-1);
+function backToCast(e){if(e)e.preventDefault();
+  detail.classList.remove('open');detail.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if(location.hash)history.pushState({},'',location.pathname);
+  return false;
+}
+function stepChar(d){openChar(cur+d);}
+window.addEventListener('keydown',e=>{
+  if(!detail.classList.contains('open'))return;
+  if(e.key==='Escape')backToCast();
+  if(e.key==='ArrowRight')stepChar(1);
+  if(e.key==='ArrowLeft')stepChar(-1);
 });
+window.addEventListener('popstate',()=>{ if(detail.classList.contains('open'))backToCast(); });
+// hide the rail hint once the user scrolls the rail
+rail.addEventListener('scroll',()=>{document.getElementById('railHint').style.opacity='0';},{once:true,passive:true});
+// deep-link: open a character if the URL has its hash
+(function(){const h=location.hash.slice(1);const i=CAST.findIndex(c=>c.id===h);if(i>=0)openChar(i);})();
 </script>
 </body>
 </html>
