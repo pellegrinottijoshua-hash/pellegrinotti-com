@@ -195,9 +195,7 @@ section{position:relative}
 .scene{position:relative;height:100svh;min-height:540px;overflow:hidden;display:flex;align-items:flex-end;isolation:isolate}
 .scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:var(--leather-deep)}
 .scene::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:
-    radial-gradient(ellipse 130% 90% at 50% 26%, transparent 42%, rgba(23,15,9,.5) 100%),
-    linear-gradient(to top, rgba(23,15,9,.94) 1%, rgba(23,15,9,.35) 24%, transparent 48%)}
+  background:radial-gradient(ellipse 120% 88% at 50% 45%, transparent 56%, rgba(23,15,9,.5) 100%)}
 .scene .beat{position:relative;z-index:2;width:100%;padding-bottom:12vh;
   opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.2,.6,.2,1),transform .85s cubic-bezier(.2,.6,.2,1)}
 .scene.on .beat{opacity:1;transform:none}
@@ -265,38 +263,41 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
   <div class="scroll-cue">▼ unroll</div>
 </header>
 
-<!-- ================= MARQUEE ================= -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track" id="mq">
-    <span>The laziest hero alive</span><span>·</span><span><b>EP.1 — The Slap</b></span><span>·</span>
-    <span>His cape is a real persian rug</span><span>·</span><span>They came for our moustaches</span><span>·</span>
-    <span><b>An AI-crafted saga by JAYL</b></span><span>·</span><span>Uh… fine.</span><span>·</span>
-  </div>
-</div>
+<!-- MARQUEE + File-01 hero dossier: hidden per founder request (2026-07). Restore from git history if wanted. -->
 
-<!-- ================= WHO ================= -->
-<section class="who">
-  <div class="wrap who-grid">
-    <div class="reveal">
-      <p class="slate">File 01 · The hero</p>
-      <h2>He could save the world. <em>He'd rather not.</em></h2>
-      <p><strong>The Rug</strong> is 45-ish, built like a former athlete who discovered couches, and wears a cape that is — legally and spiritually — <strong>a genuine persian carpet</strong>. Bordeaux, ochre, ivory. Frayed fringe. It hangs with the true weight of real carpet, because it is one.</p>
-      <p>When giant alien warriors — a proud race whose single vanity is the <strong>immaculately groomed moustache</strong> — descend on his city, he does what any of us would do: he sighs, mutters <em>"Uh… fine,"</em> and shuffles out in his Birkenstocks.</p>
-      <dl class="spec">
-        <div><dt>Superpower</dt><dd>Reluctance</dd></div>
-        <div><dt>Costume</dt><dd>'70s bodysuit, neon chest sign</dd></div>
-        <div><dt>Cape</dt><dd>100% authentic rug</dd></div>
-      </dl>
+<!-- ================= EPISODE 1 · SCROLL FILM (File 01) ================= -->
+<section class="ep film">
+  <div class="wrap" style="padding-top:clamp(60px,13vh,170px)">
+    <p class="slate reveal">File 01 · The episode</p>
+    <h2 class="reveal">Episode one, <em>in ten shots.</em></h2>
+    <p class="lede reveal">Scroll to watch it unroll — a wordless film. One very tired man, a flying carpet, and a monster with excellent facial hair. Shot on AI, cut like cinema: 35&nbsp;mm grain, golden hour.</p>
+  </div>
+
+  <div class="film-reel">
+    <div class="scene" data-src="assets/story/s01.mp4" data-poster="assets/story/s01.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s02.mp4" data-poster="assets/story/s02.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s03.mp4" data-poster="assets/story/s03.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s04.mp4" data-poster="assets/story/s04.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s05.mp4" data-poster="assets/story/s05.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s06.mp4" data-poster="assets/story/s06.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s07.mp4" data-poster="assets/story/s07.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s08.mp4" data-poster="assets/story/s08.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s09.mp4" data-poster="assets/story/s09.jpg"><video muted loop playsinline preload="none"></video></div>
+    <div class="scene" data-src="assets/story/s10.mp4" data-poster="assets/story/s10.jpg"><video muted loop playsinline preload="none"></video></div>
+  </div>
+
+  <div class="wrap">
+    <div class="follow reveal">
+      <p class="fh">That's episode one. <span>The saga unrolls</span> from here.</p>
+      <div class="btns">
+        <a class="btn solid" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow the saga</a>
+        <a class="btn ghost" href="https://pellegrinotti.com" target="_blank" rel="noopener">More by JAYL</a>
+      </div>
     </div>
-    <figure class="who-figure reveal">
-      <img src="assets/rug-hero.jpg" alt="The Rug — character key art"
-           onerror="this.onerror=null;this.src='assets/logo-poster.jpg'">
-      <figcaption>Exhibit A — the cape</figcaption>
-    </figure>
   </div>
 </section>
 
-<!-- ================= VILLAINS ================= -->
+<!-- ================= VILLAINS (File 02) ================= -->
 <section class="villains">
   <div class="villain-key reveal">
     <img src="assets/villain-key.jpg" alt="An alien invader with a magnificent moustache, at golden hour">
@@ -331,78 +332,6 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
         <img alt="The Awkward One"><span class="redact">Classified</span><span class="qm">???</span>
         <svg class="mo" viewBox="0 0 100 40"><path d="M14 20 C30 14 70 14 86 20" fill="none" stroke="#2b2320" stroke-width="5" stroke-linecap="round"/></svg>
         <div class="tag"><div class="nm">The Awkward One</div><div class="cl">Pencil · suspiciously thin</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= EPISODE 1 · SCROLL FILM ================= -->
-<section class="ep film">
-  <div class="wrap" style="padding-top:clamp(60px,13vh,170px)">
-    <p class="slate reveal">File 03 · The episode</p>
-    <h2 class="reveal">Episode one, <em>in ten breaths.</em></h2>
-    <p class="lede reveal">Scroll to watch it unroll. No dialogue you'll miss, no plot you'll lose — just a very tired man, a flying carpet, and a monster with excellent facial hair. Shot on AI, cut like cinema: 35&nbsp;mm grain, golden hour.</p>
-  </div>
-
-  <div class="film-reel">
-    <div class="scene" data-src="assets/story/s01.mp4" data-poster="assets/story/s01.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>01</i> Morning</span>
-        <p class="l">Somewhere, a city is in danger. He is <b>not</b> thinking about the city.</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s02.mp4" data-poster="assets/story/s02.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>02</i> Higher ground</span>
-        <p class="l">He is thinking about this drink.</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s03.mp4" data-poster="assets/story/s03.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>03</i> The commute</span>
-        <p class="l">The carpet does the flying. He does the sitting.</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s04.mp4" data-poster="assets/story/s04.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>04</i> Airspace</span>
-        <p class="l">Technically, he's already at work.</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s05.mp4" data-poster="assets/story/s05.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>05</i> Descent</span>
-        <p class="l">Down there, something enormous is waiting. He sighs: <b>"Uh… fine."</b></p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s06.mp4" data-poster="assets/story/s06.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>06</i> Touchdown</span>
-        <p class="l">The cape is a real persian rug. It lands like one.</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s07.mp4" data-poster="assets/story/s07.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>07</i> The invader</span>
-        <p class="l">Two storeys of armoured warrior. <b>Immaculately groomed.</b></p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s08.mp4" data-poster="assets/story/s08.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>08</i> The stare</span>
-        <p class="l">He looks up. He looks unbothered. He always looks unbothered.</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s09.mp4" data-poster="assets/story/s09.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>09</i> The slap</span>
-        <p class="l"><span class="neon">"Wait…"</span> he reaches up. <br>"…why do you all have <b>moustaches?</b>"</p></div></div>
-    </div>
-    <div class="scene" data-src="assets/story/s10.mp4" data-poster="assets/story/s10.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="wrap"><div class="beat"><span class="k"><i>10</i> Threat assessed</span>
-        <p class="l">Threat ignored. He goes to get another drink.</p></div></div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="follow reveal">
-      <p class="fh">That's episode one. <span>The saga unrolls</span> from here.</p>
-      <div class="btns">
-        <a class="btn solid" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow the saga</a>
-        <a class="btn ghost" href="https://pellegrinotti.com" target="_blank" rel="noopener">More by JAYL</a>
       </div>
     </div>
   </div>
