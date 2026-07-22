@@ -172,19 +172,16 @@ footer.site a{color:var(--bone);text-decoration:none;border-bottom:1px solid var
 </section>
 
 <script>
-// ————— cast data: fill `desc` per character as it gets written —————
+// ————— cast data: pilot roster (locked 2026-07-21) — Kael, Saar, Soran, Rograk —————
 const CAST=[
- {id:'protagonista',       name:'Protagonista',            role:'The lead',            f:'arcano'},
- {id:'coprotagonista',     name:'Coprotagonista',          role:'The other lead',      f:'terra'},
- {id:'allievo',            name:'Allievo',                 role:'The apprentice',      f:'arcano'},
- {id:'morosettadino',      name:'Morosetta',               role:'The sweetheart',      f:'terra'},
- {id:'beast',              name:'Beast',                   role:'The beast',           f:'terra'},
- {id:'gemellarivale',      name:'Gemella Rivale',          role:'The rival twin',      f:'arcano'},
- {id:'rivale',             name:'Rivale',                  role:'The rival',           f:'arcano'},
- {id:'spalla',             name:'Spalla',                  role:'The sidekick',        f:'terra'},
- {id:'nemicoumano',        name:'Nemico Umano',            role:'The human threat',    f:'arcano'},
- {id:'padreprotagonista',  name:'Padre del Protagonista',  role:'The father — arcana', f:'arcano'},
- {id:'padrecoprotagonista',name:'Padre del Coprotagonista',role:'The father — earth',  f:'terra'},
+ {id:'kael', name:'Kael', role:'The unwilling mage', f:'arcano',
+  desc:'Twenty, slight, and quietly exhausted — Kael carries a twisted bone-twig talisman he never asked for, and a power just beginning to surface in his own two hands. Light bone-plate over worn linen, a short bone sword he\'d rather not draw. <em>The Ossuary</em> raised him to survive, not to matter.'},
+ {id:'saar', name:'Saar', role:'The raptor-kin warrior', f:'terra',
+  desc:'A feathered raptor-kin standing a head and a half above a man — sand-red scales, a crest of red and cream feathers running brow to neck, golden slit-pupil eyes. Rough stone pauldrons studded with raw crystal, powerful digitigrade legs built for the arena floor. Three claw-scars on the left cheek, earned, not decorative.'},
+ {id:'soran', name:'Soran', role:"Kael's father", f:'arcano',
+  desc:'Heavy-set, grey-bearded, built like a man who used to be a warrior and now carries something heavier. A bone-jaw belt at the waist, faint black tar-like residue on his hands that he never explains. Whatever Kael is becoming, Soran already knows — and isn\'t saying.'},
+ {id:'rograk', name:'Rograk', role:'The Elder', f:'terra',
+  desc:'A crocodilian elder standing as tall as two men stacked — near-black armored scales under full stone-grey plate studded with rubies, a ragged crest of dark red feathers at the skull. Pale gold eyes sunk in permanent shadow. He does not raise his voice in the arena. He has never needed to.'},
 ];
 const PLACEHOLDER='Chi è, cosa vuole, cosa rischia. La sua scheda arriva con i prossimi testi — per ora, guarda gli sheet e le scene.';
 
