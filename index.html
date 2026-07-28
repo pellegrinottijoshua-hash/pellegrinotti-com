@@ -206,7 +206,7 @@
   @media(min-width:820px){.vgroup-row{grid-template-columns:1.4fr 1fr;align-items:start}}
   @media(max-width:640px){
     .vgroup-media.multi{grid-template-columns:1fr}
-    .vmedia-fit{aspect-ratio:1470/630}
+    .vmedia-fit video{object-fit:contain}
   }
 </style>
 </head>
@@ -255,7 +255,7 @@
 <!-- WORK TOGETHER (last section) -->
 <section class="wt" id="wt">
   <div class="kick">Contact</div>
-  <div class="big"><span class="ava"><img src="https://media.pellegrinotti.com/hero/01.jpg" alt="" /></span>Let's work<br>together</div>
+  <div class="big"><span class="ava"><img src="assets/avatar.jpg" alt="" /></span>Let's work<br>together</div>
   <div class="wt-row">
     <div style="flex:1"></div>
     <a class="wt-circle" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=Project%20—%20pellegrinotti.com">Get in touch ↗</a>
@@ -308,13 +308,20 @@
     document.addEventListener('pointerover',function(e){cur.classList.toggle('hot',!!e.target.closest('[data-cursor],.vmedia'));});
   })();
 
-  /* ---------- mark → JAYL logo reveal (hover desktop / tap mobile) ---------- */
+  /* ---------- mark → JAYL logo reveal (hover desktop / tap mobile) ----------
+     Don't gate this on matchMedia('(hover:none)') — it's unreliable on some
+     Android browsers, which left the logo permanently hidden there (mouseenter
+     never fires, so 'on' never gets added). Instead: first interaction always
+     reveals; a second click/tap (already revealed) navigates home. */
   (function(){
-    var mark=document.getElementById('mark'),touch=matchMedia('(hover:none)').matches;
-    if(touch){mark.addEventListener('click',function(e){e.preventDefault();mark.classList.toggle('on');});}
-    else{mark.addEventListener('mouseenter',function(){mark.classList.add('on');});
-      mark.addEventListener('mouseleave',function(){mark.classList.remove('on');});
-      mark.addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});}
+    var mark=document.getElementById('mark');
+    mark.addEventListener('mouseenter',function(){mark.classList.add('on');});
+    mark.addEventListener('mouseleave',function(){mark.classList.remove('on');});
+    mark.addEventListener('click',function(e){
+      e.preventDefault();
+      if(!mark.classList.contains('on')){mark.classList.add('on');return;}
+      scrollToEl('#home');
+    });
   })();
 
   /* ---------- HERO: video-only on every viewport ---------- */
