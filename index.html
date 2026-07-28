@@ -51,21 +51,17 @@
   .hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,6,6,.55) 0%,transparent 22%,transparent 55%,rgba(6,6,6,.6) 100%)}
 
-  .mark{position:absolute;z-index:6;top:28px;left:clamp(20px,5vw,54px);display:inline-flex;align-items:center;height:34px}
-  .mark .real{font-weight:900;font-size:19px;letter-spacing:-.02em;color:var(--gold);white-space:nowrap;transition:opacity .18s}
-  .mark .logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.92);height:44px;width:auto;opacity:0;
-    filter:invert(1) brightness(1.2);transition:opacity .4s var(--ease),transform .5s var(--ease)}
+  .mark{position:absolute;z-index:6;top:28px;left:clamp(20px,5vw,54px);display:inline-flex;align-items:center;height:34px;
+    transition:transform .4s var(--ease),opacity .4s var(--ease)}
+  .mark:hover{transform:scale(1.06)}
+  .mark .logo{height:34px;width:auto}
   @media(max-width:640px){
-    .mark .logo{height:34px;left:0;transform:translate(0,-50%) scale(.92)}
-    .mark.on .logo{transform:translate(0,-50%) scale(1)}
     .mtrack span{font-size:clamp(40px,12.5vw,96px)}
     .marquee{bottom:12vh}
     .row .cat{display:none}
     .cur{display:none}
     .jbadge{display:none!important}
   }
-  .mark.on .real{opacity:0}
-  .mark.on .logo{opacity:1;transform:translate(-50%,-50%) scale(1)}
 
   .roles{position:absolute;z-index:6;left:clamp(20px,5vw,54px);top:46%;transform:translateY(-50%);
     font-family:var(--serif);font-weight:500;line-height:1.14;font-size:clamp(20px,3vw,34px);color:var(--fg);
@@ -111,17 +107,10 @@
     color:var(--muted);text-align:right;transition:color .4s}
   .row:hover .cat{color:var(--gold)}
   .row .idx{display:none}
+  .storelogo{display:inline-block;height:.72em;width:auto;margin-right:.18em;vertical-align:middle;filter:invert(1) brightness(1.1)}
 
-  /* ---------- Jayl Code → Brand dropdown ---------- */
+  /* ---------- Jayl IPs (static label + always-open list) ---------- */
   .brandwrap{position:relative}
-  .base.swap{position:relative;display:inline-block;overflow:hidden;vertical-align:bottom}
-  .base.swap .w{display:block;transition:transform .55s var(--ease)}
-  .base.swap .wc::after{content:"Brand";display:block;height:0;visibility:hidden}
-  .base.swap .wb{position:absolute;left:0;top:0;transform:translateY(115%);color:var(--gold)}
-  .brandwrap:hover .wc,.brandwrap.open .wc{transform:translateY(-115%)}
-  .brandwrap:hover .wb,.brandwrap.open .wb{transform:translateY(0)}
-  .branddrop{max-height:0;overflow:hidden;transition:max-height .65s var(--ease)}
-  .brandwrap:hover .branddrop,.brandwrap.open .branddrop{max-height:400px}
   .ip{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
     padding:clamp(14px,2vw,22px) clamp(20px,5vw,54px) clamp(14px,2vw,22px) clamp(44px,9vw,120px);
     border-top:1px dashed var(--line-2);transition:background .4s,transform .4s var(--ease)}
@@ -223,7 +212,7 @@
   <video id="heroVideo" class="hero-photo" muted playsinline preload="auto" style="display:none"></video>
   <button class="hero-sound" id="heroSound" data-cursor aria-label="Attiva/disattiva audio">Sound off</button>
   <div class="hero-shade"></div>
-  <a href="#" class="mark" id="mark" data-cursor><span class="real">Joshua Pellegrinotti</span><img class="logo" src="assets/logo-light.svg" alt="JAYL" /></a>
+  <a href="#" class="mark" id="mark" data-cursor><img class="logo" src="assets/j-mark-gold.png" alt="Joshua Pellegrinotti — JAYL" /></a>
   <div class="roles"><span>AI Director</span><span>Developer</span><span>Brand Designer</span></div>
   <div class="marquee"><div class="mtrack">
     <span>Joshua Pellegrinotti&nbsp;<span class="g">— JAYL —</span>&nbsp;</span>
@@ -238,9 +227,9 @@
     <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Video</span></span>
     <span class="cat">AI films · music videos</span><span class="idx">01</span></a>
   <div class="brandwrap" id="brandwrap">
-    <a class="row" data-cursor data-target="brand">
-      <span class="rowtext"><span class="jayl">Jayl</span><span class="base swap"><span class="w wc">Code</span><span class="w wb">Brand</span></span></span>
-      <span class="cat">Sites · worlds · original IPs</span><span class="idx">02</span></a>
+    <div class="row">
+      <span class="rowtext"><span class="jayl">Jayl</span><span class="base">IPs</span></span>
+      <span class="cat">Sites · worlds · original IPs</span><span class="idx">02</span></div>
     <div class="branddrop">
       <a class="ip iprug" data-cursor href="/therug/">
         <span class="ipname"><i>THE</i>&nbsp;Rug</span><span class="ipcat">A lazy superhero saga</span></a>
@@ -251,7 +240,7 @@
     </div>
   </div>
   <a class="row" data-cursor data-target="store">
-    <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Store</span></span>
+    <span class="rowtext"><span class="base"><img class="storelogo" src="assets/logo-light.svg" alt="JAYL" />Store</span></span>
     <span class="cat">Wearable-art brand</span><span class="idx">03</span></a>
 </section>
 
@@ -311,14 +300,8 @@
     document.addEventListener('pointerover',function(e){cur.classList.toggle('hot',!!e.target.closest('[data-cursor],.vmedia'));});
   })();
 
-  /* ---------- mark → JAYL logo glitch (hover desktop / click mobile) ---------- */
-  (function(){
-    var mark=document.getElementById('mark'),touch=matchMedia('(hover:none)').matches;
-    if(touch){mark.addEventListener('click',function(e){e.preventDefault();mark.classList.toggle('on');});}
-    else{mark.addEventListener('mouseenter',function(){mark.classList.add('on');});
-      mark.addEventListener('mouseleave',function(){mark.classList.remove('on');});
-      mark.addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});}
-  })();
+  /* ---------- mark → back to top ---------- */
+  document.getElementById('mark').addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});
 
   /* ---------- HERO: video-only on every viewport ---------- */
   (function(){
@@ -430,12 +413,10 @@
   document.head.appendChild(revStyle);
   function go(k){
     if(k==='store'){window.open('https://jayl.store','_blank','noopener');return;}
-    if(k==='brand'){document.getElementById('brandwrap').classList.toggle('open');return;}
     openDetail(k);
   }
   document.querySelectorAll('.row[data-target]').forEach(function(el){
     el.addEventListener('click',function(e){e.preventDefault();var k=el.dataset.target;
-      if(k==='brand'){el.classList.add('rev');go(k);return;}
       if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(function(){go(k);},620);return;}
       go(k);});
   });
