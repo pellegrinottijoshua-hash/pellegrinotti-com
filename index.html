@@ -51,17 +51,21 @@
   .hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,6,6,.55) 0%,transparent 22%,transparent 55%,rgba(6,6,6,.6) 100%)}
 
-  .mark{position:absolute;z-index:6;top:28px;left:clamp(20px,5vw,54px);display:inline-flex;align-items:center;height:34px;
-    transition:transform .4s var(--ease),opacity .4s var(--ease)}
-  .mark:hover{transform:scale(1.06)}
-  .mark .logo{height:34px;width:auto}
+  .mark{position:absolute;z-index:6;top:28px;left:clamp(20px,5vw,54px);display:inline-flex;align-items:center;height:34px}
+  .mark .real{font-weight:900;font-size:19px;letter-spacing:-.02em;color:var(--gold);white-space:nowrap;transition:opacity .18s}
+  .mark .logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.92);height:100px;width:auto;opacity:0;
+    transition:opacity .4s var(--ease),transform .5s var(--ease)}
   @media(max-width:640px){
+    .mark .logo{height:44px;left:0;transform:translate(0,-50%) scale(.92)}
+    .mark.on .logo{transform:translate(0,-50%) scale(1)}
     .mtrack span{font-size:clamp(40px,12.5vw,96px)}
     .marquee{bottom:12vh}
     .row .cat{display:none}
     .cur{display:none}
     .jbadge{display:none!important}
   }
+  .mark.on .real{opacity:0}
+  .mark.on .logo{opacity:1;transform:translate(-50%,-50%) scale(1)}
 
   .roles{position:absolute;z-index:6;left:clamp(20px,5vw,54px);top:46%;transform:translateY(-50%);
     font-family:var(--serif);font-weight:500;line-height:1.14;font-size:clamp(20px,3vw,34px);color:var(--fg);
@@ -107,7 +111,7 @@
     color:var(--muted);text-align:right;transition:color .4s}
   .row:hover .cat{color:var(--gold)}
   .row .idx{display:none}
-  .storelogo{display:inline-block;height:.72em;width:auto;margin-right:.18em;vertical-align:middle;filter:invert(1) brightness(1.1)}
+  .storelogo{display:inline-block;height:1.85em;width:auto;margin-right:.06em;vertical-align:middle;filter:invert(1) brightness(1.1)}
 
   /* ---------- Jayl IPs (static label + always-open list) ---------- */
   .brandwrap{position:relative}
@@ -212,7 +216,7 @@
   <video id="heroVideo" class="hero-photo" muted playsinline preload="auto" style="display:none"></video>
   <button class="hero-sound" id="heroSound" data-cursor aria-label="Attiva/disattiva audio">Sound off</button>
   <div class="hero-shade"></div>
-  <a href="#" class="mark" id="mark" data-cursor><img class="logo" src="assets/j-mark-gold.png" alt="Joshua Pellegrinotti — JAYL" /></a>
+  <a href="#" class="mark" id="mark" data-cursor><span class="real">Joshua Pellegrinotti</span><img class="logo" src="assets/j-mark-gold.png" alt="JAYL" /></a>
   <div class="roles"><span>AI Director</span><span>Developer</span><span>Brand Designer</span></div>
   <div class="marquee"><div class="mtrack">
     <span>Joshua Pellegrinotti&nbsp;<span class="g">— JAYL —</span>&nbsp;</span>
@@ -300,8 +304,14 @@
     document.addEventListener('pointerover',function(e){cur.classList.toggle('hot',!!e.target.closest('[data-cursor],.vmedia'));});
   })();
 
-  /* ---------- mark → back to top ---------- */
-  document.getElementById('mark').addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});
+  /* ---------- mark → JAYL logo reveal (hover desktop / tap mobile) ---------- */
+  (function(){
+    var mark=document.getElementById('mark'),touch=matchMedia('(hover:none)').matches;
+    if(touch){mark.addEventListener('click',function(e){e.preventDefault();mark.classList.toggle('on');});}
+    else{mark.addEventListener('mouseenter',function(){mark.classList.add('on');});
+      mark.addEventListener('mouseleave',function(){mark.classList.remove('on');});
+      mark.addEventListener('click',function(e){e.preventDefault();scrollToEl('#home');});}
+  })();
 
   /* ---------- HERO: video-only on every viewport ---------- */
   (function(){
