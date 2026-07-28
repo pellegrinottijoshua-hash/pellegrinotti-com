@@ -248,6 +248,9 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
   .clips{grid-template-columns:repeat(2,1fr)}
   .spec{grid-template-columns:1fr;gap:16px}
   .spec div{border-right:0;border-bottom:1px solid rgba(240,226,196,.09);padding-bottom:14px}
+  /* scene clips are wide cinematic (~2.33:1); cover-fit inside a full-height
+     portrait viewport crops the sides hard — show the full frame instead */
+  .scene video{object-fit:contain}
 }
 </style>
 </head>
