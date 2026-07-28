@@ -111,7 +111,8 @@
     color:var(--muted);text-align:right;transition:color .4s}
   .row:hover .cat{color:var(--gold)}
   .row .idx{display:none}
-  .storelogo{display:inline-block;height:1.85em;width:auto;margin-right:.06em;vertical-align:middle;filter:invert(1) brightness(1.1)}
+  .row[data-target="store"] .base{display:inline-flex;align-items:center}
+  .storelogo{display:block;height:1.85em;width:auto;margin-right:.06em;filter:invert(1) brightness(1.1)}
 
   /* ---------- Jayl IPs (static label + always-open list) ---------- */
   .brandwrap{position:relative}
@@ -203,7 +204,10 @@
     background:rgba(10,10,10,.4);border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(4px);display:grid;place-items:center;color:#fff;opacity:0;transition:.4s}
   .vmedia:hover .pbtn{opacity:1}.vmedia.playing .pbtn{opacity:0}.vmedia.playing video{filter:none;transform:none}
   @media(min-width:820px){.vgroup-row{grid-template-columns:1.4fr 1fr;align-items:start}}
-  @media(max-width:640px){.vgroup-media.multi{grid-template-columns:1fr}}
+  @media(max-width:640px){
+    .vgroup-media.multi{grid-template-columns:1fr}
+    .vmedia-fit{aspect-ratio:1470/630}
+  }
 </style>
 </head>
 <body>
@@ -436,7 +440,7 @@
     var groups=[
       {title:'Lei chi è',videos:[{src:MEDIA_BASE+'/video/lei-chi-e-web.mp4'}],
         d:"A reimagined cover of Renato Zero's \"Il Triangolo,\" sung by my father — I built the animated world around his voice. Three young hearts, one impossible triangle, told frame by frame."},
-      {title:'The Rug',videos:[
+      {title:'The Rug',contain:true,videos:[
           {src:MEDIA_BASE+'/video/therug1.mp4',ch:'I'},
           {src:MEDIA_BASE+'/video/therug2.mp4',ch:'II'},
           {src:MEDIA_BASE+'/video/therug3.mp4',ch:'III'}],
@@ -457,7 +461,7 @@
     groups.forEach(function(grp){
       var g=document.createElement('div');g.className='vgroup';
       var mediaHtml=grp.videos.map(function(v){
-        return '<div class="vmedia" data-cursor>'+(v.ch?'<span class="vgroup-chapter">'+v.ch+'</span>':'')+
+        return '<div class="vmedia'+(grp.contain?' vmedia-fit':'')+'" data-cursor>'+(v.ch?'<span class="vgroup-chapter">'+v.ch+'</span>':'')+
           '<video src="'+v.src+'" muted loop playsinline preload="metadata"></video><div class="pbtn">▶</div></div>';
       }).join('');
       g.innerHTML='<h3 class="vgroup-title">'+grp.title+'</h3>'+
