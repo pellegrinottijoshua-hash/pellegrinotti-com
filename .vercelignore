@@ -1,4 +1,12 @@
-assets/lei-chi-e.mp4
+# Video masters and web encodes staged in assets/ before upload to Cloudflare R2.
+# Every video on the site is served from https://media.pellegrinotti.com (see
+# MEDIA_BASE in index.html and scripts/upload-to-r2.sh), so nothing here is ever
+# requested from Vercel — it was 78 MB of dead weight in each deployment.
+# Keep the sub-site folders (therug/, zack/, dinos/) out of this: those DO ship
+# their own local clips.
+assets/*.mp4
+assets/*.mov
+
 README.md
 .DS_Store
 assets/.DS_Store

@@ -15,13 +15,14 @@ Portfolio of Joshua Pellegrinotti (pellegrinotti.com). Static site, **no build s
 
 ## Hero image system
 - Desktop pool: `assets/hero/01.jpg … 25.jpg`; mobile pool: `assets/hero/mobile/01.jpg …`.
-- The flip logic caps at `var N=25` (in index.html). **Adding hero images requires bumping N**; images beyond N are dead weight.
+- The flip logic caps at `var N=11` (index.html:339). **Adding hero images requires bumping N**; images beyond N are dead weight.
+- ⚠️ 25 images per pool are on disk but N is still 11, so `12.jpg … 25.jpg` (6.5 MB across both pools) never display. Bump N to 25 if they were meant to be in rotation.
 - Images are referenced dynamically (`'assets/hero/'+pad(n)+'.jpg'`) — a grep for filenames will falsely mark them unused.
 
-## Pending content (placeholders live in production)
-- `storeBody()` and `whoBody()` render Italian scaffolding text — real content (Store from jayl.store, Who am I) still to be written.
-- Social links (Instagram/LinkedIn) are `href="#"`.
+## Media
+- **Every video is served from Cloudflare R2**, not from this repo: `MEDIA_BASE = https://media.pellegrinotti.com` (index.html). Upload with `scripts/upload-to-r2.sh`.
+- `assets/*.mp4` are local staging copies before upload — `.vercelignore`d, so they never ship. Don't reference them from HTML; point at `MEDIA_BASE` instead.
+- The sub-sites (`therug/`, `zack/`, `dinos/`) DO ship their own local clips under their own `assets/` — those are not ignored.
 
-## Known follow-ups
-- `assets/iconaj2.svg` (contact badge) is ~3.8MB — needs SVGO/rasterization.
-- `assets/work/lei-chi-e-web.mp4` is 22MB — needs re-encoding (master 52MB is `.vercelignore`d).
+## Pending content (placeholders live in production)
+- Social links (Instagram/LinkedIn) are `href="#"`.
