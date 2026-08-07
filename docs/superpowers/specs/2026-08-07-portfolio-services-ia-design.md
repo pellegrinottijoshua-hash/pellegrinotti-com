@@ -2,7 +2,22 @@
 
 **Date:** 2026-08-07
 **Repos touched:** `jayl-studio` (home + deployed sub-sites), `zack-site` (source of `/zack/`)
-**Status:** approved, ready for implementation plan
+**Status:** shipped 2026-08-07 — `jayl-studio` cccc425…3eb7f08, `zack-site` e47f494
+
+### Deltas from the design, decided during implementation
+
+- **GSAP removed.** The detail overlay was its only consumer, so deleting the overlay left a
+  ~70 kB render-blocking CDN script doing nothing on every page load. Not foreseen in the design.
+- **Zack cards became keyboard-operable** (`role="button"`, `tabindex=0`, Enter/Space, preview on
+  focus). The click is now the only route to an episode, so mouse-only would have been a regression.
+- **The rsync excludes `*.md`.** Without it the sub-site's `README.md` and `ASSET_PROMPTS.md`
+  landed in the deployed folder.
+- **Backdrop `.96` + 14 px blur** instead of `.94`: at `.94` the page text showed through the
+  letterbox bars.
+- **The play marker is a circled triangle sized off the row.** As an em of `.ipname` it computed
+  to ~8 px and read as a stray glyph.
+- A CSS comment that contained literal markup was rewritten — it made greps for the removed
+  Dinos element return false positives twice during verification.
 
 ---
 
