@@ -16,8 +16,10 @@
   'use strict';
 
   var CSS =
+    /* .94 alone let the page text bleed through behind the letterbox bars */
     '.lb{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;' +
-      'background:rgba(0,0,0,.94);padding:max(16px,3vmin);opacity:0;transition:opacity .25s ease}' +
+      'background:rgba(0,0,0,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);' +
+      'padding:max(16px,3vmin);opacity:0;transition:opacity .25s ease}' +
     '.lb.open{display:flex;opacity:1}' +
     /* contain, so 9:16 and 16:9 both letterbox cleanly without per-asset cases */
     '.lb-v{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;' +
