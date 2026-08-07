@@ -185,8 +185,13 @@
     font-size:clamp(19px,3.2vw,34px);transition:color .3s}
   .svc-open .ipname i{font-style:italic;color:var(--gold)}
   .svc:hover .ipname{color:var(--gold)}
-  .svc-play{font-size:.5em;color:var(--gold);transform:translateY(-.2em);opacity:.75;transition:opacity .3s}
-  .svc:hover .svc-play{opacity:1}
+  /* Sized off the row, not the name: as an em of the huge .ipname it rendered ~8px
+     and read as a stray glyph rather than a play affordance. */
+  .svc-play{display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;
+    border:1px solid var(--line);font-size:clamp(11px,1.3vw,15px);line-height:1;color:var(--gold);
+    padding-left:.14em;transform:translateY(-.15em);opacity:.7;
+    transition:opacity .3s,border-color .3s,background .3s}
+  .svc:hover .svc-play{opacity:1;border-color:var(--gold);background:rgba(196,163,90,.14)}
   .svc-open:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
   .svc-side{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
   .svc-desc{font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);letter-spacing:.05em;line-height:1.6;
