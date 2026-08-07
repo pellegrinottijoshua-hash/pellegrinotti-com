@@ -128,6 +128,9 @@
   .ipzack .ipname{color:#F5F0E8}.ipzack .ipname i{font-style:italic;color:#C4A35A;font-size:.6em}
   .ipzack:hover{background:linear-gradient(90deg,rgba(196,163,90,.12),transparent)}
   .ipzack:hover .ipcat{color:#C4A35A}
+  /* Dinos & Mages is paused, not deleted: the <a class="ip ipdinos" href="/dinos/">
+     row is removed from .branddrop but /dinos/ still serves, so restoring it is one
+     line of markup. Keep these rules. */
   .ipdinos .ipname b{color:#7A8C5A;font-weight:900}.ipdinos .ipname i{font-style:normal;color:#E5DAC0;font-size:.8em}
   .ipdinos .ipname u{text-decoration:none;color:#8B5FD0}
   .ipdinos:hover{background:linear-gradient(90deg,rgba(36,28,51,.6),transparent)}
@@ -167,46 +170,39 @@
   @keyframes rot{to{transform:rotate(360deg)}}
   @media(max-width:640px){.jbadge{width:78px;height:78px}.jbadge .face{width:48px;height:48px}}
 
-  /* ---------- detail overlay + curtain ---------- */
-  .curtain{position:fixed;inset:0;z-index:150;background:#0a0a0a;transform:translateY(100%);pointer-events:none}
-  .curtain .flash{position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-  .detail{position:fixed;inset:0;z-index:140;background:var(--bg);overflow-y:auto;opacity:0;visibility:hidden;
-    padding:clamp(70px,10vh,120px) clamp(20px,5vw,70px) 90px}
-  .detail.open{opacity:1;visibility:visible}
-  .detail .back{position:fixed;top:24px;left:clamp(20px,5vw,54px);z-index:5;font-family:var(--mono);font-size:11px;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
-  .detail .back:hover{color:var(--gold)}
-  .detail .dwrap{max-width:1100px;margin:0 auto}
-  .detail .dkick{display:none}
-  .detail .dtitle{font-weight:900;letter-spacing:-.03em;line-height:.9;font-size:clamp(44px,10vw,120px);margin-top:0;color:var(--gold)}
-  .detail .dlead{max-width:56ch;margin:20px 0 40px;color:var(--muted);font-size:clamp(15px,1.6vw,19px);line-height:1.5}
-  .stub{margin-top:20px;padding:40px;border:1px dashed var(--line);border-radius:10px;color:var(--faint);
-    font-family:var(--mono);font-size:12px;line-height:1.8}
-  .stub b{color:var(--muted)}
-  .dcta{display:inline-flex;align-items:center;gap:10px;margin-top:30px;font-family:var(--mono);font-size:12px;
-    letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:40px;padding:15px 26px;transition:.4s}
-  .dcta:hover{border-color:var(--gold);color:var(--gold)}
-  .vlist{display:flex;flex-direction:column;gap:clamp(56px,8vw,110px)}
-  .vgroup-title{font-weight:900;letter-spacing:-.03em;line-height:.9;font-size:clamp(32px,6vw,64px);color:var(--gold);margin-bottom:20px}
-  .vgroup-row{display:grid;grid-template-columns:1fr;gap:24px}
-  .vgroup-media{display:grid;grid-template-columns:1fr;gap:14px}
-  .vgroup-media.multi{grid-template-columns:repeat(3,1fr)}
-  .vgroup-chapter{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
-  .vgroup-desc{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:60ch;line-height:1.6}
-  .vgroup-socials{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .vgroup-socials a{color:var(--fg);margin-right:18px;transition:color .3s}
-  .vgroup-socials a:hover{color:var(--gold)}
-  .vmedia{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#0a0a0a;border:1px solid var(--line)}
-  .vmedia video{width:100%;height:100%;object-fit:cover;filter:grayscale(1) blur(3px) brightness(.8);
-    transition:filter .6s var(--ease),transform 1.2s var(--ease);transform:scale(1.05)}
-  .vmedia:hover video{filter:none;transform:scale(1)}
-  .vmedia .pbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;
-    background:rgba(10,10,10,.4);border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(4px);display:grid;place-items:center;color:#fff;opacity:0;transition:.4s}
-  .vmedia:hover .pbtn{opacity:1}.vmedia.playing .pbtn{opacity:0}.vmedia.playing video{filter:none;transform:none}
-  @media(min-width:820px){.vgroup-row{grid-template-columns:1.4fr 1fr;align-items:start}}
+  /* ---------- Jayl Services (static label + always-open list) ----------
+     Shares .brandwrap/.branddrop with Jayl Original IPs so the page has one
+     dropdown pattern, not two. */
+  .svc-kick{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+    padding:clamp(12px,1.6vw,18px) clamp(20px,5vw,54px) 2px clamp(44px,9vw,120px);border-top:1px dashed var(--line-2)}
+  .svc{display:flex;align-items:baseline;justify-content:space-between;gap:clamp(18px,3vw,40px);
+    padding:clamp(12px,1.8vw,20px) clamp(20px,5vw,54px) clamp(12px,1.8vw,20px) clamp(44px,9vw,120px);
+    transition:background .4s,transform .4s var(--ease)}
+  .svc:hover{transform:translateX(10px);background:linear-gradient(90deg,rgba(196,163,90,.10),transparent)}
+  .svc-open{flex:0 0 auto;display:inline-flex;align-items:baseline;gap:.5em;background:none;border:0;padding:0;
+    cursor:pointer;color:inherit;font:inherit;text-align:left}
+  .svc-open .ipname{font-weight:900;letter-spacing:-.02em;line-height:1;color:#F5F0E8;
+    font-size:clamp(19px,3.2vw,34px);transition:color .3s}
+  .svc-open .ipname i{font-style:italic;color:var(--gold)}
+  .svc:hover .ipname{color:var(--gold)}
+  .svc-play{font-size:.5em;color:var(--gold);transform:translateY(-.2em);opacity:.75;transition:opacity .3s}
+  .svc:hover .svc-play{opacity:1}
+  .svc-open:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
+  .svc-side{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
+  .svc-desc{font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);letter-spacing:.05em;line-height:1.6;
+    color:var(--muted);max-width:44ch;margin:0}
+  .svc-cta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+    border-bottom:1px solid var(--line);padding-bottom:2px;white-space:nowrap;transition:color .3s,border-color .3s}
+  .svc-cta:hover{color:var(--gold);border-color:var(--gold)}
+  /* "your brand" is the offer that pays — it leads and carries more weight than "your song". */
+  .svc-primary .ipname{font-size:clamp(23px,4.2vw,44px)}
+  .svc-primary{border-top:0}
+  .svc-secondary{border-top:1px dashed var(--line-2)}
+  .svc-secondary .ipname{color:#cfc7ba}
   @media(max-width:640px){
-    .vgroup-media.multi{grid-template-columns:1fr}
-    .vmedia-fit video{object-fit:contain}
+    .svc{flex-direction:column;align-items:flex-start;gap:10px}
+    .svc-side{align-items:flex-start;text-align:left}
+    .svc-desc{max-width:none}
   }
 </style>
 </head>
@@ -231,20 +227,40 @@
 
 <!-- WORK LIST -->
 <section class="list" id="work">
-  <a class="row" data-cursor data-target="video">
-    <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Video</span></span>
-    <span class="cat">AI films · music videos</span><span class="idx">01</span></a>
+  <div class="brandwrap">
+    <div class="row">
+      <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Services</span></span>
+      <span class="cat">Product films · social ads · music videos</span></div>
+    <div class="branddrop">
+      <div class="svc-kick">AI videos for:</div>
+      <div class="svc svc-primary">
+        <button class="svc-open" type="button" data-cursor
+                data-video="/video/fermentati-ad.mp4" data-title="AI ad for fermentati.com">
+          <span class="ipname">your <i>brand</i></span><span class="svc-play" aria-hidden="true">▶</span></button>
+        <span class="svc-side">
+          <p class="svc-desc">Product films and social ads that look like cinema, not catalogue.</p>
+          <a class="svc-cta" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=AI%20video%20for%20my%20brand">Get a video for your brand ↗</a>
+        </span>
+      </div>
+      <div class="svc svc-secondary">
+        <button class="svc-open" type="button" data-cursor
+                data-video="/video/lei-chi-e-web.mp4" data-title="Lei chi è — music video">
+          <span class="ipname">your <i>song</i></span><span class="svc-play" aria-hidden="true">▶</span></button>
+        <span class="svc-side">
+          <p class="svc-desc">Music videos built frame by frame around your track.</p>
+          <a class="svc-cta" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=AI%20video%20for%20my%20song">Get a video for your song ↗</a>
+        </span>
+      </div>
+    </div>
+  </div>
   <div class="brandwrap" id="brandwrap">
     <div class="row">
-      <span class="rowtext"><span class="jayl">Jayl</span><span class="base">IPs</span></span>
-      <span class="cat">Sites · worlds · original IPs</span><span class="idx">02</span></div>
+      <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Original IPs</span></span></div>
     <div class="branddrop">
       <a class="ip iprug" data-cursor href="/therug/">
         <span class="ipname"><i>THE</i>&nbsp;Rug</span><span class="ipcat">A lazy superhero saga</span></a>
       <a class="ip ipzack" data-cursor href="/zack/">
         <span class="ipname">Zack <i>the</i> Duck</span><span class="ipcat">Art finds a way</span></a>
-      <a class="ip ipdinos" data-cursor href="/dinos/">
-        <span class="ipname"><b>Dinos</b> <i>&amp;</i> <u>Mages</u></span><span class="ipcat">Earth below, arcana above</span></a>
     </div>
   </div>
   <a class="row" data-cursor data-target="store">
@@ -274,19 +290,10 @@
   <span class="face"><img id="badgeFace" src="assets/iconaj2.svg" alt="" /><b id="badgeJ" style="display:none">J</b></span>
 </button>
 
-<!-- curtain + detail -->
-<div class="curtain" id="curtain"><div class="flash"></div></div>
-<div class="detail" id="detail">
-  <button class="back" id="back" data-cursor>← Back</button>
-  <div class="dwrap"><div class="dkick" id="dKick"></div><h2 class="dtitle" id="dTitle"></h2><p class="dlead" id="dLead"></p></div>
-  <div class="dwrap" id="dBody"></div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="assets/js/lightbox.js"></script>
 <script>
 (function(){
   "use strict";
-  var G=window.gsap;
   var MEDIA_BASE='https://media.pellegrinotti.com';
 
   /* ---------- badge face fallback ---------- */
@@ -305,7 +312,7 @@
     addEventListener('pointermove',function(e){x=e.clientX;y=e.clientY;
       cur.querySelector('.dot').style.transform='translate('+x+'px,'+y+'px) translate(-50%,-50%)';});
     (function r(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(r);})();
-    document.addEventListener('pointerover',function(e){cur.classList.toggle('hot',!!e.target.closest('[data-cursor],.vmedia'));});
+    document.addEventListener('pointerover',function(e){cur.classList.toggle('hot',!!e.target.closest('[data-cursor]'));});
   })();
 
   /* ---------- mark → JAYL logo reveal (hover desktop / tap mobile) ----------
@@ -410,83 +417,31 @@
     }
   })();
 
-  /* ---------- detail router ---------- */
-  var DATA={
-    video:{title:"Jayl Video",lead:"AI films, original music videos, \"the rug\" — a comic AI series in progress. Hover a video to bring it to life, click to play.",build:videoBody}
-  };
-  var detail=document.getElementById('detail'),curtain=document.getElementById('curtain'),
-      dTitle=document.getElementById('dTitle'),dLead=document.getElementById('dLead'),dBody=document.getElementById('dBody');
-  function fill(k){var d=DATA[k];dTitle.textContent=d.title;dLead.textContent=d.lead;dBody.innerHTML='';d.build(dBody);}
-  function openDetail(k){document.body.style.overflow='hidden';
-    if(G){G.timeline().set(curtain,{y:'100%'}).to(curtain,{y:'0%',duration:.55,ease:'power4.inOut'})
-      .add(function(){fill(k);detail.classList.add('open');detail.scrollTop=0;})
-      .to(curtain,{y:'-100%',duration:.6,ease:'power4.inOut'},'+=.05').set(curtain,{y:'100%'});}
-    else{fill(k);detail.classList.add('open');}}
-  function closeDetail(){if(G){G.timeline().to(curtain,{y:'0%',duration:.5,ease:'power4.inOut'})
-      .add(function(){detail.classList.remove('open');}).to(curtain,{y:'-100%',duration:.55,ease:'power4.inOut'},'+=.05')
-      .set(curtain,{y:'100%'}).add(function(){document.body.style.overflow='';});}
-    else{detail.classList.remove('open');document.body.style.overflow='';}}
-  document.getElementById('back').addEventListener('click',closeDetail);
-
+  /* ---------- row interactions ---------- */
   var touch=matchMedia('(hover:none)').matches;
   var revStyle=document.createElement('style');
   revStyle.textContent='.row.rev .rowtext{transform:translateX(24px)}.row.rev .rowtext .jayl{max-width:5ch;opacity:1;margin-right:.22em}';
   document.head.appendChild(revStyle);
-  function go(k){
-    if(k==='store'){window.open('https://jayl.store','_blank','noopener');return;}
-    openDetail(k);
-  }
-  document.querySelectorAll('.row[data-target]').forEach(function(el){
-    el.addEventListener('click',function(e){e.preventDefault();var k=el.dataset.target;
-      if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(function(){go(k);},620);return;}
-      go(k);});
+
+  /* Store is the only clickable row left: Services and Original IPs are static
+     labels whose dropdown children are the targets. On touch the first tap still
+     reveals the "Jayl" prefix, the second one navigates. */
+  document.querySelectorAll('.row[data-target="store"]').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      function go(){window.open('https://jayl.store','_blank','noopener');}
+      if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(go,620);return;}
+      go();
+    });
   });
 
-  /* ---------- detail bodies ---------- */
-  function videoBody(root){
-    var groups=[
-      {title:'Lei chi è',videos:[{src:MEDIA_BASE+'/video/lei-chi-e-web.mp4'}],
-        d:"A reimagined cover of Renato Zero's \"Il Triangolo,\" sung by my father — I built the animated world around his voice. Three young hearts, one impossible triangle, told frame by frame."},
-      {title:'The Rug',contain:true,videos:[
-          {src:MEDIA_BASE+'/video/therug1.mp4',ch:'I'},
-          {src:MEDIA_BASE+'/video/therug2.mp4',ch:'II'},
-          {src:MEDIA_BASE+'/video/therug3.mp4',ch:'III'}],
-        d:"An original series in the making: an unlikely hero — nothing about him screams \"chosen one\" — squares off against alien threats unlike anything you've seen. Equal parts absurd and sincere."},
-      {title:'One Shots',videos:[{src:MEDIA_BASE+'/video/duel.mp4'}],
-        d:"Follow the JAYL cast through standalone mini-adventures — one-shots born from a single idea, played out to the end, then left behind for the next one.",
-        socials:true},
-      {title:'Zack the Duck',videos:[
-          {src:MEDIA_BASE+'/video/zack1.mp4',ch:'1'},
-          {src:MEDIA_BASE+'/video/zack2.mp4',ch:'2'},
-          {src:MEDIA_BASE+'/video/zack3.mp4',ch:'3'}],
-        d:"JAYL's official mascot — an original character of mine, built to grow into something much bigger. Zack is a scruffy, restless little duck: too moody to fit in, too creative to sit still. Follow the misadventures of a bored, black-feathered artist stumbling through a world that doesn't quite know what to do with him."},
-      {title:'AI Ads',videos:[{src:MEDIA_BASE+'/video/fermentati-ad.mp4'}],
-        d:"A spot I wrote, directed and produced end-to-end with AI for fermentati.com — concept to final cut. This is the kind of result I can build for your brand too: fast, on-brief, made to convert.",
-        cta:{href:'mailto:pellegrinottijoshua@gmail.com?subject=AI%20Ad%20for%20my%20brand',label:'Get an ad like this ↗'}}
-    ];
-    var w=document.createElement('div');w.className='vlist';
-    groups.forEach(function(grp){
-      var g=document.createElement('div');g.className='vgroup';
-      var mediaHtml=grp.videos.map(function(v){
-        return '<div class="vmedia'+(grp.contain?' vmedia-fit':'')+'" data-cursor>'+(v.ch?'<span class="vgroup-chapter">'+v.ch+'</span>':'')+
-          '<video src="'+v.src+'" muted loop playsinline preload="metadata"></video><div class="pbtn">▶</div></div>';
-      }).join('');
-      g.innerHTML='<h3 class="vgroup-title">'+grp.title+'</h3>'+
-        '<div class="vgroup-row"><div class="vgroup-media'+(grp.videos.length>1?' multi':'')+'">'+mediaHtml+'</div>'+
-        '<div><p class="vgroup-desc">'+grp.d+'</p>'+
-        (grp.socials?'<div class="vgroup-socials">Follow my socials for more content — <a href="#" data-cursor>Instagram</a><a href="#" data-cursor>TikTok</a></div>':'')+
-        (grp.cta?'<a class="dcta" data-cursor href="'+grp.cta.href+'" style="margin-top:18px">'+grp.cta.label+'</a>':'')+
-        '</div></div>';
-      g.querySelectorAll('.vmedia').forEach(function(m){
-        var vid=m.querySelector('video');
-        m.addEventListener('mouseenter',function(){vid.play().catch(function(){});});
-        m.addEventListener('mouseleave',function(){if(!m.classList.contains('playing'))vid.pause();});
-        m.addEventListener('click',function(){var on=m.classList.toggle('playing');if(on){vid.muted=false;vid.play().catch(function(){});}else vid.muted=true;});
-      });
-      w.appendChild(g);
+  /* ---------- Services → shared fullscreen player ---------- */
+  document.querySelectorAll('.svc-open').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      openPlayer({src:MEDIA_BASE+btn.dataset.video,title:btn.dataset.title});
     });
-    root.appendChild(w);
-  }
+  });
+
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>

@@ -8,8 +8,16 @@ Portfolio of Joshua Pellegrinotti (pellegrinotti.com). Static site, **no build s
 
 ## Files
 - **`index.html` è la home** (inline CSS + JS, ~500 lines).
-- **Sottositi IP** (statici, un index.html + assets ciascuno): `/therug/`, `/zack/`, `/dinos/` → live su pellegrinotti.com/therug ecc. I laboratori sorgente sono `~/therug-site`, `~/zack-site`, `~/dinos-site` (repo git separati): si lavora lì, poi si rsync-a qui per il deploy.
-- La nav home: la voce "Code" all'hover/tap diventa "Jayl Brand" e apre la tendina coi 3 IP (la vecchia pagina Jayl Code non esiste più).
+- **Sottositi IP** (statici, un index.html + assets ciascuno): `/therug/`, `/zack/`, `/dinos/` → live su pellegrinotti.com/therug ecc. I laboratori sorgente sono `~/therug-site`, `~/zack-site`, `~/dinos-site` (repo git separati): si lavora lì, poi si rsync-a qui per il deploy. **Escludere i `.md`** dal rsync: sono doc del repo sorgente, non file del sito.
+  ```
+  rsync -a --delete --exclude '.git' --exclude '.DS_Store' --exclude '*.md' ~/zack-site/ zack/
+  ```
+- **Nav home** — tre righe in `<section class="list">`, tutte con il reveal di `Jayl` in hover (la regola CSS è su `.row`, non su `a.row`, quindi vale anche per le righe statiche):
+  1. `Jayl Services` — etichetta statica + `.branddrop` sempre aperta con "your brand" (spot fermentati) e "your song" (Lei chi è). I due `<button class="svc-open">` chiamano `openPlayer()`. **`your brand` viene prima ed è più grande**: i video musicali sono portfolio, non reddito (vedi `pellegrinotti-services.md`). Aggiungere un terzo servizio = un altro blocco `.svc`.
+  2. `Jayl Original IPs` — etichetta statica senza sottotitolo + tendina con The Rug e Zack. **Dinos & Mages è in pausa**: la riga `<a class="ip ipdinos">` è tolta ma il CSS e `/dinos/` restano, quindi si ripristina con una riga di markup.
+  3. `Jayl Store` — unica riga cliccabile (`data-target="store"`), apre jayl.store.
+- **Player video condiviso** — `assets/js/lightbox.js`, API `openPlayer({src,title})`: overlay a tutto schermo, audio ON, `preload="none"`, chiusura con ESC/backdrop/×, `src` svuotato alla chiusura (Lei chi è pesa 22 MB). Markup e CSS sono dentro il JS. ⚠️ **Ne esistono due copie identiche**, una per repo (`jayl-studio/assets/js/` e `zack-site/assets/js/`), perché i due siti si sviluppano separati e non c'è build step: se ne modifichi una, allinea l'altra.
+- **Niente GSAP**: rimosso quando è sparito l'overlay `detail` che era l'unico a usarlo. Non reintrodurlo senza motivo.
 - `HANDOFF-fable5.md` documents architecture, assets, gotchas, TODOs — read it before big changes.
 - `pellegrinotti-brief.md` — brand/content brief.
 
