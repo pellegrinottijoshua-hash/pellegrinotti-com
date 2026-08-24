@@ -15,13 +15,29 @@
 <meta name="theme-color" content="#050505" />
 <link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- One request per family on purpose. Fontshare's multi-family endpoint silently
+     drops the second family and substitutes another (asking for satoshi+zodiak
+     returned Satoshi + General Sans). It also does not host JetBrains Mono at all —
+     f[]=jetbrains-mono was answered with General Sans, so every mono label on this
+     site had been falling back to the system monospace. Mono now comes from Google. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,401&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root{
     --bg:#060606; --fg:#f3f1ec; --muted:#8b8880; --faint:#4c4a45;
     --gold:#c9a24b; --gold-hi:#e6c682;
     --line:rgba(243,241,236,.12); --line-2:rgba(243,241,236,.06);
+    /* Type carries the meaning here, so keep the roles strict:
+       --mono    metadata only (eyebrows, categories, CTAs, footer)
+       --sans    the offer + navigation (section labels, service names)
+       --display titles of authored works — the IPs, nothing else
+       Sans reads as business, serif reads as art. That contrast IS the
+       Services/Original-IPs distinction; don't blur it. */
     --sans:'Satoshi',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+    --display:'Zodiak',Georgia,'Times New Roman',serif;
     --ease:cubic-bezier(.19,1,.22,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -116,16 +132,39 @@
 
   /* ---------- Jayl IPs (static label + always-open list) ---------- */
   .brandwrap{position:relative}
-  .ip{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+
+  /* The two dropdowns used to be pixel-identical, so "what I sell" and "what I
+     own" read as one undifferentiated list. Services now sits on a faintly lit
+     surface under a gold rail; the IPs sit on bare black. */
+  .brandwrap--services{background:
+    linear-gradient(180deg,rgba(201,162,75,.05),rgba(243,241,236,.018) 38%,transparent);
+    box-shadow:inset 0 1px 0 rgba(201,162,75,.42)}
+  .brandwrap--ips{background:transparent}
+
+  /* Eyebrow inside each dropdown — mirrors "AI videos for:" */
+  .dropkick{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--faint);padding:clamp(12px,1.6vw,18px) clamp(20px,5vw,54px) 2px clamp(44px,9vw,120px)}
+  .brandwrap--ips .dropkick{border-top:1px dashed var(--line-2)}
+
+  .ip{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:18px;
     padding:clamp(14px,2vw,22px) clamp(20px,5vw,54px) clamp(14px,2vw,22px) clamp(44px,9vw,120px);
     border-top:1px dashed var(--line-2);transition:background .4s,transform .4s var(--ease)}
   .ip:hover{transform:translateX(10px)}
-  .ip .ipname{font-weight:900;letter-spacing:-.02em;font-size:clamp(22px,4.2vw,44px);line-height:1}
+  /* Serif, not the Satoshi 900 of the nav: these are titles of works, not menu items. */
+  .ip .ipname{font-family:var(--display);font-weight:400;letter-spacing:-.005em;
+    font-size:clamp(26px,4.6vw,50px);line-height:1}
+  /* Roman numeral plate marker — editorial cue, and it earns the left indent. */
+  .ip .ipnum{position:absolute;left:clamp(20px,5vw,54px);top:50%;transform:translateY(-50%);
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--faint);transition:color .4s}
+  .ip:hover .ipnum{color:var(--gold)}
   .ip .ipcat{font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);letter-spacing:.08em;color:var(--muted);text-align:right;white-space:nowrap}
-  .iprug .ipname{color:#f0e2c4}.iprug .ipname i{font-style:normal;color:#46d4c0;font-size:.55em;letter-spacing:.18em;vertical-align:.28em}
+  /* The small article words ("THE", "the") stay mono — metadata inside a title. */
+  .iprug .ipname{color:#f0e2c4}
+  .iprug .ipname i{font-family:var(--mono);font-style:normal;color:#46d4c0;font-size:.4em;letter-spacing:.18em;vertical-align:.34em}
   .iprug:hover{background:linear-gradient(90deg,rgba(58,36,21,.55),transparent)}
   .iprug:hover .ipcat{color:#e8973a}
-  .ipzack .ipname{color:#F5F0E8}.ipzack .ipname i{font-style:italic;color:#C4A35A;font-size:.6em}
+  .ipzack .ipname{color:#F5F0E8}
+  .ipzack .ipname i{font-style:italic;color:#C4A35A;font-size:.72em}
   .ipzack:hover{background:linear-gradient(90deg,rgba(196,163,90,.12),transparent)}
   .ipzack:hover .ipcat{color:#C4A35A}
   /* Dinos & Mages is paused, not deleted: its row was taken out of .branddrop but
@@ -140,7 +179,18 @@
   /* ---------- WORK TOGETHER (last home section, snellenberg) ---------- */
   .wt{position:relative;padding:clamp(70px,12vw,150px) clamp(20px,5vw,54px) clamp(90px,12vw,150px);border-top:1px solid var(--line)}
   .wt .kick{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
-  .wt .big{position:relative;font-weight:900;letter-spacing:-.035em;line-height:.88;font-size:clamp(52px,13vw,180px);color:var(--fg)}
+  .wt .big{position:relative;display:block;font-weight:900;letter-spacing:-.035em;line-height:.88;
+    font-size:clamp(52px,13vw,180px);color:var(--fg);transition:color .5s var(--ease)}
+  .wt .big:hover{color:var(--gold-hi)}
+  /* Arrow tracks the headline instead of sitting in a separate widget. */
+  .wt .big .big-ar{display:inline-block;font-size:.26em;font-weight:400;color:var(--gold);
+    vertical-align:.55em;margin-left:.18em;transition:transform .5s var(--ease)}
+  .wt .big:hover .big-ar{transform:translate(.18em,-.18em)}
+  .wt .big:focus-visible{outline:2px solid var(--gold);outline-offset:8px;border-radius:4px}
+  /* A hairline that sweeps out from under the headline on hover. */
+  .wt .big:after{content:"";position:absolute;left:0;bottom:-.12em;height:2px;width:0;
+    background:linear-gradient(90deg,var(--gold),transparent);transition:width .7s var(--ease)}
+  .wt .big:hover:after{width:100%}
   .wt .big .ava{display:inline-block;width:clamp(46px,7vw,96px);height:clamp(46px,7vw,96px);border-radius:50%;overflow:hidden;
     vertical-align:middle;margin-right:.18em;transform:translateY(-.08em);border:1px solid var(--line)}
   .wt .big .ava img{width:100%;height:100%;object-fit:cover}
@@ -193,9 +243,11 @@
     transition:opacity .3s,border-color .3s,background .3s}
   .svc:hover .svc-play{opacity:1;border-color:var(--gold);background:rgba(196,163,90,.14)}
   .svc-open:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
-  .svc-side{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
-  .svc-desc{font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);letter-spacing:.05em;line-height:1.6;
-    color:var(--muted);max-width:44ch;margin:0}
+  .svc-side{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-end;gap:10px;text-align:right}
+  /* Sans, not mono: this is a sales sentence, not a label. 11px mono made the one
+     piece of persuasive copy on the page the hardest thing to read. */
+  .svc-desc{font-family:var(--sans);font-weight:400;font-size:clamp(13px,1.35vw,16px);
+    letter-spacing:0;line-height:1.5;color:var(--muted);max-width:38ch;margin:0}
   .svc-cta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
     border-bottom:1px solid var(--line);padding-bottom:2px;white-space:nowrap;transition:color .3s,border-color .3s}
   .svc-cta:hover{color:var(--gold);border-color:var(--gold)}
@@ -232,12 +284,12 @@
 
 <!-- WORK LIST -->
 <section class="list" id="work">
-  <div class="brandwrap">
+  <div class="brandwrap brandwrap--services">
     <div class="row">
       <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Services</span></span>
       <span class="cat">Product films · social ads · music videos</span></div>
     <div class="branddrop">
-      <div class="svc-kick">AI videos for:</div>
+      <div class="svc-kick dropkick">AI videos for:</div>
       <div class="svc svc-primary">
         <button class="svc-open" type="button" data-cursor
                 data-video="/video/fermentati-ad.mp4" data-title="AI ad for fermentati.com">
@@ -258,13 +310,16 @@
       </div>
     </div>
   </div>
-  <div class="brandwrap" id="brandwrap">
+  <div class="brandwrap brandwrap--ips" id="brandwrap">
     <div class="row">
       <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Original IPs</span></span></div>
     <div class="branddrop">
+      <div class="dropkick">Worlds I own:</div>
       <a class="ip iprug" data-cursor href="/therug/">
+        <span class="ipnum">I</span>
         <span class="ipname"><i>THE</i>&nbsp;Rug</span><span class="ipcat">A lazy superhero saga</span></a>
       <a class="ip ipzack" data-cursor href="/zack/">
+        <span class="ipnum">II</span>
         <span class="ipname">Zack <i>the</i> Duck</span><span class="ipcat">Art finds a way</span></a>
     </div>
   </div>
@@ -276,7 +331,11 @@
 <!-- WORK TOGETHER (last section) -->
 <section class="wt" id="wt">
   <div class="kick">Contact</div>
-  <div class="big"><span class="ava"><img src="assets/avatar.jpg" alt="" /></span>Let's work<br>together</div>
+  <!-- The headline is the primary call to action, not decoration: it used to be
+       180px of dead text next to one small circle. Now the whole thing is the link. -->
+  <a class="big" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=Project%20—%20pellegrinotti.com">
+    <span class="ava"><img src="assets/avatar.jpg" alt="" /></span>Let's work<br>together<span class="big-ar" aria-hidden="true">↗</span>
+  </a>
   <div class="wt-row">
     <div style="flex:1"></div>
     <a class="wt-circle" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=Project%20—%20pellegrinotti.com">Get in touch ↗</a>
