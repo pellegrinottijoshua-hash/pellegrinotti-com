@@ -18,9 +18,17 @@ assets/duel.mp4
 assets/therug1.mp4
 assets/therug2.mp4
 assets/therug3.mp4
+assets/therug5.mp4
+assets/therug6.mp4
+assets/therug7.mp4
+assets/therug8.mp4
+assets/therug9.mp4
+assets/therug10.mp4
+assets/therug11.mp4
 assets/lei-chi-e-web.mp4
 assets/zack1.mp4
 assets/zack2.mp4
 assets/zack3.mp4
 assets/fermentati-ad.mp4
 .env.local
+.env*

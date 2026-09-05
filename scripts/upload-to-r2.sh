@@ -39,7 +39,7 @@ aws s3 sync assets/hero/mobile-video-src/posters s3://"$R2_BUCKET_NAME"/hero/mob
   --content-type "image/jpeg"
 
 echo "→ Jayl Video drawer clips"
-for f in duel.mp4 therug1.mp4 therug2.mp4 therug3.mp4 lei-chi-e-web.mp4; do
+for f in duel.mp4 therug1.mp4 therug2.mp4 therug3.mp4 therug5.mp4 therug6.mp4 therug7.mp4 therug8.mp4 therug9.mp4 therug10.mp4 therug11.mp4 lei-chi-e-web.mp4; do
   aws s3 cp "assets/$f" "s3://$R2_BUCKET_NAME/video/$f" \
     --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable" \
     --content-type "video/mp4"
