@@ -7,7 +7,7 @@ Portfolio of Joshua Pellegrinotti (pellegrinotti.com). Static site, **no build s
 - After any push, verify the live site before declaring done (fetch https://pellegrinotti.com and check the change).
 
 ## Files
-- **`index.html` è la home** (inline CSS + JS, ~500 lines).
+- **`index.html` è la home** (inline CSS + JS, ~830 lines).
 - **Sottositi IP** (statici, un index.html + assets ciascuno): `/therug/`, `/zack/`, `/dinos/` → live su pellegrinotti.com/therug ecc. I laboratori sorgente sono `~/therug-site`, `~/zack-site`, `~/dinos-site` (repo git separati): si lavora lì, poi si rsync-a qui per il deploy. **Escludere i `.md`** dal rsync: sono doc del repo sorgente, non file del sito.
   ```
   rsync -a --delete --exclude '.git' --exclude '.DS_Store' --exclude '*.md' ~/zack-site/ zack/
@@ -21,9 +21,20 @@ Portfolio of Joshua Pellegrinotti (pellegrinotti.com). Static site, **no build s
 - `HANDOFF-fable5.md` documents architecture, assets, gotchas, TODOs — read it before big changes.
 - `pellegrinotti-brief.md` — brand/content brief.
 
+## Type scale
+- Every size, tracking and display leading on the home page comes from tokens in `:root` (`--t-micro … --t-xl`, `--tr-caps`/`--tr-mono`, `--tr-tight`/`--tr-tighter`, `--lh-display`/`--lh-hero`). **Don't add a bare `font-size` or `letter-spacing` to the home page** — pick a step, or add one.
+- Two deliberate exceptions: the marquee (`.mtrack span`) is a motion band, not a heading, and the `.jbadge` SVG circular text. Zodiak keeps its own `-.005em` because serif tracking doesn't follow the sans steps.
+- `--muted`/`--faint` are chosen against two backgrounds: bare `--bg` **and** the worst frame the fixed reel can put behind them. Lightening the veil means re-checking them.
+
+## The stage (fixed video backdrop)
+- The hero clips live in `<div class="stage">`, the **first element in `<body>` and outside `.hero`** — as a hero child they were clipped to the first viewport and scrolled away. Everything else sits on `z-index:1`.
+- Two knobs, both on `.stage`: `--p` (0→1 over the first viewport, ramps `.stage-veil`) and the `.deep` class (blurs + dims the footage past the hero, with hysteresis). `--dim`/`--veil` are set per viewport — phones keep the footage present, desktop pulls it back.
+- The blur is a **class toggle, not a calc() off `--p`**: animating a filter value per scroll frame forces a shader recompile per frame on mobile.
+- Any scroll gesture over 80px advances to the next clip, in either direction.
+
 ## Hero image system
 - Desktop pool: `assets/hero/01.jpg … 25.jpg`; mobile pool: `assets/hero/mobile/01.jpg …`.
-- The flip logic caps at `var N=11` (index.html:339). **Adding hero images requires bumping N**; images beyond N are dead weight.
+- The flip logic caps at `var N=11` (index.html:631). **Adding hero images requires bumping N**; images beyond N are dead weight.
 - ⚠️ 25 images per pool are on disk but N is still 11, so `12.jpg … 25.jpg` (6.5 MB across both pools) never display. Bump N to 25 if they were meant to be in rotation.
 - Images are referenced dynamically (`'assets/hero/'+pad(n)+'.jpg'`) — a grep for filenames will falsely mark them unused.
 
