@@ -192,19 +192,13 @@ section{position:relative}
 .ep .lede{color:var(--cream-dim);font-size:1.06rem;line-height:1.7;max-width:42em;margin-bottom:60px}
 /* ---- scroll-driven film ---- */
 .film-reel{margin-top:clamp(40px,7vh,90px)}
-.scene{position:relative;height:100svh;min-height:540px;overflow:hidden;display:flex;align-items:flex-end;isolation:isolate}
-.scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:var(--leather-deep)}
-.scene::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+.film{position:relative;width:min(100%,1400px);margin:0 auto;aspect-ratio:1100/618;overflow:hidden;
+  background:var(--leather-deep);isolation:isolate}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--leather-deep)}
+.film::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(ellipse 120% 88% at 50% 45%, transparent 56%, rgba(23,15,9,.5) 100%)}
-.scene .beat{position:relative;z-index:2;width:100%;padding-bottom:12vh;
-  opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.2,.6,.2,1),transform .85s cubic-bezier(.2,.6,.2,1)}
-.scene.on .beat{opacity:1;transform:none}
-.beat .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim)}
-.beat .k i{font-style:normal;color:var(--gold);margin-right:.9em;letter-spacing:.12em}
-.beat .l{font-size:clamp(1.55rem,4vw,3rem);font-weight:400;font-style:italic;font-variation-settings:"SOFT" 100;
-  line-height:1.18;max-width:15em;margin-top:14px;text-shadow:0 3px 34px rgba(0,0,0,.7)}
-.beat .l b{font-style:normal;font-weight:600;color:var(--gold-hot)}
-.beat .l .neon{font-style:normal;color:var(--teal);text-shadow:0 0 14px rgba(70,212,192,.5)}
+.film-bar{position:absolute;left:0;right:0;bottom:0;height:2px;z-index:2;background:rgba(240,226,196,.14)}
+.film-bar i{display:block;height:100%;width:0;background:var(--gold)}
 .follow{
   margin-top:70px;border:1px solid rgba(240,226,196,.16);border-radius:14px;
   padding:clamp(28px,4vw,48px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;
@@ -248,9 +242,6 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
   .clips{grid-template-columns:repeat(2,1fr)}
   .spec{grid-template-columns:1fr;gap:16px}
   .spec div{border-right:0;border-bottom:1px solid rgba(240,226,196,.09);padding-bottom:14px}
-  /* scene clips are wide cinematic (~2.33:1); cover-fit inside a full-height
-     portrait viewport crops the sides hard — show the full frame instead */
-  .scene video{object-fit:contain}
 }
 </style>
 </head>
@@ -272,18 +263,15 @@ footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
 <section class="ep film">
   <div class="wrap" style="padding-top:clamp(60px,13vh,170px)">
     <p class="slate reveal">File 01 · The episode</p>
-    <h2 class="reveal">Episode one, <em>in seven shots.</em></h2>
+    <h2 class="reveal">Episode one, <em>in one take.</em></h2>
     <p class="lede reveal">Scroll to watch it unroll — a wordless film. One very tired man, a flying carpet, and a monster with excellent facial hair. Shot on AI, cut like cinema: 35&nbsp;mm grain, golden hour.</p>
   </div>
 
   <div class="film-reel">
-    <div class="scene" data-src="assets/story/s01.mp4" data-poster="assets/story/s01.jpg"><video muted loop playsinline preload="none"></video></div>
-    <div class="scene" data-src="assets/story/s02.mp4" data-poster="assets/story/s02.jpg"><video muted loop playsinline preload="none"></video></div>
-    <div class="scene" data-src="assets/story/s03.mp4" data-poster="assets/story/s03.jpg"><video muted loop playsinline preload="none"></video></div>
-    <div class="scene" data-src="assets/story/s04.mp4" data-poster="assets/story/s04.jpg"><video muted loop playsinline preload="none"></video></div>
-    <div class="scene" data-src="assets/story/s05.mp4" data-poster="assets/story/s05.jpg"><video muted loop playsinline preload="none"></video></div>
-    <div class="scene" data-src="assets/story/s06.mp4" data-poster="assets/story/s06.jpg"><video muted loop playsinline preload="none"></video></div>
-    <div class="scene" data-src="assets/story/s07.mp4" data-poster="assets/story/s07.jpg"><video muted loop playsinline preload="none"></video></div>
+    <figure class="film" id="film" data-src="assets/story/ep1-film.mp4" data-poster="assets/story/ep1-film.jpg">
+      <video muted loop playsinline preload="none"></video>
+      <div class="film-bar"><i></i></div>
+    </figure>
   </div>
 
   <div class="wrap">
@@ -359,26 +347,16 @@ document.querySelectorAll('.stache').forEach(card=>{
   probe.src=card.dataset.img;
 });
 
-// scroll-driven film: poster first, lazy-load the clip just before it enters,
-// autoplay muted+loop while in view, pause when it leaves
-const scenes=[...document.querySelectorAll('.scene')];
-scenes.forEach(s=>{s.querySelector('video').poster=s.dataset.poster;});
-const preload=new IntersectionObserver((es)=>es.forEach(e=>{
-  if(!e.isIntersecting)return;
-  const v=e.target.querySelector('video');
-  if(!v.src){v.src=e.target.dataset.src;v.load();}
-  preload.unobserve(e.target);
-}),{rootMargin:'90% 0px'});
-scenes.forEach(s=>preload.observe(s));
-const play=new IntersectionObserver((es)=>es.forEach(e=>{
-  const v=e.target.querySelector('video');
-  if(e.isIntersecting){
-    e.target.classList.add('on');
-    if(!v.src){v.src=e.target.dataset.src;}
-    v.play().catch(()=>{});
-  }else{ v.pause(); }
-}),{threshold:.55});
-scenes.forEach(s=>play.observe(s));
+// one continuous film: poster first, load the clip just before it enters,
+// play muted+loop while in view, pause when it leaves
+const film=document.getElementById('film'), fv=film.querySelector('video'), bar=film.querySelector('.film-bar i');
+fv.poster=film.dataset.poster;
+const load=()=>{if(!fv.src){fv.src=film.dataset.src;fv.load();}};
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){load();o.disconnect();}}),{rootMargin:'90% 0px'}).observe(film);
+new IntersectionObserver((es)=>es.forEach(e=>{
+  if(e.isIntersecting){load();fv.play().catch(()=>{});}else{fv.pause();}
+}),{threshold:.4}).observe(film);
+fv.addEventListener('timeupdate',()=>{if(fv.duration)bar.style.width=(fv.currentTime/fv.duration*100)+'%';});
 </script>
 </body>
 </html>
