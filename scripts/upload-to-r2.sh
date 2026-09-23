@@ -33,6 +33,11 @@ aws s3 sync assets/hero/mobile-video-src s3://"$R2_BUCKET_NAME"/hero/mobile-vide
   --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable" \
   --content-type "video/mp4"
 
+echo "→ Home reel (assets/hero/reel.mp4 — the 11 clips merged; poster reel-poster.jpg goes up with the hero stills above)"
+aws s3 cp assets/hero/reel.mp4 s3://"$R2_BUCKET_NAME"/hero/reel.mp4 \
+  --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable" \
+  --content-type "video/mp4"
+
 echo "→ Mobile hero video posters (first-frame stills)"
 aws s3 sync assets/hero/mobile-video-src/posters s3://"$R2_BUCKET_NAME"/hero/mobile-video/posters \
   --endpoint-url "$ENDPOINT" --cache-control "public, max-age=31536000, immutable" \

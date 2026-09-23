@@ -30,13 +30,16 @@ Portfolio of Joshua Pellegrinotti (pellegrinotti.com). Static site, **no build s
 - The hero clips live in `<div class="stage">`, the **first element in `<body>` and outside `.hero`** — as a hero child they were clipped to the first viewport and scrolled away. Everything else sits on `z-index:1`.
 - Two knobs, both on `.stage`: `--p` (0→1 over the first viewport, ramps `.stage-veil`) and the `.deep` class (blurs + dims the footage past the hero, with hysteresis). `--dim`/`--veil` are set per viewport — phones keep the footage present, desktop pulls it back.
 - The blur is a **class toggle, not a calc() off `--p`**: animating a filter value per scroll frame forces a shader recompile per frame on mobile.
-- Any scroll gesture over 80px advances to the next clip, in either direction.
+- The backdrop is **one merged reel** (`hero/reel.mp4` on R2, 720×1280, 38 s, 0.4 s crossfades, audio kept for the Sound toggle) that loops — not eleven clips swapped by JS.
 
-## Hero image system
-- Desktop pool: `assets/hero/01.jpg … 25.jpg`; mobile pool: `assets/hero/mobile/01.jpg …`.
-- The flip logic caps at `var N=11` (index.html:631). **Adding hero images requires bumping N**; images beyond N are dead weight.
-- ⚠️ 25 images per pool are on disk but N is still 11, so `12.jpg … 25.jpg` (6.5 MB across both pools) never display. Bump N to 25 if they were meant to be in rotation.
-- Images are referenced dynamically (`'assets/hero/'+pad(n)+'.jpg'`) — a grep for filenames will falsely mark them unused.
+## Hero reel
+- Built with ffmpeg from `assets/hero/mobile-video-src/01–11.mp4` (`xfade` + `acrossfade`, 0.4 s). Local copy: `assets/hero/reel.mp4` + `reel-poster.jpg`; uploaded by `scripts/upload-to-r2.sh`.
+- **Re-cutting the reel means bumping `REEL_V` in index.html** — R2 objects are `immutable`, a same-name re-upload is served stale otherwise.
+- The old per-clip files (`hero/mobile-video/NN.mp4`) and desktop stills (`hero/NN.jpg`) stay on R2 but the page no longer reads them (except `hero/01.jpg` for og:image).
+
+## The Rug episode film
+- `therug/assets/story/ep1-film.mp4` is the seven former shots (s01–s07) merged into one 40 s film (1100×618, 0.5 s crossfades, 2.33:1 shots letterboxed in the page's leather colour). One `<figure class="film">` plays muted while in view. It replaced seven stacked 100svh scenes.
+- Lives in `therug/` (ships with the site). The source lab is `~/therug-site`: **rsync from here will not overwrite it, but copy the new page/film back there or the next rsync will resurrect the seven scenes.**
 
 ## Media
 - **Every video is served from Cloudflare R2**, not from this repo: `MEDIA_BASE = https://media.pellegrinotti.com` (index.html). Upload with `scripts/upload-to-r2.sh`.
