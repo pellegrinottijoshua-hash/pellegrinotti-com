@@ -55,8 +55,9 @@ section{position:relative}
   display:flex;justify-content:space-between;align-items:flex-end;gap:20px;pointer-events:none}
 .eyes-cap img{height:clamp(18px,3.2vw,40px);width:auto}
 .eyes-cap p{margin-top:12px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pan-2)}
-.eyes-cap .hint{text-align:right}
-.eyes-cap .hint b{color:var(--oro);font-weight:500}
+.visit{pointer-events:auto;font-weight:900;font-size:clamp(15px,1.6vw,22px);letter-spacing:-.01em;text-transform:uppercase;color:var(--panna);border-bottom:2px solid var(--oro);padding-bottom:4px;transition:color .3s}
+.visit:hover{color:var(--oro)}
+@media(max-width:640px){.eyes-cap{flex-direction:column;align-items:flex-start}}
 
 /* ---------- 2 · the premise (the gold line draws itself as you scroll) ---------- */
 .premise{background:var(--vuoto);color:var(--nero);padding:clamp(90px,14vw,190px) var(--pad);overflow:hidden}
@@ -121,13 +122,14 @@ section{position:relative}
 .gags{background:var(--panna);color:var(--nero);padding:clamp(90px,12vw,160px) 0;overflow:hidden}
 .gags-head{padding:0 var(--pad);max-width:1300px;margin:0 auto clamp(36px,5vw,64px)}
 .gags-head h2{margin-top:16px}
-.belt{display:flex;width:max-content;gap:14px;animation:belt 70s linear infinite}
-.belt+.belt{margin-top:14px;animation-direction:reverse;animation-duration:84s}
-.gags:hover .belt{animation-play-state:paused}
+.belt{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch;padding:0 2px}
+.belt::-webkit-scrollbar{display:none}
+.belt.drag{cursor:grabbing}
+.belt img{flex:none;-webkit-user-drag:none;user-select:none}
+.belt+.belt{margin-top:14px}
 .belt img{width:clamp(130px,13vw,200px);aspect-ratio:9/16;object-fit:cover;border-radius:14px;background:var(--vuoto);
   transition:transform .5s var(--ease)}
 .belt img:hover{transform:scale(1.05) rotate(-1.5deg)}
-@keyframes belt{to{transform:translateX(-50%)}}
 .socials{display:flex;flex-wrap:wrap;gap:12px;padding:0 var(--pad);max-width:1300px;margin:clamp(36px,5vw,60px) auto 0}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:2px solid currentColor;
   font-weight:900;font-size:14px;letter-spacing:.02em;text-transform:uppercase;transition:background .35s,color .35s}
@@ -172,8 +174,6 @@ section{position:relative}
 
 @media(prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
-  .belt{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
-  .belt+.belt{display:none}
   .art{height:auto}.art-stick{position:static;height:auto;padding:90px 0}
   .art-track{overflow-x:auto;transform:none!important}
   .piece .frame img{clip-path:none}.piece .frame::after{display:none}
@@ -185,7 +185,7 @@ section{position:relative}
 
 <header class="bar">
   <a class="back" href="/"><i class="jp" aria-hidden="true"></i>Pellegrinotti</a>
-  <nav><a href="#art">Art</a><a href="#cast">Cast</a><a href="#gags">Gags</a><a href="#book">Book</a><a href="https://jayl.store" target="_blank" rel="noopener">Store</a></nav>
+  <nav><a href="#cast">Cast</a><a href="#gags">Gags</a><a href="#book">Book</a><a href="https://zacktheduck.com" target="_blank" rel="noopener">zacktheduck.com</a></nav>
 </header>
 
 <!-- 1 · THE EYES — the same live eyes as zacktheduck.com (occhi/ is a copy of motion-lab/home-occhi):
@@ -194,7 +194,7 @@ section{position:relative}
   <iframe src="occhi/index.html" title="Zack's eyes follow your pointer"></iframe>
   <div class="eyes-cap">
     <div><img src="../assets/logos/zack-scritta-riga.svg" alt="Zack the Duck" /><p>Art finds a way.</p></div>
-    <p class="hint">Move.<br /><b>Tap.</b> Tap again.</p>
+    <a class="visit" href="https://zacktheduck.com" target="_blank" rel="noopener">Visit zacktheduck.com <span aria-hidden="true">↗</span></a>
   </div>
 </section>
 
@@ -209,36 +209,8 @@ section{position:relative}
       <h2 class="rv" style="--d:.05s">He draws it.<br /><em>It becomes real.</em></h2>
       <p class="lede rv" style="--d:.1s">Zack is a black duck with one golden feather. He holds it in his wing, draws a golden line in mid-air — and the line turns into a real thing, with weight. <b>Only two kinds of things: art and food.</b></p>
       <p class="lede rv" style="--d:.15s">He has no idea why it works. He doesn't make a sound. He isn't trying to be interesting. He just is.</p>
-      <ul class="facts">
-        <li class="rv" style="--d:.2s">One feather<span>It grows back. Slowly.</span></li>
-        <li class="rv" style="--d:.26s">Art &amp; food<span>Never animals.</span></li>
-        <li class="rv" style="--d:.32s">Not a word<span>Only the sound of what he does.</span></li>
-      </ul>
     </div>
     <figure class="rv" style="--d:.1s"><img src="assets/v3/zack-piuma.jpg" alt="Zack holding the golden feather" loading="lazy" /></figure>
-  </div>
-</section>
-
-<!-- 3 · ART & FOOD -->
-<section class="art" id="art">
-  <div class="art-stick">
-    <div class="art-head">
-      <div><span class="k">The collection</span><h2>Everything here,<br />he drew.</h2></div>
-      <p>The world starts as an empty cream void. Every object in it is one of his works.</p>
-    </div>
-    <div class="art-track" id="artTrack">
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-teiera.jpg" alt="Black teapot sculptures" loading="lazy" /></div><figcaption><span>Surreal objects</span><b>01</b></figcaption></figure>
-      <figure class="piece piece--tall"><div class="frame"><img src="assets/v3/cibo-torta.jpg" alt="A cake drawn in gold lines, the pigeon waiting" loading="lazy" /></div><figcaption><span>Food</span><b>02</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-sedia.jpg" alt="Sculpted black chairs" loading="lazy" /></div><figcaption><span>Surreal objects</span><b>03</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-busti.jpg" alt="Three classical busts in black" loading="lazy" /></div><figcaption><span>Other styles</span><b>04</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-telefono.jpg" alt="A black rotary phone" loading="lazy" /></div><figcaption><span>Surreal objects</span><b>05</b></figcaption></figure>
-      <figure class="piece piece--tall"><div class="frame"><img src="assets/v3/cibo-croissant.jpg" alt="The ant carrying a croissant away" loading="lazy" /></div><figcaption><span>Food (taken)</span><b>06</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-ritratto.jpg" alt="A cubist portrait in a frame" loading="lazy" /></div><figcaption><span>Other styles</span><b>07</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-scultura.jpg" alt="An abstract black figure" loading="lazy" /></div><figcaption><span>Humanoid figures</span><b>08</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-violino.jpg" alt="A cream violin" loading="lazy" /></div><figcaption><span>Surreal objects</span><b>09</b></figcaption></figure>
-      <figure class="piece"><div class="frame"><img src="assets/v3/arte-vasi.jpg" alt="Black and cream vases" loading="lazy" /></div><figcaption><span>Vases</span><b>10</b></figcaption></figure>
-    </div>
-    <div class="art-bar" aria-hidden="true"><i></i></div>
   </div>
 </section>
 
@@ -293,7 +265,7 @@ section{position:relative}
       <span class="k rv">The book · ages 6–9</span>
       <h2 class="rv" style="--d:.05s">Art for kids.<br /><em>By a duck.</em></h2>
       <p class="lede rv" style="--d:.1s">Twelve art styles from around the world — cave paintings, Japanese prints, Islamic stars, the Renaissance — explained by Zack, one page each. Then the page is yours to colour.</p>
-      <p class="k rv" style="--d:.15s;margin-top:26px;color:#8a6a2a">Out now on Amazon</p>
+      <a class="btn rv" style="--d:.15s;margin-top:28px" href="https://www.amazon.com/ZACK-DUCK-JP-Joshua-Pellegrinotti/dp/B0HPY74FC7" target="_blank" rel="noopener">Get it on Amazon ↗</a>
     </div>
   </div>
 </section>
@@ -302,7 +274,7 @@ section{position:relative}
 <section class="wear" id="wear">
   <div class="wear-head">
     <div><span class="k rv">The merch</span><h2 class="rv" style="--d:.05s">Wear<br /><em>the look.</em></h2></div>
-    <a class="btn rv" style="--d:.1s" href="https://jayl.store" target="_blank" rel="noopener">Shop on jayl.store ↗</a>
+    <a class="btn rv" style="--d:.1s" href="https://zacktheduck.com" target="_blank" rel="noopener">Shop on zacktheduck.com ↗</a>
   </div>
   <div class="shots" id="shots">
     <figure data-speed="-40"><img src="assets/v3/merch-1.jpg" alt="Zack the Duck t-shirt, night street" loading="lazy" /></figure>
@@ -318,6 +290,7 @@ section{position:relative}
     <a href="https://www.tiktok.com/@zack.theduck" target="_blank" rel="noopener">TikTok</a>
     <a href="https://www.instagram.com/zack_theduck/" target="_blank" rel="noopener">Instagram</a>
     <a href="https://www.youtube.com/@zack_theduck" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://zacktheduck.com" target="_blank" rel="noopener">zacktheduck.com</a>
     <a href="https://jayl.store" target="_blank" rel="noopener">jayl.store</a>
     <a href="/">pellegrinotti.com</a>
   </nav>
@@ -340,12 +313,31 @@ section{position:relative}
   }, {threshold:.35});
   document.querySelectorAll('.piece').forEach(function(el){ ioArt.observe(el); });
 
+
+  /* the gag belts: they drift on their own (the second one the other way); wheel, swipe or drag
+     them in either direction — the content is doubled, so the position wraps and never ends */
+  document.querySelectorAll('.belt').forEach(function(b, n){
+    var dir = n ? -1 : 1, speed = .35, hold = 0, drag = null;
+    function half(){ return b.scrollWidth / 2; }
+    function wrap(){ var h = half(); if(b.scrollLeft >= h + 20) b.scrollLeft -= h; else if(b.scrollLeft < 20) b.scrollLeft += h; }
+    b.scrollLeft = half() / 2;
+    b.addEventListener('scroll', wrap, {passive:true});
+    b.addEventListener('pointerenter', function(){ hold = 1; });
+    b.addEventListener('pointerleave', function(){ hold = 0; drag = null; b.classList.remove('drag'); });
+    b.addEventListener('touchstart', function(){ hold = 1; }, {passive:true});
+    b.addEventListener('touchend', function(){ setTimeout(function(){ hold = 0; }, 1500); }, {passive:true});
+    b.addEventListener('pointerdown', function(e){ if(e.pointerType !== 'mouse') return; drag = {x:e.clientX, l:b.scrollLeft}; b.classList.add('drag'); e.preventDefault(); });
+    addEventListener('pointermove', function(e){ if(drag){ b.scrollLeft = drag.l - (e.clientX - drag.x); } });
+    addEventListener('pointerup', function(){ drag = null; b.classList.remove('drag'); });
+    var acc = 0;
+    (function run(){ if(!hold && !reduce){ acc += speed * dir; var px = acc | 0; if(px){ b.scrollLeft += px; acc -= px; } } if(!drag) wrap(); requestAnimationFrame(run); })();
+  });
+
   if(reduce){ document.querySelectorAll('.rv,.piece,.fan').forEach(function(el){ el.classList.add('in'); }); return; }
 
   /* one scroll loop for everything that follows the scroll */
   var trail = document.getElementById('trail'), premise = document.getElementById('premise'),
       fig = premise.querySelector('figure'),
-      art = document.getElementById('art'), track = document.getElementById('artTrack'),
       shots = document.querySelectorAll('#shots figure'), wear = document.getElementById('wear');
   var L = trail.getTotalLength(); trail.style.strokeDasharray = L; trail.style.strokeDashoffset = L;
   var queued = false;
@@ -358,12 +350,6 @@ section{position:relative}
     var p = clamp((vh - r.top) / (r.height + vh * .2));
     trail.style.strokeDashoffset = (L * (1 - p)).toFixed(1);
     fig.style.setProperty('--p', p.toFixed(3));
-    /* the collection slides sideways while the page scrolls down */
-    var a = art.getBoundingClientRect(), span = a.height - vh;
-    var ap = clamp(-a.top / span);
-    var dist = Math.max(0, track.scrollWidth - innerWidth);
-    track.style.transform = 'translate3d(' + (-ap * dist).toFixed(1) + 'px,0,0)';
-    art.style.setProperty('--ap', ap.toFixed(3));
     /* the merch photos drift at different speeds */
     var w = wear.getBoundingClientRect(), wp = (vh - w.top) / (w.height + vh) - .5;
     shots.forEach(function(f){ f.style.setProperty('--py', (wp * +f.dataset.speed * 2).toFixed(1) + 'px'); });
