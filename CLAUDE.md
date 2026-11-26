@@ -8,14 +8,15 @@ Portfolio of Joshua Pellegrinotti (pellegrinotti.com). Static site, **no build s
 
 ## Files
 - **`index.html` è la home** (inline CSS + JS, ~830 lines).
-- **Sottositi IP** (statici, un index.html + assets ciascuno): `/therug/`, `/zack/`, `/dinos/` → live su pellegrinotti.com/therug ecc. I laboratori sorgente sono `~/therug-site`, `~/zack-site`, `~/dinos-site` (repo git separati): si lavora lì, poi si rsync-a qui per il deploy. **Escludere i `.md`** dal rsync: sono doc del repo sorgente, non file del sito.
-  ```
-  rsync -a --delete --exclude '.git' --exclude '.DS_Store' --exclude '*.md' ~/zack-site/ zack/
-  ```
-- **Nav home** — tre righe in `<section class="list">`, tutte con il reveal di `Jayl` in hover (la regola CSS è su `.row`, non su `a.row`, quindi vale anche per le righe statiche):
-  1. `Jayl Services` — etichetta statica + `.branddrop` sempre aperta con "your brand" (spot fermentati) e "your song" (Lei chi è). I due `<button class="svc-open">` chiamano `openPlayer()`. **`your brand` viene prima ed è più grande**: i video musicali sono portfolio, non reddito (vedi `pellegrinotti-services.md`). Aggiungere un terzo servizio = un altro blocco `.svc`.
-  2. `Jayl Original IPs` — etichetta statica senza sottotitolo + tendina con The Rug e Zack. **Dinos & Mages è in pausa**: la riga `<a class="ip ipdinos">` è tolta ma il CSS e `/dinos/` restano, quindi si ripristina con una riga di markup.
-  3. `Jayl Store` — unica riga cliccabile (`data-target="store"`), apre jayl.store.
+- **Sottositi IP** (statici, un index.html + assets ciascuno): `/therug/`, `/zack/`, `/dinos/` → live su pellegrinotti.com/therug ecc.
+  - ⚠️ **Dal 26/11/2026 `zack/` e `therug/` si modificano QUI** (ramo `home-v3`). I vecchi laboratori `~/zack-site` e `~/therug-site` sono rimasti indietro: **non fare più rsync da lì**, cancellerebbe le schede nuove. `~/dinos-site` resta com'era.
+  - **Zack v3:** si apre con gli occhi vivi (`zack/occhi/` è una copia di `zack the duck/motion-lab/home-occhi/`; se cambia lì, ricopiarla). Poi premessa con la linea d'oro che si disegna allo scroll, collezione arte e cibo che scorre di lato, cast di 6 (tartaruga compresa), gag a nastro, libro Art for Kids, merch. Font Montserrat (quello di Zack). Canone: Zack non fa versi.
+  - **The Rug v3:** targa sul tramonto con polvere dorata, il protagonista (poltrona, sheet, primo piano), la città che scorre di lato, il film dell'EP1 (invariato), lo schiaffo guidato dallo scroll (6 frame, lampo al contatto), gli invasori coi nomi di canone (Boss, Right, Left, Gag, Rock, A1 morto), i poster.
+  - Immagini nuove in `zack/assets/v3/` e `therug/assets/v3/`, ricompresse da `scripts/prepara-asset-v3.py` (`/usr/bin/python3 scripts/prepara-asset-v3.py`) (lato lungo 720-2000 px, JPEG q80).
+- **Home v3 (25-26/11/2026, ramo `home-v3`)** — niente più servizi né prefisso "Jayl". Le facce dei brand (decise da Joshua):
+  - **JP** = Joshua: in alto a sinistra, nella scritta che scorre e nel fondo pagina. È una maschera CSS (`.jp`, file `assets/logos/jp.svg`). Il logo JP è **ancora in studio** (`~/Desktop/Jayl brand/loghi/JP/`): quando è scelto si sostituisce quel file (e il rapporto 942/500 in `.jp`).
+  - **Cinque righe in `.projs`, solo icona tonda + titolo, niente descrizioni** (Joshua 26/11): Zack the Duck (icona simbolo, scritta di Zack su una riga `assets/logos/zack-scritta-riga.svg` ricomposta dai tracciati originali), Italy's Protagonists (IP nel cerchio ↔ P "faccia" su acqua al passaggio del mouse; scritta ufficiale `assets/logos/protagonists.svg`; riga senza link finché il loro sito non è pubblico), The Rug (logo in pelle nel cerchio, titolo come prima), Jayl Studios (J-play, apre Instagram @jaylstudios), jayl.store (scritta jayl, apre lo store). Icone in `assets/coins/`.
+  - In fondo il contatto con mail, Instagram, YouTube @jayl. `assets/js/lightbox.js` non è più incluso dalla home. Dinos resta in pausa.
 - **Player video condiviso** — `assets/js/lightbox.js`, API `openPlayer({src,title})`: overlay a tutto schermo, audio ON, `preload="none"`, chiusura con ESC/backdrop/×, `src` svuotato alla chiusura (Lei chi è pesa 22 MB). Markup e CSS sono dentro il JS. ⚠️ **Ne esistono due copie identiche**, una per repo (`jayl-studio/assets/js/` e `zack-site/assets/js/`), perché i due siti si sviluppano separati e non c'è build step: se ne modifichi una, allinea l'altra.
 - **Niente GSAP**: rimosso quando è sparito l'overlay `detail` che era l'unico a usarlo. Non reintrodurlo senza motivo.
 - `HANDOFF-fable5.md` documents architecture, assets, gotchas, TODOs — read it before big changes.

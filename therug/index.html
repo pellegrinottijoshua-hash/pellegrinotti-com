@@ -2,361 +2,406 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE RUG — a lazy superhero saga · by JAYL</title>
-<meta name="description" content="A hero. A carpet. Five moustaches. THE RUG is an original AI-crafted animated series by JAYL. Episode 1: THE SLAP — coming soon.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>THE RUG — a lazy superhero saga</title>
+<meta name="description" content="A hero. A carpet. Five moustaches. THE RUG: a lazy superhero who only fights with open-palm slaps, against invaders very vain about their moustaches. An original series by Joshua Pellegrinotti.">
 <meta property="og:title" content="THE RUG — a lazy superhero saga">
-<meta property="og:description" content="A hero. A carpet. Five moustaches. Episode 1 coming soon.">
-<meta property="og:image" content="assets/og.jpg">
+<meta property="og:description" content="A hero. A carpet. Five moustaches. And absolutely no desire to get up.">
+<meta property="og:image" content="assets/v3/poltrona.jpg">
+<meta name="theme-color" content="#170f09">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,100;1,9..144,300..900,100&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --leather-deep:#170f09;
-  --leather:#241610;
-  --leather-warm:#3a2415;
-  --cream:#f0e2c4;
-  --cream-dim:#c9b691;
-  --teal:#46d4c0;
-  --teal-deep:#2a8a7d;
-  --gold:#e8973a;
-  --gold-hot:#ffb347;
-  --bordeaux:#6e2230;
-  --mono:'IBM Plex Mono',monospace;
-  --disp:'Fraunces',serif;
+  --leather-deep:#170f09; --leather:#241610; --leather-warm:#3a2415;
+  --cream:#f0e2c4; --cream-dim:#c9b691; --teal:#46d4c0; --gold:#e8973a; --gold-hot:#ffb347;
+  --mono:'IBM Plex Mono',monospace; --disp:'Fraunces',serif;
+  --ease:cubic-bezier(.19,1,.22,1); --pad:clamp(20px,5vw,64px);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--leather-deep);
-  color:var(--cream);
-  font-family:var(--disp);
-  font-weight:340;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+body{background:var(--leather-deep);color:var(--cream);font-family:var(--disp);font-weight:340;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
 ::selection{background:var(--gold);color:var(--leather-deep)}
-
-/* ---- film grain over everything ---- */
-body::after{
-  content:"";position:fixed;inset:-100%;z-index:60;pointer-events:none;opacity:.11;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
-  animation:grain 1.2s steps(4) infinite;
-}
-@keyframes grain{
-  0%{transform:translate(0,0)}25%{transform:translate(-2%,1.5%)}
-  50%{transform:translate(1.5%,-1%)}75%{transform:translate(-1%,-2%)}100%{transform:translate(2%,1%)}
-}
-
-/* ---- shared bits ---- */
-.slate{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--teal);display:inline-flex;align-items:center;gap:.9em;
-}
-.slate::before{content:"";width:2.4em;height:1px;background:var(--teal);display:inline-block}
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
 section{position:relative}
 
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}
-.reveal.in{opacity:1;transform:none}
+/* film grain over everything — the series is shot like 35 mm */
+body::after{content:"";position:fixed;inset:-100%;z-index:60;pointer-events:none;opacity:.1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+  animation:grain 1.2s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,1.5%)}50%{transform:translate(1.5%,-1%)}75%{transform:translate(-1%,-2%)}100%{transform:translate(2%,1%)}}
 
-/* ================= HERO ================= */
-.hero{
-  min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  text-align:center;position:relative;padding:9vh 20px 12vh;isolation:isolate;
-}
-.hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 62%;filter:saturate(.92) contrast(1.02);transform:scale(1.06)}
-.hero-bg::after{
-  content:"";position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 42%, rgba(23,15,9,.28) 0%, rgba(23,15,9,.78) 62%, var(--leather-deep) 100%),
-    linear-gradient(to bottom, rgba(23,15,9,.55), rgba(23,15,9,.15) 30%, rgba(23,15,9,.92) 88%, var(--leather-deep));
-}
-.hero-kicker{margin-bottom:4.5vh}
-.hero-logo{
-  width:min(680px,88vw);border-radius:14px;display:block;
-  box-shadow:0 30px 80px -20px rgba(0,0,0,.85), 0 0 0 1px rgba(240,226,196,.08), 0 8px 26px rgba(0,0,0,.6);
-  transform:rotate(-1.4deg);
-}
-.hero-tag{
-  margin-top:5.5vh;font-size:clamp(1.35rem,3.4vw,2.2rem);font-weight:400;
-  font-variation-settings:"SOFT" 100;line-height:1.25;max-width:20em;
-}
-.hero-tag em{font-style:italic;color:var(--gold-hot)}
-.hero-tag .neon{color:var(--teal);text-shadow:0 0 12px rgba(70,212,192,.55),0 0 40px rgba(70,212,192,.25);animation:flick 7s infinite}
-@keyframes flick{
-  0%,100%{opacity:1}3%{opacity:.55}4%{opacity:1}42%{opacity:1}43%{opacity:.4}44%{opacity:1}45%{opacity:.75}46%{opacity:1}
-}
-.hero-sub{margin-top:2.2vh;font-family:var(--mono);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-dim)}
-.hero-sub b{color:var(--cream);font-weight:600}
-.scroll-cue{
-  position:absolute;bottom:4.5vh;left:50%;transform:translateX(-50%);
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:var(--cream-dim);text-transform:uppercase;
-  animation:bob 2.4s ease-in-out infinite;
-}
-@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+.slate{font-family:var(--mono);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--teal);
+  display:inline-flex;align-items:center;gap:.9em}
+.slate::before{content:"";width:2.4em;height:1px;background:var(--teal)}
+h2{font-weight:560;font-variation-settings:"SOFT" 100;font-size:clamp(2.4rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.01em}
+h2 em{font-style:italic;color:var(--gold)}
+.lede{color:var(--cream-dim);font-size:clamp(1rem,1.3vw,1.14rem);line-height:1.7;max-width:40em}
+.wrap{max-width:1300px;margin:0 auto;padding:0 var(--pad)}
 
-/* ================= MARQUEE ================= */
-.marquee{
-  border-top:1px solid rgba(240,226,196,.14);border-bottom:1px solid rgba(240,226,196,.14);
-  background:linear-gradient(rgba(58,36,21,.4),rgba(23,15,9,.6));
-  overflow:hidden;white-space:nowrap;padding:14px 0;
-}
-.marquee-track{display:inline-block;animation:slide 38s linear infinite}
-.marquee span{
-  font-family:var(--mono);font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--cream-dim);padding:0 1.6em;
-}
-.marquee span b{color:var(--gold);font-weight:500}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1.2s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
 
-/* ================= HERO DOSSIER ================= */
-.who{padding:16vh 0 14vh;background:
-  radial-gradient(ellipse 60% 50% at 18% 30%, rgba(110,34,48,.14), transparent 70%),
-  var(--leather-deep)}
-.who-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,6vw,90px);align-items:center}
-.who h2{
-  font-size:clamp(2.6rem,6vw,4.6rem);font-weight:560;line-height:1.02;margin:26px 0 30px;
-  font-variation-settings:"SOFT" 100;letter-spacing:-.01em;
-}
-.who h2 em{font-style:italic;color:var(--gold)}
-.who p{font-size:1.08rem;line-height:1.75;color:var(--cream-dim);max-width:34em;margin-bottom:1.2em}
-.who p strong{color:var(--cream);font-weight:500}
-.spec{margin-top:36px;border-top:1px solid rgba(240,226,196,.14);display:grid;grid-template-columns:repeat(3,1fr)}
-.spec div{padding:18px 6px 0;border-right:1px solid rgba(240,226,196,.09)}
-.spec div:last-child{border-right:0}
-.spec dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
-.spec dd{font-size:.98rem;color:var(--cream);font-style:italic}
-.who-figure{position:relative;transform:rotate(1.6deg)}
-.who-figure img{width:100%;border-radius:12px;display:block;
-  box-shadow:0 28px 70px -18px rgba(0,0,0,.85),0 0 0 1px rgba(240,226,196,.09)}
-.who-figure figcaption{
-  position:absolute;bottom:-16px;right:-10px;background:var(--cream);color:var(--leather-deep);
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
-  padding:9px 14px;border-radius:3px;transform:rotate(-2deg);box-shadow:0 10px 24px rgba(0,0,0,.5);
-}
+/* ---------- bar ---------- */
+.bar{position:fixed;z-index:50;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+  padding:18px var(--pad);pointer-events:none;
+  background:linear-gradient(180deg,rgba(23,15,9,.75),transparent)}
+.bar a{pointer-events:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-dim);transition:color .3s}
+.bar a:hover{color:var(--gold)}
+.bar nav{display:flex;gap:clamp(14px,2.4vw,30px)}
+.bar .back{display:inline-flex;align-items:center;gap:10px}
+.jp{display:inline-block;height:13px;aspect-ratio:942/500;background:currentColor;
+  -webkit-mask:url(../assets/logos/jp.svg) center/contain no-repeat;mask:url(../assets/logos/jp.svg) center/contain no-repeat}
+@media(max-width:640px){.bar nav a:not(:last-child){display:none}}
 
-/* ================= VILLAINS ================= */
-.villains{padding:0 0 15vh}
-.villain-key{position:relative;margin-bottom:10vh;overflow:hidden}
-.villain-key img{width:100%;display:block;max-height:74vh;object-fit:cover;filter:saturate(.96)}
-.villain-key::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(to bottom,var(--leather-deep),transparent 22%,transparent 66%,var(--leather-deep))}
-.villain-key .kicker{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);z-index:2;
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.34em;color:var(--cream);text-transform:uppercase;
-  background:rgba(23,15,9,.55);backdrop-filter:blur(6px);padding:10px 18px;border:1px solid rgba(240,226,196,.18);border-radius:3px}
-.villains h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:560;font-variation-settings:"SOFT" 100;margin:24px 0 14px;line-height:1.05}
-.villains h2 em{font-style:italic;color:var(--teal)}
-.villains .lede{color:var(--cream-dim);font-size:1.06rem;line-height:1.7;max-width:42em;margin-bottom:64px}
-.stache-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.stache{
-  position:relative;border:1px solid rgba(240,226,196,.13);border-radius:10px;overflow:hidden;
-  background:linear-gradient(160deg,var(--leather-warm) 0%,var(--leather) 60%,var(--leather-deep));
-  aspect-ratio:4/5.4;cursor:default;transition:transform .45s cubic-bezier(.2,.7,.2,1.2),border-color .35s;
-}
-.stache:hover{transform:translateY(-10px) rotate(-1deg);border-color:rgba(240,226,196,.35)}
-.stache img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:none}
-.stache.loaded img{display:block}
-.stache.loaded .mo,.stache.loaded .qm{display:none}
-.stache .mo{
-  position:absolute;top:34%;left:50%;transform:translateX(-50%);width:58%;height:26%;
-  transition:transform .4s cubic-bezier(.3,.8,.3,1.4);
-}
-.stache:hover .mo{transform:translateX(-50%) scale(1.12) rotate(-3deg)}
-.stache .qm{
-  position:absolute;top:14%;left:50%;transform:translateX(-50%);
-  font-family:var(--mono);font-size:1rem;color:rgba(240,226,196,.3);
-}
-.stache .tag{
-  position:absolute;left:0;right:0;bottom:0;padding:12px 12px 14px;z-index:2;
-  background:linear-gradient(transparent,rgba(23,15,9,.92) 40%);
-}
-.stache .tag .nm{font-size:.95rem;font-weight:500;font-style:italic;line-height:1.2}
-.stache .tag .cl{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:5px}
-.stache .redact{
-  position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;
-  color:var(--bordeaux);border:1px solid var(--bordeaux);padding:4px 7px;border-radius:2px;
-  transform:rotate(6deg);text-transform:uppercase;opacity:.9;background:rgba(23,15,9,.4);
-}
-.stache.loaded .redact{color:var(--teal);border-color:var(--teal)}
+/* ---------- 1 · hero: the plate over the city at golden hour, dust in the light ---------- */
+.hero{height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;text-align:center}
+.hero .city{position:absolute;inset:-6% 0;background:url(assets/v3/citta.jpg) center/cover;
+  transform:translateY(calc(var(--hp,0) * 12%)) scale(1.08);animation:kb 26s ease-in-out infinite alternate}
+@keyframes kb{to{background-position:58% 40%}}
+.hero::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(ellipse 90% 70% at 50% 45%,rgba(23,15,9,.15),rgba(23,15,9,.85) 80%),
+  linear-gradient(180deg,rgba(23,15,9,.35),transparent 30%,rgba(23,15,9,.95))}
+#dust{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none}
+.hero-in{position:relative;z-index:2;padding:0 var(--pad);transform:translateY(calc(var(--hp,0) * -60px))}
+.plate{width:min(560px,78vw);margin:0 auto;border-radius:8px;box-shadow:0 50px 90px -30px rgba(0,0,0,.8);
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s var(--ease)}
+.hero .slate{margin-bottom:28px}
+.tag{margin-top:34px;font-size:clamp(1.4rem,2.8vw,2.2rem);line-height:1.25;font-weight:420}
+.tag em{color:var(--gold)} .tag b{color:var(--teal);font-weight:420}
+.cue{position:absolute;z-index:2;left:0;right:0;bottom:26px;font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim)}
+.cue span{display:inline-block;animation:bob 1.8s var(--ease) infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
 
-/* ================= EPISODE 1 ================= */
-.ep{padding:0 0 16vh;background:
-  radial-gradient(ellipse 70% 60% at 85% 20%, rgba(70,212,192,.06), transparent 60%),
-  var(--leather-deep)}
-.ep h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:560;font-variation-settings:"SOFT" 100;margin:24px 0 14px}
-.ep h2 em{font-style:italic;color:var(--gold)}
-.ep .lede{color:var(--cream-dim);font-size:1.06rem;line-height:1.7;max-width:42em;margin-bottom:60px}
-/* ---- scroll-driven film ---- */
-.film-reel{margin-top:clamp(40px,7vh,90px)}
-.film{position:relative;width:min(100%,1400px);margin:0 auto;aspect-ratio:1100/618;overflow:hidden;
-  background:var(--leather-deep);isolation:isolate}
+/* ---------- 2 · the hero (the man) ---------- */
+.man{padding:clamp(100px,14vw,190px) 0 clamp(60px,8vw,110px)}
+.man .grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,6vw,90px);align-items:center}
+.chair{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1128/1400;box-shadow:0 60px 90px -50px rgba(0,0,0,.9)}
+.chair img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1.12 - var(--cp,0) * .12))}
+.chair figcaption{position:absolute;left:16px;bottom:14px;font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);opacity:.75}
+.man h2{margin:22px 0 22px}
+.file{list-style:none;margin-top:34px;border-top:1px solid rgba(240,226,196,.16)}
+.file li{display:grid;grid-template-columns:9.5em 1fr;gap:16px;padding:13px 0;border-bottom:1px solid rgba(240,226,196,.1);font-size:1.02rem}
+.file li span{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);padding-top:.35em}
+.file li b{font-weight:560}
+.sheet{margin-top:clamp(60px,9vw,120px)}
+.sheet figure{position:relative;border-radius:12px;overflow:hidden}
+.sheet figure img{width:100%}
+.sheet .labels{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px;font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim);text-align:center}
+.face{margin-top:clamp(50px,8vw,110px);position:relative;overflow:hidden;aspect-ratio:2.35/1;border-radius:4px}
+.face img{width:100%;height:100%;object-fit:cover;transform:translateY(calc(var(--fp,0) * -6%)) scale(1.12)}
+.face p{position:absolute;left:var(--pad);bottom:clamp(16px,3vw,34px);font-style:italic;font-size:clamp(1.1rem,2.4vw,1.9rem);max-width:18em;text-shadow:0 2px 20px rgba(0,0,0,.7)}
+@media(max-width:820px){.man .grid{grid-template-columns:1fr}.chair{max-width:460px}.file li{grid-template-columns:7.5em 1fr}}
+
+/* ---------- 3 · the city: locations slide by while you scroll ---------- */
+.city{height:380vh;background:var(--leather)}
+.city-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.city-stick::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at calc(20% + var(--cyp,0) * 60%) 30%,rgba(232,151,58,.22),transparent 70%)}
+.city-head{padding:0 var(--pad);margin-bottom:clamp(22px,4vh,40px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.city-track{display:flex;gap:clamp(12px,1.6vw,22px);padding:0 var(--pad);will-change:transform}
+.loc{flex:none;width:clamp(280px,50vw,780px)}
+.loc .ph{border-radius:8px;overflow:hidden;aspect-ratio:16/9}
+.loc .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.15) translateX(calc(var(--lx,0) * -6%))}
+.loc figcaption{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim)}
+.loc figcaption b{color:var(--gold);font-weight:500}
+.city-bar{margin:clamp(22px,4vh,40px) var(--pad) 0;height:2px;background:rgba(240,226,196,.12)}
+.city-bar i{display:block;height:100%;width:calc(var(--cyp,0) * 100%);background:var(--gold)}
+
+/* ---------- 4 · episode one (the existing film) ---------- */
+.ep{padding:clamp(100px,14vw,180px) 0 clamp(60px,8vw,100px)}
+.ep h2{margin:22px 0 16px}
+.film{position:relative;width:min(100% - 2 * var(--pad),1400px);margin:clamp(40px,7vh,80px) auto 0;aspect-ratio:1100/618;overflow:hidden;
+  background:var(--leather-deep);isolation:isolate;border-radius:6px}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--leather-deep)}
 .film::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse 120% 88% at 50% 45%, transparent 56%, rgba(23,15,9,.5) 100%)}
+  background:radial-gradient(ellipse 120% 88% at 50% 45%,transparent 56%,rgba(23,15,9,.5) 100%)}
 .film-bar{position:absolute;left:0;right:0;bottom:0;height:2px;z-index:2;background:rgba(240,226,196,.14)}
 .film-bar i{display:block;height:100%;width:0;background:var(--gold)}
-.follow{
-  margin-top:70px;border:1px solid rgba(240,226,196,.16);border-radius:14px;
-  padding:clamp(28px,4vw,48px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;
-  background:linear-gradient(120deg,rgba(58,36,21,.5),rgba(23,15,9,.3));
-}
-.follow .fh{font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:500;font-style:italic;max-width:22em;line-height:1.3}
-.follow .fh span{color:var(--teal)}
-.btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
-  padding:14px 22px;border-radius:4px;transition:all .3s;
-}
-.btn.solid{background:var(--gold);color:var(--leather-deep);font-weight:600}
-.btn.solid:hover{background:var(--gold-hot);box-shadow:0 8px 30px -6px rgba(232,151,58,.5)}
-.btn.ghost{border:1px solid rgba(240,226,196,.3);color:var(--cream)}
-.btn.ghost:hover{border-color:var(--teal);color:var(--teal)}
 
-/* ================= RUG BAND ================= */
-.rug-band{
-  height:110px;background:url('assets/texture-rug.jpg') center/cover;
-  border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);
-  position:relative;filter:saturate(.9);
-}
-.rug-band::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(23,15,9,.25),rgba(23,15,9,.45))}
+/* ---------- 5 · the slap: scroll is the hand ---------- */
+.slap{height:520vh;background:#0e0905}
+.slap-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.frames{position:absolute;inset:0}
+.frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .35s linear,transform 1.6s var(--ease)}
+.frames img.on{opacity:1;transform:scale(1)}
+.slap-stick::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(14,9,5,.55),transparent 28%,transparent 62%,rgba(14,9,5,.85))}
+.flash{position:absolute;inset:0;z-index:3;background:#fff6e0;opacity:0;pointer-events:none}
+.slap-stick.hit .flash{animation:flash .5s ease-out}
+.slap-stick.hit .frames{animation:shake .45s cubic-bezier(.36,.07,.19,.97)}
+@keyframes flash{0%{opacity:.9}100%{opacity:0}}
+@keyframes shake{10%,90%{transform:translate(-3px,1px)}20%,80%{transform:translate(6px,-2px)}30%,50%,70%{transform:translate(-10px,3px)}40%,60%{transform:translate(10px,-3px)}}
+.slap-txt{position:absolute;z-index:2;left:var(--pad);right:var(--pad);top:clamp(80px,12vh,120px);display:flex;justify-content:space-between;gap:20px}
+.slap-txt h2{font-size:clamp(2.2rem,5vw,4.2rem)}
+.slap-cap{position:absolute;z-index:2;left:var(--pad);bottom:clamp(30px,6vh,60px);font-family:var(--mono);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase}
+.slap-cap b{color:var(--gold);font-weight:500;margin-right:1em}
+.ticks{position:absolute;z-index:2;right:var(--pad);bottom:clamp(30px,6vh,60px);display:flex;gap:6px}
+.ticks i{width:26px;height:3px;background:rgba(240,226,196,.25);transition:background .3s}
+.ticks i.on{background:var(--gold)}
+@media(max-width:640px){.ticks{left:var(--pad);right:auto;bottom:calc(clamp(30px,6vh,60px) + 30px)}}
 
-/* ================= FOOTER ================= */
-footer{
-  border-top:1px solid rgba(240,226,196,.12);padding:44px 0 54px;
-  display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;
-}
-footer .jayl{font-family:var(--mono);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--cream-dim)}
-footer .jayl a{color:var(--cream);text-decoration:none;border-bottom:1px solid var(--gold)}
-footer .jayl a:hover{color:var(--gold-hot)}
-footer .line{font-style:italic;font-size:.9rem;color:var(--cream-dim)}
+/* ---------- 6 · the invaders ---------- */
+.inv{padding:clamp(100px,14vw,190px) 0}
+.inv .lede{margin-top:20px}
+.aliens{margin-top:clamp(40px,6vw,80px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px)}
+.alien{position:relative;border-radius:10px;overflow:hidden;background:#050403;aspect-ratio:900/640;isolation:isolate}
+.alien img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(.62) saturate(.85);
+  transform:scale(1.04);transition:filter .8s var(--ease),transform 1.4s var(--ease)}
+.alien:hover img{filter:brightness(1) saturate(1.05);transform:scale(1.1)}
+.alien .who{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.alien h3{font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:560;font-style:italic;line-height:1}
+.alien .stats{margin-top:8px;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.alien p{margin-top:8px;font-size:.98rem;color:var(--cream-dim);max-height:0;opacity:0;overflow:hidden;transition:max-height .7s var(--ease),opacity .6s}
+.alien:hover p,.alien:focus-within p{max-height:4em;opacity:1}
+.alien::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(5,4,3,.92));z-index:1}
+.stamp{position:absolute;z-index:3;top:16px;right:16px;padding:5px 10px;border:2px solid #c2412d;color:#e0583f;
+  font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transform:rotate(6deg)}
+@media(max-width:900px){.aliens{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.aliens{grid-template-columns:1fr}.alien p{max-height:4em;opacity:1}}
 
-@media(max-width:900px){
-  .who-grid{grid-template-columns:1fr}
-  .who-figure{max-width:440px;margin:0 auto}
-  .stache-row{grid-template-columns:repeat(2,1fr)}
-  .stache:last-child{grid-column:1/-1;max-width:52%;margin:0 auto;width:100%}
-  .clips{grid-template-columns:repeat(2,1fr)}
-  .spec{grid-template-columns:1fr;gap:16px}
-  .spec div{border-right:0;border-bottom:1px solid rgba(240,226,196,.09);padding-bottom:14px}
+/* ---------- 7 · the posters ---------- */
+.wall{padding:0 0 clamp(100px,14vw,170px)}
+.posters{margin-top:clamp(40px,6vw,70px);display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(12px,1.6vw,22px)}
+.posters figure{border-radius:8px;overflow:hidden;transform:translateY(var(--py,0px))}
+.posters img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.posters figure:hover img{transform:scale(1.05)}
+.posters figure:nth-child(1){grid-row:span 2}
+@media(max-width:700px){.posters{grid-template-columns:1fr}.posters figure:nth-child(1){grid-row:auto}}
+
+.rug-band{height:70px;background:url(assets/texture-rug.jpg) center/auto 140% repeat-x;opacity:.9}
+footer{padding:44px var(--pad) 50px;text-align:center}
+footer .coin{width:78px;height:78px;border-radius:50%;margin:0 auto 18px;box-shadow:0 0 0 1px rgba(240,226,196,.2)}
+footer .line{font-style:italic;font-size:1.2rem}
+footer small{display:block;margin-top:14px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+footer small a{color:var(--gold)}
+
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .hero .city{animation:none}
+  .city{height:auto}.city-stick{position:static;height:auto;padding:100px 0}.city-track{overflow-x:auto;transform:none!important}
+  .slap{height:auto}.slap-stick{position:static;height:auto;display:grid;gap:10px;padding:100px var(--pad)}
+  .frames{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .frames img{position:static;opacity:1;transform:none;aspect-ratio:16/9}
+  .slap-txt,.slap-cap,.ticks{position:static}
+  body::after{animation:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ================= HERO ================= -->
-<header class="hero">
-  <div class="hero-bg"><img src="assets/street.jpg" alt="" fetchpriority="high"></div>
-  <p class="slate hero-kicker">An original series · by JAYL</p>
-  <img class="hero-logo" src="assets/logo-wide.jpg" alt="THE RUG — logo">
-  <h1 class="hero-tag">A hero. A carpet.<br><em>Five moustaches.</em> And absolutely <span class="neon">no desire</span> to get up.</h1>
-  <p class="hero-sub">Episode 1 · <b>THE SLAP</b> · now unrolling ▼</p>
-  <div class="scroll-cue">▼ unroll</div>
+<header class="bar">
+  <a class="back" href="/"><i class="jp" aria-hidden="true"></i>Pellegrinotti</a>
+  <nav><a href="#man">The hero</a><a href="#city">The city</a><a href="#ep">Episode 1</a><a href="#slap">The slap</a><a href="#invaders">Invaders</a></nav>
 </header>
 
-<!-- MARQUEE + File-01 hero dossier: hidden per founder request (2026-07). Restore from git history if wanted. -->
-
-<!-- ================= EPISODE 1 · SCROLL FILM (File 01) ================= -->
-<section class="ep film">
-  <div class="wrap" style="padding-top:clamp(60px,13vh,170px)">
-    <p class="slate reveal">File 01 · The episode</p>
-    <h2 class="reveal">Episode one, <em>in one take.</em></h2>
-    <p class="lede reveal">Scroll to watch it unroll — a wordless film. One very tired man, a flying carpet, and a monster with excellent facial hair. Shot on AI, cut like cinema: 35&nbsp;mm grain, golden hour.</p>
+<!-- 1 · HERO -->
+<section class="hero" id="top">
+  <div class="city" aria-hidden="true"></div>
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <p class="slate">An original series · by Joshua Pellegrinotti</p>
+    <img class="plate" id="plate" src="assets/v3/logo-plate.jpg" alt="THE RUG" />
+    <p class="tag">A hero. A carpet.<br /><em>Five moustaches.</em> And absolutely <b>no desire</b> to get up.</p>
   </div>
+  <p class="cue">Unroll <span>▼</span></p>
+</section>
 
-  <div class="film-reel">
-    <figure class="film" id="film" data-src="assets/story/ep1-film.mp4" data-poster="assets/story/ep1-film.jpg">
-      <video muted loop playsinline preload="none"></video>
-      <div class="film-bar"><i></i></div>
-    </figure>
-  </div>
-
+<!-- 2 · THE MAN (bible §1-2) -->
+<section class="man" id="man">
   <div class="wrap">
-    <div class="follow reveal">
-      <p class="fh">That's episode one. <span>The saga unrolls</span> from here.</p>
-      <div class="btns">
-        <a class="btn solid" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow the saga</a>
-        <a class="btn ghost" href="https://pellegrinotti.com" target="_blank" rel="noopener">More by JAYL</a>
+    <div class="grid">
+      <figure class="chair rv" id="chair"><img src="assets/v3/poltrona.jpg" alt="The Rug, sprawled in a yellow armchair" loading="lazy" /><figcaption>Off duty. Mostly.</figcaption></figure>
+      <div>
+        <p class="slate rv">File 00 · The hero</p>
+        <h2 class="rv" style="--d:.05s">A superhero,<br /><em>technically.</em></h2>
+        <p class="lede rv" style="--d:.1s">The Dude, with a cape. The cape is a real Persian rug. He doesn't punch — he slaps, open palm, and the whole joke lives in the gap between how bored he looks and how hard it lands.</p>
+        <ul class="file">
+          <li class="rv" style="--d:.12s"><span>Height</span><b>1.80 m</b></li>
+          <li class="rv" style="--d:.16s"><span>Cape</span><b>An actual Persian rug</b></li>
+          <li class="rv" style="--d:.2s"><span>Chest</span><b>Neon. It says THE RUG.</b></li>
+          <li class="rv" style="--d:.24s"><span>Weapon</span><b>The open palm. Slaps only.</b></li>
+          <li class="rv" style="--d:.28s"><span>Expression</span><b>Deadpan. Always.</b></li>
+          <li class="rv" style="--d:.32s"><span>Ambition</span><b>None detected</b></li>
+        </ul>
       </div>
     </div>
+    <div class="sheet rv">
+      <figure><img src="assets/v3/sheet.jpg" alt="The Rug character sheet: front, back, close-up" loading="lazy" /></figure>
+      <div class="labels"><span>Front</span><span>Back</span><span>Close-up</span></div>
+    </div>
+  </div>
+  <div class="face rv" id="face"><img src="assets/v3/volto.jpg" alt="The Rug, close-up" loading="lazy" /><p>Close-ups that last too long. Then an explosion.</p></div>
+</section>
+
+<!-- 3 · THE CITY -->
+<section class="city" id="city">
+  <div class="city-stick">
+    <div class="city-head">
+      <div><p class="slate">File 01 · The city</p><h2 style="margin-top:18px">Always <em>golden hour.</em></h2></div>
+      <p class="lede" style="max-width:24em">An empty American city, brick and water towers, permanently ten minutes before sunset. Then the portal opens.</p>
+    </div>
+    <div class="city-track" id="cityTrack">
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-strada.jpg" alt="Main street" loading="lazy" /></div><figcaption><span>Main street</span><b>01</b></figcaption></figure>
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-piazza.jpg" alt="The square" loading="lazy" /></div><figcaption><span>The square</span><b>02</b></figcaption></figure>
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-incrocio.jpg" alt="The crossroads from above" loading="lazy" /></div><figcaption><span>The crossroads, from above</span><b>03</b></figcaption></figure>
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-tetto.jpg" alt="Rooftops and water towers" loading="lazy" /></div><figcaption><span>The rooftops</span><b>04</b></figcaption></figure>
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-via.jpg" alt="The avenue at sunset" loading="lazy" /></div><figcaption><span>The avenue</span><b>05</b></figcaption></figure>
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-citta.jpg" alt="The skyline with smoke" loading="lazy" /></div><figcaption><span>The skyline</span><b>06</b></figcaption></figure>
+      <figure class="loc"><div class="ph"><img src="assets/v3/luogo-buca.jpg" alt="A crater in the asphalt" loading="lazy" /></div><figcaption><span>Where someone landed</span><b>07</b></figcaption></figure>
+    </div>
+    <div class="city-bar" aria-hidden="true"><i></i></div>
   </div>
 </section>
 
-<!-- ================= VILLAINS (File 02) ================= -->
-<section class="villains">
-  <div class="villain-key reveal">
-    <img src="assets/villain-key.jpg" alt="An alien invader with a magnificent moustache, at golden hour">
-    <p class="kicker">They crossed half a galaxy. For grooming reasons.</p>
-  </div>
+<!-- 4 · EPISODE ONE -->
+<section class="ep" id="ep">
   <div class="wrap">
-    <p class="slate reveal">File 02 · The invaders</p>
-    <h2 class="reveal">Five warriors. <em>Five moustaches.</em> One very tired man.</h2>
-    <p class="lede reveal">A warrior race of two-storey giants, armored in living hide, feared across the galaxy — and utterly obsessed with facial hair. Each invader will be declassified as the saga unrolls.</p>
-    <div class="stache-row">
-      <div class="stache reveal" data-img="assets/villains/p3.jpg">
-        <img alt="The Boss"><span class="redact">Classified</span><span class="qm">???</span>
-        <svg class="mo" viewBox="0 0 100 40"><path d="M50 12 C38 2 20 4 12 16 C6 26 14 34 24 30 C34 26 44 20 50 16 C56 20 66 26 76 30 C86 34 94 26 88 16 C80 4 62 2 50 12 Z" fill="#e8e4da"/></svg>
-        <div class="tag"><div class="nm">The Boss</div><div class="cl">White · absolute calm</div></div>
-      </div>
-      <div class="stache reveal" data-img="assets/villains/p4.jpg">
-        <img alt="The Iron Wing"><span class="redact">Classified</span><span class="qm">???</span>
-        <svg class="mo" viewBox="0 0 100 40"><path d="M50 10 C40 2 24 2 16 12 C8 22 12 34 26 32 C36 30 46 22 50 18 C54 22 64 30 74 32 C88 34 92 22 84 12 C76 2 60 2 50 10 Z" fill="#7a4a28"/></svg>
-        <div class="tag"><div class="nm">The Iron Wing</div><div class="cl">Brown · walrus class</div></div>
-      </div>
-      <div class="stache reveal" data-img="assets/villains/p5.jpg">
-        <img alt="The Hothead"><span class="redact">Classified</span><span class="qm">???</span>
-        <svg class="mo" viewBox="0 0 100 40"><path d="M50 12 C42 0 22 0 13 12 C4 24 12 38 27 34 C38 31 46 22 50 18 C54 22 62 31 73 34 C88 38 96 24 87 12 C78 0 58 0 50 12 Z" fill="#d4562a"/></svg>
-        <div class="tag"><div class="nm">The Hothead</div><div class="cl">Red · flamboyant</div></div>
-      </div>
-      <div class="stache reveal" data-img="assets/villains/p6.jpg">
-        <img alt="The Eager One"><span class="redact">Classified</span><span class="qm">???</span>
-        <svg class="mo" viewBox="0 0 100 40"><path d="M50 14 C44 4 30 2 20 8 C10 14 8 26 18 28 C28 30 40 24 50 18 C60 24 72 30 82 28 C92 26 90 14 80 8 C70 2 56 4 50 14 Z M18 28 C12 32 10 38 16 38 M82 28 C88 32 90 38 84 38" fill="none" stroke="#3f6fd4" stroke-width="7" stroke-linecap="round"/></svg>
-        <div class="tag"><div class="nm">The Eager One</div><div class="cl">Blue · waxed spirals</div></div>
-      </div>
-      <div class="stache reveal" data-img="assets/villains/p2.jpg">
-        <img alt="The Awkward One"><span class="redact">Classified</span><span class="qm">???</span>
-        <svg class="mo" viewBox="0 0 100 40"><path d="M14 20 C30 14 70 14 86 20" fill="none" stroke="#2b2320" stroke-width="5" stroke-linecap="round"/></svg>
-        <div class="tag"><div class="nm">The Awkward One</div><div class="cl">Pencil · suspiciously thin</div></div>
-      </div>
+    <p class="slate rv">File 02 · The episode</p>
+    <h2 class="rv" style="--d:.05s">Episode one, <em>in one take.</em></h2>
+    <p class="lede rv" style="--d:.1s">A wordless film. One very tired man, a flying carpet, and a monster with excellent facial hair. Shot on AI, cut like cinema: 35&nbsp;mm grain, golden hour.</p>
+  </div>
+  <figure class="film" id="film" data-src="assets/story/ep1-film.mp4" data-poster="assets/story/ep1-film.jpg">
+    <video muted loop playsinline preload="none"></video>
+    <div class="film-bar"><i></i></div>
+  </figure>
+</section>
+
+<!-- 5 · THE SLAP -->
+<section class="slap" id="slap">
+  <div class="slap-stick" id="slapStick">
+    <div class="frames" id="frames">
+      <img src="assets/v3/schiaffo-1.jpg" alt="The open hand, close to the lens" loading="lazy" />
+      <img src="assets/v3/schiaffo-2.jpg" alt="An invader's eyes, too close" loading="lazy" />
+      <img src="assets/v3/schiaffo-3.jpg" alt="The wind-up" loading="lazy" />
+      <img src="assets/v3/schiaffo-4.jpg" alt="Contact" loading="lazy" />
+      <img src="assets/v3/schiaffo-5.jpg" alt="The Boss, slapped" loading="lazy" />
+      <img src="assets/v3/schiaffo-6.jpg" alt="The hand, after" loading="lazy" />
+    </div>
+    <div class="flash"></div>
+    <div class="slap-txt"><div><p class="slate">File 03 · The slap</p><h2 style="margin-top:16px">Scroll is <em>the hand.</em></h2></div></div>
+    <p class="slap-cap" id="slapCap"><b>01</b>The hand.</p>
+    <div class="ticks" id="ticks"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<!-- 6 · THE INVADERS (bible §1-2: canon names) -->
+<section class="inv" id="invaders">
+  <div class="wrap">
+    <p class="slate rv">File 04 · The invaders</p>
+    <h2 class="rv" style="--d:.05s">They studied us.<br /><em>They concluded we don't deserve the Earth.</em></h2>
+    <p class="lede rv" style="--d:.1s">Two-storey warriors through a portal, convinced they know humans better than humans do. They all talk. They are all extremely vain about their moustaches.</p>
+    <div class="aliens">
+      <article class="alien rv" tabindex="0"><img src="assets/v3/alieno-boss.jpg" alt="The Boss" loading="lazy" /><div class="who"><div class="stats">2.80 m · white braids · black iridescent armour</div><p>Composed. Until somebody slaps him.</p></div></article>
+      <article class="alien rv" style="--d:.06s" tabindex="0"><img src="assets/v3/alieno-right.jpg" alt="Right" loading="lazy" /><div class="who"><div class="stats">2.80 m · horns · corroded armour</div><p>Cold. Precise. Never raises his voice.</p></div></article>
+      <article class="alien rv" style="--d:.12s" tabindex="0"><img src="assets/v3/alieno-left.jpg" alt="Left" loading="lazy" /><div class="who"><div class="stats">2.80 m · wild orange moustache</div><p>Pure rage, in a very large moustache.</p></div></article>
+      <article class="alien rv" tabindex="0"><img src="assets/v3/alieno-gag.jpg" alt="Gag" loading="lazy" /><div class="who"><div class="stats">2.30 m · green curls · golden armour</div><p>Dragon Ball fanatic. Powers up loudly.</p></div></article>
+      <article class="alien rv" style="--d:.06s" tabindex="0"><img src="assets/v3/alieno-rock.jpg" alt="Rock" loading="lazy" /><div class="who"><div class="stats">2.30 m · waxed handlebar · bronze armour</div><p>The smug coward. Very pleased with himself.</p></div></article>
+      <article class="alien rv" style="--d:.12s" tabindex="0"><img src="assets/v3/alieno-a1.jpg" alt="A1" loading="lazy" /><div class="who"><div class="stats">2.80 m · tusks · walrus moustache</div><p>Came down first. Met the hand first.</p></div></article>
     </div>
   </div>
 </section>
 
 <div class="rug-band" aria-hidden="true"></div>
-
 <footer>
-  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;width:100%">
-    <p class="jayl">THE RUG · an IP by <a href="https://pellegrinotti.com">JAYL</a> · © 2026 Joshua Pellegrinotti</p>
-    <p class="line">No carpets were harmed. One was mildly inconvenienced.</p>
-  </div>
+  <img class="coin" src="../assets/coins/rug-logo2.jpg" alt="" />
+  <p class="line">No carpets were harmed. One was mildly inconvenienced.</p>
+  <small>THE RUG · an original by <a href="/">Joshua Pellegrinotti</a> · © 2026</small>
 </footer>
 
 <script>
-// scroll reveals
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+(function(){
+  "use strict";
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// villain cards: load portrait if the asset exists, else keep the classified card
-document.querySelectorAll('.stache').forEach(card=>{
-  const probe=new Image();
-  probe.onload=()=>{card.querySelector('img').src=card.dataset.img;card.classList.add('loaded');
-    card.querySelector('.redact').textContent='Declassified'};
-  probe.src=card.dataset.img;
-});
+  /* entrances */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -10% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
 
-// one continuous film: poster first, load the clip just before it enters,
-// play muted+loop while in view, pause when it leaves
-const film=document.getElementById('film'), fv=film.querySelector('video'), bar=film.querySelector('.film-bar i');
-fv.poster=film.dataset.poster;
-const load=()=>{if(!fv.src){fv.src=film.dataset.src;fv.load();}};
-new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){load();o.disconnect();}}),{rootMargin:'90% 0px'}).observe(film);
-new IntersectionObserver((es)=>es.forEach(e=>{
-  if(e.isIntersecting){load();fv.play().catch(()=>{});}else{fv.pause();}
-}),{threshold:.4}).observe(film);
-fv.addEventListener('timeupdate',()=>{if(fv.duration)bar.style.width=(fv.currentTime/fv.duration*100)+'%';});
+  /* episode one: poster first, the clip loads just before it enters, plays muted while in view */
+  var film = document.getElementById('film'), fv = film.querySelector('video'), bar = film.querySelector('.film-bar i');
+  fv.poster = film.dataset.poster;
+  function load(){ if(!fv.src){ fv.src = film.dataset.src; fv.load(); } }
+  new IntersectionObserver(function(es, o){ es.forEach(function(e){ if(e.isIntersecting){ load(); o.disconnect(); } }); }, {rootMargin:'90% 0px'}).observe(film);
+  new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ load(); fv.play().catch(function(){}); } else { fv.pause(); }
+  }); }, {threshold:.4}).observe(film);
+  fv.addEventListener('timeupdate', function(){ if(fv.duration) bar.style.width = (fv.currentTime / fv.duration * 100) + '%'; });
+
+  if(reduce){ document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('#frames img').forEach(function(i){ i.loading = 'eager'; }); return; }
+
+  /* golden dust in the light of the hero */
+  var cv = document.getElementById('dust'), cx = cv.getContext('2d'), motes = [], W = 0, H = 0, dpr = Math.min(2, devicePixelRatio || 1), heroOn = true;
+  function size(){ W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  size(); addEventListener('resize', size);
+  for(var i = 0; i < 70; i++) motes.push({x:Math.random(), y:Math.random(), r:.6 + Math.random() * 2.2, v:.00012 + Math.random() * .0004, w:Math.random() * 6.28});
+  (function dust(t){
+    if(heroOn){
+      cx.clearRect(0, 0, W, H);
+      motes.forEach(function(m){
+        m.y -= m.v; m.w += .01; if(m.y < -.02){ m.y = 1.02; m.x = Math.random(); }
+        var x = (m.x + Math.sin(m.w) * .01) * W, y = m.y * H, a = .25 + .35 * Math.sin(m.w * 1.7) ** 2;
+        cx.beginPath(); cx.arc(x, y, m.r, 0, 6.283); cx.fillStyle = 'rgba(255,190,110,' + a.toFixed(2) + ')'; cx.fill();
+      });
+    }
+    requestAnimationFrame(dust);
+  })();
+
+  /* the plate leans toward the pointer */
+  var plate = document.getElementById('plate'), hero = document.getElementById('top');
+  if(!matchMedia('(hover:none)').matches){
+    hero.addEventListener('pointermove', function(e){
+      var x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      plate.style.setProperty('--ry', (x * 10).toFixed(2) + 'deg'); plate.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
+    });
+  }
+
+  /* one scroll loop */
+  var chair = document.getElementById('chair'), face = document.getElementById('face'),
+      city = document.getElementById('city'), track = document.getElementById('cityTrack'), locs = track.querySelectorAll('.loc'),
+      slap = document.getElementById('slap'), stick = document.getElementById('slapStick'),
+      frames = document.querySelectorAll('#frames img'), ticks = document.querySelectorAll('#ticks i'), cap = document.getElementById('slapCap'),
+      posters = [], wall = null;
+  var CAPS = ['The hand.', 'The look.', 'The wind-up.', 'Contact.', 'Moustache physics.', 'Back to doing nothing.'];
+  var cur = -1, queued = false;
+  function clamp(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function setFrame(i){
+    if(i === cur) return;
+    if(i === 3 && cur < 3){ stick.classList.remove('hit'); void stick.offsetWidth; stick.classList.add('hit'); }
+    cur = i;
+    frames.forEach(function(f, k){ f.classList.toggle('on', k === i); });
+    ticks.forEach(function(t, k){ t.classList.toggle('on', k <= i); });
+    cap.innerHTML = '<b>0' + (i + 1) + '</b>' + CAPS[i];
+  }
+  function frame(){
+    queued = false;
+    var vh = innerHeight;
+    var h = clamp(scrollY / vh); hero.style.setProperty('--hp', h.toFixed(3)); heroOn = h < 1;
+    var r = chair.getBoundingClientRect(); chair.style.setProperty('--cp', clamp((vh - r.top) / (r.height + vh)).toFixed(3));
+    r = face.getBoundingClientRect(); face.style.setProperty('--fp', clamp((vh - r.top) / (r.height + vh)).toFixed(3));
+    r = city.getBoundingClientRect();
+    var cp = clamp(-r.top / (r.height - vh)), dist = Math.max(0, track.scrollWidth - innerWidth);
+    track.style.transform = 'translate3d(' + (-cp * dist).toFixed(1) + 'px,0,0)';
+    city.style.setProperty('--cyp', cp.toFixed(3));
+    locs.forEach(function(l, k){ l.style.setProperty('--lx', (cp * locs.length - k).toFixed(3)); });
+    r = slap.getBoundingClientRect();
+    var sp = clamp(-r.top / (r.height - vh));
+    setFrame(Math.min(5, Math.floor(sp * 6)));
+  }
+  function ask(){ if(!queued){ queued = true; requestAnimationFrame(frame); } }
+  addEventListener('scroll', ask, {passive:true});
+  addEventListener('resize', ask, {passive:true});
+  /* the slap frames are needed before their section: load them once the episode is near */
+  new IntersectionObserver(function(es, o){ es.forEach(function(e){ if(e.isIntersecting){ frames.forEach(function(i){ i.loading = 'eager'; }); o.disconnect(); } }); }, {rootMargin:'100% 0px'}).observe(slap);
+  frame();
+})();
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

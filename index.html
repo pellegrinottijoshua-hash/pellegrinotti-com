@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Joshua Pellegrinotti — JAYL</title>
-<meta name="description" content="Joshua Pellegrinotti — motion designer, art director and founder of JAYL, a wearable-art brand. AI films, digital products and chiaroscuro design." />
+<title>Joshua Pellegrinotti — brand designer, AI director, developer</title>
+<meta name="description" content="Joshua Pellegrinotti — brand designer, AI director and developer from Venice. Building original IPs: Zack the Duck, The Rug, and the new identity of Italy's Protagonists." />
 <link rel="canonical" href="https://pellegrinotti.com/" />
-<meta property="og:title" content="Joshua Pellegrinotti — JAYL" />
-<meta property="og:description" content="Motion design, AI films, digital products and JAYL — wearable art in strict chiaroscuro." />
+<meta property="og:title" content="Joshua Pellegrinotti — brand designer, AI director, developer" />
+<meta property="og:description" content="Original IPs and brand worlds: Zack the Duck, Italy's Protagonists, The Rug." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://pellegrinotti.com/" />
 <meta property="og:image" content="https://media.pellegrinotti.com/hero/01.jpg" />
@@ -38,10 +38,9 @@
     --line:rgba(243,241,236,.12); --line-2:rgba(243,241,236,.06);
     /* Type carries the meaning here, so keep the roles strict:
        --mono    metadata only (eyebrows, categories, CTAs, footer)
-       --sans    the offer + navigation (section labels, service names)
-       --display titles of authored works — the IPs, nothing else
-       Sans reads as business, serif reads as art. That contrast IS the
-       Services/Original-IPs distinction; don't blur it. */
+       --sans    navigation and the house (roles, JAYL, store, contact)
+       --display titles of works — the three projects, nothing else
+       Sans reads as business, serif reads as art: the projects are the art. */
     --sans:'Satoshi',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
     --display:'Zodiak',Georgia,'Times New Roman',serif;
     --ease:cubic-bezier(.19,1,.22,1);
@@ -60,6 +59,8 @@
     --t-md:clamp(25px,4.3vw,46px);       /* IP titles, primary service name */
     --t-lg:clamp(40px,9.4vw,124px);      /* the nav rows — the site's spine */
     --t-xl:clamp(50px,11.6vw,156px);     /* the contact headline — the finale */
+    --t-pj:clamp(34px,6.4vw,88px);       /* project titles — the spine of the page */
+    --coin:clamp(56px,7.4vw,100px);      /* project coins (logo ↔ logo on hover) */
     /* The marquee stays outside the scale on purpose: it is a moving texture
        band, not a heading, and it is read as motion before it is read as words. */
 
@@ -140,21 +141,24 @@
   .hero,.list,.wt{position:relative;z-index:1}
   .hero{height:100vh;height:100svh;overflow:hidden}
 
-  .mark{position:absolute;z-index:6;top:28px;left:clamp(20px,5vw,54px);display:inline-flex;align-items:center;height:34px}
-  .mark .real{font-weight:900;font-size:19px;letter-spacing:var(--tr-tight);color:var(--gold);white-space:nowrap;transition:opacity .18s}
-  .mark .logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.92);height:100px;width:auto;opacity:0;
-    transition:opacity .4s var(--ease),transform .5s var(--ease)}
+  /* JP — Joshua's own mark. Drawn as a mask so it takes any colour from CSS;
+     swapping the logo after the study is one file: assets/logos/jp.svg. */
+  .jp{display:inline-block;height:1em;aspect-ratio:942/500;background:currentColor;
+    -webkit-mask:url(assets/logos/jp.svg) center/contain no-repeat;mask:url(assets/logos/jp.svg) center/contain no-repeat}
+  .mark{position:absolute;z-index:6;top:26px;left:clamp(20px,5vw,54px);display:inline-flex;align-items:center;
+    gap:14px;color:var(--fg)}
+  .mark .jp{font-size:34px;transition:color .4s,transform .6s var(--ease)}
+  .mark .real{font-weight:700;font-size:var(--t-body);letter-spacing:var(--tr-tight);white-space:nowrap;
+    color:var(--fg);opacity:.86;transition:opacity .3s,color .3s}
+  .mark:hover .jp{color:var(--gold);transform:translateX(3px)}
+  .mark:hover .real{opacity:1}
   @media(max-width:640px){
-    .mark .logo{height:44px;left:0;transform:translate(0,-50%) scale(.92)}
-    .mark.on .logo{transform:translate(0,-50%) scale(1)}
+    .mark .jp{font-size:28px}
     .mtrack span{font-size:clamp(40px,12.5vw,96px)}
     .marquee{bottom:12vh}
-    .row .cat{display:none}
     .cur{display:none}
     .jbadge{display:none!important}
   }
-  .mark.on .real{opacity:0}
-  .mark.on .logo{opacity:1;transform:translate(-50%,-50%) scale(1)}
 
   /* This asked for var(--serif), which has never existed — the roles have been
      rendering in the body font by accident. They are the offer, not an authored
@@ -170,7 +174,7 @@
   .mtrack{display:flex;width:max-content;animation:march 32s linear infinite}
   .mtrack span{font-weight:900;font-size:clamp(64px,15vw,220px);line-height:1.12;letter-spacing:var(--tr-tighter);color:#fff;
     white-space:nowrap;padding-right:.35em;padding-bottom:.08em;text-shadow:0 4px 40px rgba(0,0,0,.35)}
-  .mtrack .g{color:var(--gold)}
+  .mtrack .jp{font-size:.62em;margin:0 .34em 0 .3em;color:var(--gold);vertical-align:baseline}
   @keyframes march{to{transform:translateX(-50%)}}
 
   .hero-cue,.hero-sound{position:absolute;z-index:6;bottom:26px;font-family:var(--mono);font-size:var(--t-micro);
@@ -181,85 +185,61 @@
   .hero-sound{left:clamp(20px,5vw,54px);background:none;border:0;padding:8px 0;cursor:pointer;display:none}
   .hero-sound.show{display:block}
 
-  /* ---------- WORK LIST ---------- */
-  /* No bottom padding: the last row's own border-bottom is the divider into
-     the contact section, so .wt must not draw a second rule under it. */
+  /* ---------- WORK: logo in a round icon + title, nothing else ----------
+     Five rows, in Joshua's order: Zack the Duck, Italy's Protagonists, The Rug
+     (the projects), then JAYL Studios and jayl.store (the house). Each title is
+     set in its own brand's lettering: Zack's traced wordmark on one line, the
+     Protagonists wordmark, The Rug as it always was. Only Protagonists has two
+     faces (IP for paper ↔ P for digital): its icon flips on hover, and on its
+     own on touch screens. The other icons just lean in. */
   .list{padding:clamp(50px,9vw,120px) 0 0}
-  .row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;
-    padding:calc(clamp(22px,3.4vw,40px) + 16px) clamp(20px,5vw,54px) clamp(22px,3.4vw,40px);
-    border-top:1px solid var(--line);transition:background .5s var(--ease)}
-  .row:last-of-type{border-bottom:1px solid var(--line)}
-  .row:before{content:"";position:absolute;left:0;top:0;height:100%;width:0;z-index:0;
-    background:linear-gradient(90deg,rgba(201,162,75,.10),transparent);transition:width .6s var(--ease)}
-  .row:hover:before{width:100%}
-  .rowtext{position:relative;z-index:1;display:flex;align-items:baseline;font-weight:900;
-    letter-spacing:var(--tr-tighter);font-size:var(--t-lg);line-height:var(--lh-hero);
-    transition:transform .6s var(--ease);color:var(--fg)}
-  .row:hover .rowtext{transform:translateX(clamp(14px,3vw,54px))}
-  .rowtext .jayl{display:inline-block;overflow:hidden;max-width:0;opacity:0;color:var(--gold);white-space:nowrap;
-    transition:max-width .6s var(--ease),opacity .5s var(--ease),margin .6s var(--ease)}
-  .row:hover .rowtext .jayl{max-width:5ch;opacity:1;margin-right:.22em}
-  .row .cat{position:relative;z-index:1;font-family:var(--mono);font-size:var(--t-label);
-    letter-spacing:var(--tr-mono);color:var(--muted);text-align:right;transition:color .4s}
-  .row:hover .cat{color:var(--gold)}
-  /* The index was display:none with an orphan "03" sitting in the markup. The IPs
-     already number themselves in roman; giving the three sections arabic numerals
-     at the same left rule makes that one indexing system instead of half of one. */
-  .row .idx{position:absolute;z-index:1;left:clamp(20px,5vw,54px);top:clamp(15px,2.1vw,24px);
-    font-family:var(--mono);font-size:var(--t-micro);font-weight:500;letter-spacing:var(--tr-caps);
-    color:var(--faint);transition:color .45s}
-  .row:hover .idx{color:var(--gold)}
-  .row[data-target="store"] .base{display:inline-flex;align-items:center}
-  .storelogo{display:block;height:1.85em;width:auto;margin-right:.06em;filter:invert(1) brightness(1.1)}
+  .projs{border-bottom:1px solid var(--line)}
+  .proj{--tint:var(--gold);--cs:var(--coin);position:relative;display:flex;align-items:center;
+    gap:clamp(18px,3.2vw,44px);
+    padding:clamp(16px,2.4vw,30px) clamp(20px,5vw,54px);
+    border-top:1px solid var(--line);outline:none}
+  .proj:before{content:"";position:absolute;left:0;top:0;height:100%;width:0;z-index:0;
+    background:linear-gradient(90deg,color-mix(in srgb,var(--tint) 14%,transparent),transparent);
+    transition:width .6s var(--ease)}
+  .proj:hover:before,.proj:focus-visible:before{width:100%}
+  .proj>*{position:relative;z-index:1}
+  .proj--house{--cs:calc(var(--coin) * .72);padding-top:clamp(12px,1.6vw,20px);padding-bottom:clamp(12px,1.6vw,20px)}
+  .proj--first-house{margin-top:clamp(22px,3.4vw,46px)}
+  .pj-rug{border-bottom:1px solid var(--line)}
 
-  /* ---------- Jayl IPs (static label + always-open list) ---------- */
-  .brandwrap{position:relative}
+  .coin{flex:none;display:block;width:var(--cs);aspect-ratio:1;perspective:800px;
+    transition:transform .7s var(--ease)}
+  .proj:hover .coin{transform:rotate(-8deg) scale(1.06)}
+  .coin-in{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;
+    transition:transform .9s var(--ease)}
+  .cf{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 0 0 1px var(--line)}
+  .cb{transform:rotateY(180deg)}
+  .pj-prot:hover .coin,.pj-prot:focus-visible .coin{transform:none}
+  .pj-prot:hover .coin-in,.pj-prot:focus-visible .coin-in{transform:rotateY(180deg)}
+  @media(hover:none) and (prefers-reduced-motion:no-preference){
+    .pj-prot .coin-in{animation:coin 6s var(--ease) infinite}
+  }
+  @keyframes coin{0%,38%{transform:rotateY(0)}50%,88%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
 
-  /* The two dropdowns used to be pixel-identical, so "what I sell" and "what I
-     own" read as one undifferentiated list. Services now sits on a faintly lit
-     surface under a gold rail; the IPs sit on bare black. */
-  .brandwrap--services{background:
-    linear-gradient(180deg,rgba(201,162,75,.05),rgba(243,241,236,.018) 38%,transparent);
-    box-shadow:inset 0 1px 0 rgba(201,162,75,.42)}
-  .brandwrap--ips{background:transparent}
-
-  /* Eyebrow inside each dropdown — mirrors "AI videos for:" */
-  .dropkick{font-family:var(--mono);font-size:var(--t-micro);font-weight:500;letter-spacing:var(--tr-caps);
-    text-transform:uppercase;color:var(--faint);
-    padding:clamp(12px,1.6vw,18px) clamp(20px,5vw,54px) 4px clamp(44px,9vw,120px)}
-  .brandwrap--ips .dropkick{border-top:1px dashed var(--line-2)}
-
-  .ip{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:18px;
-    padding:clamp(14px,2vw,22px) clamp(20px,5vw,54px) clamp(14px,2vw,22px) clamp(44px,9vw,120px);
-    border-top:1px dashed var(--line-2);transition:background .4s,transform .4s var(--ease)}
-  .ip:hover{transform:translateX(10px)}
-  /* Serif, not the Satoshi 900 of the nav: these are titles of works, not menu items. */
-  .ip .ipname{font-family:var(--display);font-weight:400;letter-spacing:-.005em;
-    font-size:var(--t-md);line-height:var(--lh-display)}
-  /* Roman numeral plate marker — editorial cue, and it earns the left indent. */
-  .ip .ipnum{position:absolute;left:clamp(20px,5vw,54px);top:50%;transform:translateY(-50%);
-    font-family:var(--mono);font-size:var(--t-micro);font-weight:500;letter-spacing:var(--tr-caps);
-    color:var(--faint);transition:color .4s}
-  .ip:hover .ipnum{color:var(--gold)}
-  .ip .ipcat{font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--tr-mono);
-    color:var(--muted);text-align:right;white-space:nowrap}
-  /* The small article words ("THE", "the") stay mono — metadata inside a title. */
-  .iprug .ipname{color:#f0e2c4}
-  .iprug .ipname i{font-family:var(--mono);font-style:normal;color:#46d4c0;font-size:.4em;letter-spacing:var(--tr-caps);vertical-align:.34em}
-  .iprug:hover{background:linear-gradient(90deg,rgba(58,36,21,.55),transparent)}
-  .iprug:hover .ipcat{color:#e8973a}
-  .ipzack .ipname{color:#F5F0E8}
-  .ipzack .ipname i{font-style:italic;color:#C4A35A;font-size:.72em}
-  .ipzack:hover{background:linear-gradient(90deg,rgba(196,163,90,.12),transparent)}
-  .ipzack:hover .ipcat{color:#C4A35A}
-  /* Dinos & Mages is paused, not deleted: its row was taken out of .branddrop but
-     /dinos/ still serves, so restoring it is one line of markup. Keep these rules.
-     (No literal markup in this comment — it made greps for the element lie.) */
-  .ipdinos .ipname b{color:#7A8C5A;font-weight:900}.ipdinos .ipname i{font-style:normal;color:#E5DAC0;font-size:.8em}
-  .ipdinos .ipname u{text-decoration:none;color:#8B5FD0}
-  .ipdinos:hover{background:linear-gradient(90deg,rgba(36,28,51,.6),transparent)}
-  .ipdinos:hover .ipcat{color:#B9A3EC}
-  @media(max-width:640px){.ip .ipcat{display:none}}
+  /* Titles: each in its own brand's lettering, sized to read at the same weight. */
+  .ttl{display:block;height:var(--th);width:auto;max-width:100%;transition:transform .6s var(--ease)}
+  .pname{display:block;transition:transform .6s var(--ease)}
+  .proj:hover .ttl,.proj:hover .pname{transform:translateX(clamp(8px,1.6vw,24px))}
+  .pj-zack{--tint:#C4A35A}
+  .ttl-zack{--th:clamp(20px,3.6vw,48px)}
+  .pj-prot{--tint:#8EC5CC}
+  .ttl-prot{--th:clamp(30px,5.4vw,72px)}
+  .pj-rug{--tint:#e8973a}
+  .pj-rug .pname{font-family:var(--display);font-weight:400;font-size:var(--t-pj);line-height:var(--lh-display);
+    letter-spacing:-.005em;color:#f0e2c4}
+  .pj-rug .pname i{font-family:var(--mono);font-style:normal;color:#46d4c0;font-size:.4em;
+    letter-spacing:var(--tr-caps);vertical-align:.34em}
+  .proj--house .pname{font-weight:900;font-size:var(--t-sm);letter-spacing:var(--tr-tight);color:var(--fg)}
+  .proj--house:hover .pname{color:var(--gold-hi)}
+  @media(max-width:640px){
+    .ttl-zack{--th:clamp(14px,4.3vw,22px)}
+  }
 
   /* ---------- WORK TOGETHER — "the aperture" ----------
      The old version was 180px of headline, then an empty flex spacer pushing a
@@ -372,6 +352,8 @@
   .wt-seal:hover{background:var(--gold);color:#120d02;box-shadow:0 0 60px rgba(201,162,75,.32)}
   .wt-seal:focus-visible{outline:2px solid var(--gold);outline-offset:6px}
 
+  .wt-sign{display:inline-flex;align-items:center;gap:10px}
+  .wt-sign .jp{font-size:16px;color:var(--muted)}
   .wt-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
     margin-top:clamp(40px,6vw,72px);padding-top:clamp(18px,2.4vw,26px);border-top:1px solid var(--line-2)}
 
@@ -401,50 +383,6 @@
   @keyframes rot{to{transform:rotate(360deg)}}
   @media(max-width:640px){.jbadge{width:78px;height:78px}.jbadge .face{width:48px;height:48px}}
 
-  /* ---------- Jayl Services (static label + always-open list) ----------
-     Shares .brandwrap/.branddrop with Jayl Original IPs so the page has one
-     dropdown pattern, not two. */
-  /* Carries .dropkick in the markup, so it only adds what differs from it. */
-  .svc-kick{border-top:1px dashed var(--line-2)}
-  .svc{display:flex;align-items:baseline;justify-content:space-between;gap:clamp(18px,3vw,40px);
-    padding:clamp(12px,1.8vw,20px) clamp(20px,5vw,54px) clamp(12px,1.8vw,20px) clamp(44px,9vw,120px);
-    transition:background .4s,transform .4s var(--ease)}
-  .svc:hover{transform:translateX(10px);background:linear-gradient(90deg,rgba(196,163,90,.10),transparent)}
-  .svc-open{flex:0 0 auto;display:inline-flex;align-items:baseline;gap:.5em;background:none;border:0;padding:0;
-    cursor:pointer;color:inherit;font:inherit;text-align:left}
-  .svc-open .ipname{font-weight:900;letter-spacing:var(--tr-tight);line-height:var(--lh-display);
-    color:#F5F0E8;font-size:var(--t-sm);transition:color .3s}
-  .svc-open .ipname i{font-style:italic;color:var(--gold)}
-  .svc:hover .ipname{color:var(--gold)}
-  /* Sized off the row, not the name: as an em of the huge .ipname it rendered ~8px
-     and read as a stray glyph rather than a play affordance. */
-  .svc-play{display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;
-    border:1px solid var(--line);font-size:clamp(11px,1.3vw,15px);line-height:1;color:var(--gold);
-    padding-left:.14em;transform:translateY(-.15em);opacity:.7;
-    transition:opacity .3s,border-color .3s,background .3s}
-  .svc:hover .svc-play{opacity:1;border-color:var(--gold);background:rgba(196,163,90,.14)}
-  .svc-open:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
-  .svc-side{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-end;gap:10px;text-align:right}
-  /* Sans, not mono: this is a sales sentence, not a label. 11px mono made the one
-     piece of persuasive copy on the page the hardest thing to read. */
-  .svc-desc{font-family:var(--sans);font-weight:400;font-size:var(--t-body);
-    letter-spacing:0;line-height:1.55;color:var(--muted);max-width:38ch;margin:0}
-  .svc-cta{font-family:var(--mono);font-size:var(--t-micro);font-weight:500;letter-spacing:var(--tr-caps);
-    text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);padding-bottom:3px;
-    white-space:nowrap;transition:color .3s,border-color .3s}
-  .svc-cta:hover{color:var(--gold);border-color:var(--gold)}
-  /* "your brand" is the offer that pays — it leads and carries more weight than "your song". */
-  /* Same step as the IP titles: both are "a thing with a name", and the family
-     (sans vs Zodiak) is what separates the offer from the authored work. */
-  .svc-primary .ipname{font-size:var(--t-md)}
-  .svc-primary{border-top:0}
-  .svc-secondary{border-top:1px dashed var(--line-2)}
-  .svc-secondary .ipname{color:#cfc7ba}
-  @media(max-width:640px){
-    .svc{flex-direction:column;align-items:flex-start;gap:10px}
-    .svc-side{align-items:flex-start;text-align:left}
-    .svc-desc{max-width:none}
-  }
 </style>
 <noscript><style>
   /* The headline entrance is a JS-driven enhancement; without JS the lines must
@@ -468,62 +406,41 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <button class="hero-sound" id="heroSound" data-cursor aria-label="Attiva/disattiva audio">Sound off</button>
-  <a href="#" class="mark" id="mark" data-cursor><span class="real">Joshua Pellegrinotti</span><img class="logo" src="assets/j-mark-gold.png" alt="JAYL" /></a>
-  <div class="roles"><span>AI Director</span><span>Developer</span><span>Brand Designer</span></div>
-  <div class="marquee"><div class="mtrack">
-    <span>Joshua Pellegrinotti&nbsp;<span class="g">— JAYL —</span>&nbsp;</span>
-    <span>Joshua Pellegrinotti&nbsp;<span class="g">— JAYL —</span>&nbsp;</span>
+  <a href="#home" class="mark" id="mark" data-cursor aria-label="Joshua Pellegrinotti"><i class="jp" aria-hidden="true"></i><span class="real">Joshua Pellegrinotti</span></a>
+  <div class="roles"><span>Brand Designer</span><span>AI Director</span><span>Developer</span></div>
+  <div class="marquee" aria-hidden="true"><div class="mtrack">
+    <span>Joshua Pellegrinotti<i class="jp"></i></span>
+    <span>Joshua Pellegrinotti<i class="jp"></i></span>
   </div></div>
   <div class="hero-cue">Scroll <span class="ar">↓</span></div>
 </section>
 
 <!-- WORK LIST -->
 <section class="list" id="work">
-  <div class="brandwrap brandwrap--services">
-    <div class="row">
-      <span class="idx">01</span>
-      <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Services</span></span>
-      <span class="cat">Product films · social ads · music videos</span></div>
-    <div class="branddrop">
-      <div class="svc-kick dropkick">AI videos for:</div>
-      <div class="svc svc-primary">
-        <button class="svc-open" type="button" data-cursor
-                data-video="/video/fermentati-ad.mp4" data-title="AI ad for fermentati.com">
-          <span class="ipname">your <i>brand</i></span><span class="svc-play" aria-hidden="true">▶</span></button>
-        <span class="svc-side">
-          <p class="svc-desc">Product films and social ads that look like cinema, not catalogue.</p>
-          <a class="svc-cta" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=AI%20video%20for%20my%20brand">Get a video for your brand ↗</a>
-        </span>
-      </div>
-      <div class="svc svc-secondary">
-        <button class="svc-open" type="button" data-cursor
-                data-video="/video/lei-chi-e-web.mp4" data-title="Lei chi è — music video">
-          <span class="ipname">your <i>song</i></span><span class="svc-play" aria-hidden="true">▶</span></button>
-        <span class="svc-side">
-          <p class="svc-desc">Music videos built frame by frame around your track.</p>
-          <a class="svc-cta" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=AI%20video%20for%20my%20song">Get a video for your song ↗</a>
-        </span>
-      </div>
+  <div class="projs">
+    <a class="proj pj-zack" data-cursor href="/zack/" aria-label="Zack the Duck">
+      <span class="coin" aria-hidden="true"><img class="cf" src="assets/coins/zack-icona.svg" alt="" /></span>
+      <img class="ttl ttl-zack" src="assets/logos/zack-scritta-riga.svg" alt="Zack the Duck" />
+    </a>
+    <div class="proj pj-prot" tabindex="0" data-cursor aria-label="Italy's Protagonists">
+      <span class="coin" aria-hidden="true"><span class="coin-in">
+        <img class="cf" src="assets/coins/prot-ip.png" alt="" />
+        <img class="cf cb" src="assets/coins/prot-p.svg" alt="" loading="lazy" /></span></span>
+      <img class="ttl ttl-prot" src="assets/logos/protagonists.svg" alt="Protagonists" />
     </div>
+    <a class="proj pj-rug" data-cursor href="/therug/" aria-label="The Rug">
+      <span class="coin" aria-hidden="true"><img class="cf" src="assets/coins/rug-logo2.jpg" alt="" /></span>
+      <span class="pname"><i>THE</i>&nbsp;Rug</span>
+    </a>
+    <a class="proj proj--house proj--first-house" data-cursor href="https://www.instagram.com/jaylstudios/" target="_blank" rel="noopener">
+      <span class="coin" aria-hidden="true"><img class="cf" src="assets/coins/jayl-play.svg" alt="" /></span>
+      <span class="pname">Jayl Studios</span>
+    </a>
+    <a class="proj proj--house" data-cursor href="https://jayl.store" target="_blank" rel="noopener">
+      <span class="coin" aria-hidden="true"><img class="cf" src="assets/coins/jayl-store.png" alt="" /></span>
+      <span class="pname">jayl.store</span>
+    </a>
   </div>
-  <div class="brandwrap brandwrap--ips" id="brandwrap">
-    <div class="row">
-      <span class="idx">02</span>
-      <span class="rowtext"><span class="jayl">Jayl</span><span class="base">Original IPs</span></span>
-      <span class="cat">Self-published universes</span></div>
-    <div class="branddrop">
-      <div class="dropkick">Worlds I own:</div>
-      <a class="ip iprug" data-cursor href="/therug/">
-        <span class="ipnum">I</span>
-        <span class="ipname"><i>THE</i>&nbsp;Rug</span><span class="ipcat">A lazy superhero saga</span></a>
-      <a class="ip ipzack" data-cursor href="/zack/">
-        <span class="ipnum">II</span>
-        <span class="ipname">Zack <i>the</i> Duck</span><span class="ipcat">Art finds a way</span></a>
-    </div>
-  </div>
-  <a class="row" data-cursor data-target="store">
-    <span class="rowtext"><span class="base"><img class="storelogo" src="assets/logo-light.svg" alt="JAYL" />Store</span></span>
-    <span class="cat">Wearable-art brand</span><span class="idx">03</span></a>
 </section>
 
 <!-- WORK TOGETHER (last section) -->
@@ -532,7 +449,7 @@
 
   <div class="wt-head">
     <span class="lbl">Contact</span>
-    <span class="lbl lbl--micro wt-status"><i class="dot"></i>Booking new work</span>
+    <span class="lbl lbl--micro wt-status"><i class="dot"></i>Open to collaborations</span>
   </div>
 
   <!-- The headline is the primary call to action, not decoration: it used to be
@@ -553,8 +470,10 @@
     <ul class="wt-links">
       <li><a class="wt-link" data-cursor href="mailto:pellegrinottijoshua@gmail.com?subject=Project%20—%20pellegrinotti.com">
         <span class="k">Email</span><span class="v">pellegrinottijoshua@gmail.com</span><span class="ar" aria-hidden="true">↗</span></a></li>
-      <li><a class="wt-link" data-cursor href="https://jayl.store" target="_blank" rel="noopener">
-        <span class="k">Store</span><span class="v">jayl.store</span><span class="ar" aria-hidden="true">↗</span></a></li>
+      <li><a class="wt-link" data-cursor href="https://www.instagram.com/jaylstudios/" target="_blank" rel="noopener">
+        <span class="k">Instagram</span><span class="v">@jaylstudios</span><span class="ar" aria-hidden="true">↗</span></a></li>
+      <li><a class="wt-link" data-cursor href="https://www.youtube.com/@jayl" target="_blank" rel="noopener">
+        <span class="k">YouTube</span><span class="v">@jayl</span><span class="ar" aria-hidden="true">↗</span></a></li>
       <li><span class="wt-link is-static">
         <span class="k">Studio</span><span class="v">Venezia, IT — <time id="vtime">··:··</time></span><span class="ar" aria-hidden="true">·</span></span></li>
     </ul>
@@ -563,7 +482,7 @@
   </div>
 
   <div class="wt-foot">
-    <span class="lbl lbl--micro">© 2026 Joshua Pellegrinotti — JAYL</span>
+    <span class="lbl lbl--micro wt-sign"><i class="jp" aria-hidden="true"></i>© 2026 Joshua Pellegrinotti</span>
     <span class="lbl lbl--micro">45°26′N · 12°20′E</span>
   </div>
 </section>
@@ -575,7 +494,6 @@
   <span class="face"><img id="badgeFace" src="assets/iconaj2.svg" alt="" /><b id="badgeJ" style="display:none">J</b></span>
 </button>
 
-<script src="assets/js/lightbox.js"></script>
 <script>
 (function(){
   "use strict";
@@ -600,21 +518,10 @@
     document.addEventListener('pointerover',function(e){cur.classList.toggle('hot',!!e.target.closest('[data-cursor]'));});
   })();
 
-  /* ---------- mark → JAYL logo reveal (hover desktop / tap mobile) ----------
-     Don't gate this on matchMedia('(hover:none)') — it's unreliable on some
-     Android browsers, which left the logo permanently hidden there (mouseenter
-     never fires, so 'on' never gets added). Instead: first interaction always
-     reveals; a second click/tap (already revealed) navigates home. */
-  (function(){
-    var mark=document.getElementById('mark');
-    mark.addEventListener('mouseenter',function(){mark.classList.add('on');});
-    mark.addEventListener('mouseleave',function(){mark.classList.remove('on');});
-    mark.addEventListener('click',function(e){
-      e.preventDefault();
-      if(!mark.classList.contains('on')){mark.classList.add('on');return;}
-      scrollToEl('#home');
-    });
-  })();
+  /* ---------- JP mark → back to the top ---------- */
+  document.getElementById('mark').addEventListener('click',function(e){
+    e.preventDefault(); scrollToEl('#home');
+  });
 
   /* ---------- HERO: video-only on every viewport ---------- */
   (function(){
@@ -753,31 +660,6 @@
       }
     }
   })();
-
-  /* ---------- row interactions ---------- */
-  var touch=matchMedia('(hover:none)').matches;
-  var revStyle=document.createElement('style');
-  revStyle.textContent='.row.rev .rowtext{transform:translateX(24px)}.row.rev .rowtext .jayl{max-width:5ch;opacity:1;margin-right:.22em}';
-  document.head.appendChild(revStyle);
-
-  /* Store is the only clickable row left: Services and Original IPs are static
-     labels whose dropdown children are the targets. On touch the first tap still
-     reveals the "Jayl" prefix, the second one navigates. */
-  document.querySelectorAll('.row[data-target="store"]').forEach(function(el){
-    el.addEventListener('click',function(e){
-      e.preventDefault();
-      function go(){window.open('https://jayl.store','_blank','noopener');}
-      if(touch&&!el.classList.contains('rev')){el.classList.add('rev');setTimeout(go,620);return;}
-      go();
-    });
-  });
-
-  /* ---------- Services → shared fullscreen player ---------- */
-  document.querySelectorAll('.svc-open').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      openPlayer({src:MEDIA_BASE+btn.dataset.video,title:btn.dataset.title});
-    });
-  });
 
 })();
 </script>
